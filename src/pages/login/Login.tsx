@@ -14,11 +14,11 @@ function Login() {
 
   const { usuario, handleLogin, isLoading } = useContext(AuthContext);
 
-//   useEffect(() => {
-//     if (usuario.token !== "") {
-//       navigate("/home");
-//     }
-//   }, [usuario]); // 
+  useEffect(() => {
+    if (usuario.token !== "") {
+      navigate("/");
+    }
+  }, [usuario]); 
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioLogin({
@@ -36,7 +36,7 @@ function Login() {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 h-screen place-items-center bg-[radial-gradient(circle,_#F27294_0%,_#CD533B_100%)] font-bold">
         <form
-          className="flex -mt-20 lg:mt-0 lg:w-1/2 justify-center items-center flex-col w-3/5 gap-4"
+          className="flex -mt-20 lg:mt-0 lg:w-1/2 justify-center items-center flex-col w-4/5 gap-4"
           onSubmit={login}
         >
           <h2 className="text-white lg:text-xl text-center border-b-2 border-b-white p-3 w-full font-heading">
@@ -48,7 +48,7 @@ function Login() {
               id="usuario"
               name="usuario"
               placeholder="Email"
-              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500"
+              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500 focus:outline-amber-500"
               value={usuarioLogin.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -61,7 +61,7 @@ function Login() {
               id="senha"
               name="senha"
               placeholder="Senha"
-              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500"
+              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500 focus:outline-amber-500"
               value={usuarioLogin.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
