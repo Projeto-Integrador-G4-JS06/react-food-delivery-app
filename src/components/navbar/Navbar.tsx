@@ -5,91 +5,87 @@ import { Link, useNavigate } from "react-router-dom";
 import { DropdownUsuario } from "./DropdownUsuario";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [nome, setNome] = useState<string>("");
 
-	const navigate = useNavigate()
+  function handleBuscarProdutos(e: ChangeEvent<HTMLInputElement>) {
+    setNome(e.target.value);
+  }
 
-	const [nome, setNome] = useState<string>("")
+  function buscarProdutos(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    navigate(`/consultarnome/${nome}`);
+    setNome("");
+  }
 
-	function handleBuscarProdutos(e: ChangeEvent<HTMLInputElement>){
-		setNome(e.target.value)
-	}
+  return (
+    <>
+      <div className="font-body uppercase flex justify-center w-full px-15 py-[10px] text-white bg-[#CD533B] shadow-lg">
+        <div className="container flex items-center justify-between mx-4 text-">
+          <Link to="/home">
+            <img
+              src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/logo.png?updatedAt=1741184467390"
+              alt="Logo"
+              className="w-20" // Ajuste o tamanho da logo aqui
+            />
+          </Link>
 
-	function buscarProdutos(e: FormEvent<HTMLFormElement>){
-		e.preventDefault()
-		navigate(`/consultarnome/${nome}`)
-		setNome('')
-	}
-	
-	return (
-		<>
-			<div className="flex justify-center w-full px-15 py-4 text-white bg-slate-800">
-				<div className="container flex items-center justify-between mx-4 text-lg">
-					<Link to="/home">
-						<img
-							src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/logo.png?updatedAt=1741184467390"
-							alt="Logo"
-							className="w-17"
-						/>
-					</Link>
+          <div className="relative flex items-center justify-center w-2/5 text-black">
+            <form
+              className="flex items-center justify-center w-full"
+              onSubmit={buscarProdutos}
+            >
+              <input
+                className="font-body w-10/12 px-4 py-4 bg-white rounded-lg h-9 focus:outline-[#FFA500]"
+                type="search"
+                placeholder="Busque por itens ou lojas"
+                id="nome"
+                name="nome"
+                required
+                value={nome}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleBuscarProdutos(e)}
+              />
+              <button
+                type="submit"
+                className="h-10 w-10 p-2.5 ms-2 text-sm font-medium text-white bg-[#FFC100] hover:bg-[#FFA500] rounded-lg border border-[#FFC100] transition duration-300 ease-in-out"
+              >
+                <MagnifyingGlass size={17} weight="bold" />
+              </button>
+            </form>
+          </div>
 
-					<div className="relative flex items-center justify-center w-2/5 text-black">
-						<form 
-							className="flex items-center justify-center w-full"
-							onSubmit={buscarProdutos}
-						>
-							<input
-								className="w-10/12 px-4 py-4 bg-white rounded-lg h-9 focus:outline-blue-500"
-								type="search"
-								placeholder="Busque por itens ou lojas"
-								id="nome"
-								name="nome"
-								required
-								value={nome}
-								onChange={(e: ChangeEvent<HTMLInputElement>) => handleBuscarProdutos(e)}
-							/>
-							<button
-								type="submit"
-								className="h-9 w-9 p-2.5 ms-2 text-sm font-medium text-white bg-teal-500 hover:bg-teal-900 rounded-lg border border-teal-700"
-							>
-								<MagnifyingGlass
-									size={17}
-									weight="bold"
-								/>
-							</button>
-						</form>
-					</div>
+          <div className="flex items-center gap-7 py-4">
+            <Link
+              to="/produtos"
+              className="hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
+            >
+              Produtos
+            </Link>
+            <Link
+              to="/categorias"
+              className="hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
+            >
+              Categorias
+            </Link>
+            <Link
+              to="/sobre"
+              className="hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
+            >
+              Sobre
+            </Link>
+            <DropdownUsuario />
 
-					<div className="flex items-center gap-7 py-4">
-						<Link
-							to="/produtos"
-							className="hover:-translate-y-1 transition duration-300 ease-in-out"
-						>
-							Produtos
-						</Link>
-						<Link
-							to="/categorias"
-							className="hover:-translate-y-1 transition duration-300 ease-in-out"
-						>
-							Categorias
-						</Link>
-						<Link
-							to="/sobre"
-							className="hover:-translate-y-1 transition duration-300 ease-in-out"
-						>
-							Sobre
-						</Link>
-							<DropdownUsuario />
-
-							<ShoppingCart
-								size={32}
-								weight="bold"
-								className="hover:-translate-y-1 transition duration-300 ease-in-out"
-							/>
-					</div>
-				</div>
-			</div>
-		</>
-	)
+            <Link
+              to="/carrinho"
+              className="cursor-pointer border-[#FFC100] rounded-xl p-1.5 bg-[#FFC100] hover:text-pink-50 transition duration-300 ease-in-out hover:-translate-y-1"
+            >
+              <ShoppingCart size={32} weight="bold" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Navbar
+export default Navbar;

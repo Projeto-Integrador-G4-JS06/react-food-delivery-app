@@ -33,16 +33,15 @@ export function DropdownUsuario() {
   }
 
   return (
-    <div className="relative" ref={usuarioDropdownRef}>
+    <div className="relative capitalize" ref={usuarioDropdownRef}>
       <button
         onClick={() => setUsuarioDropdown(!usuarioDropdown)}
-        className="hover:text-pink-50 transition duration-300 ease-in-out hover:-translate-y-1 flex items-center gap-1"
+        className="cursor-pointer border-[#FFC100] rounded-xl p-1.5 bg-[#FFC100] hover:text-pink-50 transition duration-300 ease-in-out hover:-translate-y-1"
       >
         <User size={32} weight="bold" />
-        <i className="bi bi-caret-down-fill text-sm"></i>
       </button>
       {usuarioDropdown && (
-        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 right-0">
+        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 left-0">
           {/* {usuario ? ( */}
             <>
               <Link

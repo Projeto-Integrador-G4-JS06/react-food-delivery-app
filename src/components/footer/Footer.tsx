@@ -1,22 +1,20 @@
 import { FacebookLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react"
+import { Link } from "react-router-dom"
 
 function Footer() {
 
     let data = new Date().getFullYear()
 
     return (
-        <footer className="w-full px-15 flex justify-center bg-slate-800 text-white">
+        <footer className="w-full px-15 flex justify-center bg-[#CD533B] text-white font-heading">
       {/* Footer Responsivo (Mobile e Desktop) */}
-      <div className="container mx-auto max-md:flex-col px-4 flex flex-row justify-between items-center py-4">
-        {/* <img
-          className="h-[8vh] mr-1 max-md:h-[5vh]"
-          src="https://ik.imagekit.io/3ov0fr7b9/usuarios/BORA%20AI.svg?updatedAt=1740689358462"
-          alt="PeopleHub Logo"
-        /> */}
-        <p className="text-2xl text-indigo-200">PedeAí</p>
+      <div className="container mx-auto max-md:flex-col px-4 flex flex-row justify-between items-center py-4 pt-5">
+        <Link to="/home" className="text-3xl font-logo ease-in-out hover:text-[#FFC100] transition-colors duration-200">
+          PedeAí!
+        </Link>
 
         <p className="text-xs md:text-sm xl:text-lg py-2">
-        © {data} | Tá com fome? Pede Aí!
+        Tá com fome? Pede Aí! | © {data} 
         </p>
 
         <section className="flex gap-3 py-1">
@@ -26,7 +24,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <LinkedinLogo
-              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:text-blue-500 transition-colors"
+              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
               aria-label="LinkedIn"
             />
           </a>
@@ -36,7 +34,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <InstagramLogo
-              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:text-blue-500 transition-colors"
+              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
               aria-label="Instagram"
             />
           </a>
@@ -46,7 +44,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <FacebookLogo
-              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:text-blue-500 transition-colors"
+              className="font-medium w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
               aria-label="Facebook"
             />
           </a>
