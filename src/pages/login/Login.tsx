@@ -34,12 +34,12 @@ function Login() {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center bg-[radial-gradient(circle,_#F27294_0%,_#CD533B_100%)] font-bold">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 h-screen place-items-center bg-[radial-gradient(circle,_#F27294_0%,_#CD533B_100%)] font-bold">
         <form
-          className="flex justify-center items-center flex-col w-1/2 gap-4"
+          className="flex -mt-20 lg:mt-0 lg:w-1/2 justify-center items-center flex-col w-3/5 gap-4"
           onSubmit={login}
         >
-          <h2 className="text-white text-2xl border-b-2 border-b-white p-3 w-full font-poppins">
+          <h2 className="text-white lg:text-xl text-center border-b-2 border-b-white p-3 w-full font-heading">
             Faça login com sua conta
           </h2>
           <div className="flex flex-col w-full">
@@ -48,7 +48,7 @@ function Login() {
               id="usuario"
               name="usuario"
               placeholder="Email"
-              className="font-inter p-2 bg-[#eeeeee] rounded-xl text-gray-500"
+              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500"
               value={usuarioLogin.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -61,7 +61,7 @@ function Login() {
               id="senha"
               name="senha"
               placeholder="Senha"
-              className="font-inter p-2 bg-[#eeeeee] rounded-xl text-gray-500"
+              className=" p-2 bg-[#eeeeee] rounded-xl text-gray-500"
               value={usuarioLogin.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -71,7 +71,7 @@ function Login() {
           <button
             type="submit"
             className="rounded-xl bg-[#FFC100] flex justify-center
-                                   hover:bg-amber-200 hover:cursor-pointer font-inter text-white w-full py-2"
+                                   hover:bg-amber-200 hover:cursor-pointer  text-white w-full py-2"
           >
             {isLoading ? (
               <RotatingLines
@@ -86,14 +86,14 @@ function Login() {
             )}
           </button>
 
-          <p className="font-inter -mt-2 text-sm text-white">
+          <p className=" -mt-2 text-sm text-white text-center">
             Ainda não tem uma conta?{" "}
             <Link to="/cadastro" className="text-amber-300 hover:underline">
               Cadastre-se
             </Link>
           </p>
         </form>
-        <div className="fundoLogin  lg:block"></div>
+        <div className="fundoLogin hidden lg:block "></div>
       </div>
     </>
   );
