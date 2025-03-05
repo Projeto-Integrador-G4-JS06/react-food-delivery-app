@@ -10,9 +10,9 @@ function CardCategorias({ categoria }: CardCategoriaProps) {
   return (
     <div className='flex flex-col justify-between overflow-hidden border rounded-2xl'>
       <header className='px-6 py-2 text-2xl font-bold text-white bg-slate-700'>
-        Categoria
+      {categoria.nome_categoria}
       </header>
-      <p className='h-full p-8 text-3xl bg-white'>{categoria.nome}</p>
+      <p className='h-full p-8 text-3xl bg-white'><strong>Descrição:</strong>{categoria.descricao}`</p>
 
       <div className="flex">
         <Link to={`/editarcategoria/${categoria.id}`}

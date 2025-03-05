@@ -56,7 +56,7 @@ function DeletarCategoria() {
       ToastAlerta("Categoria apagada com sucesso!", "sucesso");
     } catch (error: unknown) {
       if (error instanceof Error && error.message.includes("401")) {
-        handleLogout()
+        handleLogout();
       } else {
         console.error("Erro ao deletar categoria:", error);
         ToastAlerta("Erro ao deletar a categoria!", "erro");
@@ -83,7 +83,7 @@ function DeletarCategoria() {
             <header className='py-2 px-6 text-2xl font-bold bg-slate-700 text-white'>
               Categoria
             </header>
-            <p className='h-full p-8 text-2xl lg:text-3xl bg-white'>{categoria.nome}</p>
+            <p className='h-full p-8 text-2xl lg:text-3xl bg-white'>{categoria.nome_categoria}</p>
             <div className="flex">
               <button
                 className='flex items-center justify-center w-full py-2 bg-teal-600 text-slate-50 hover:bg-teal-800'

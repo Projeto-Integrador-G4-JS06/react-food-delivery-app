@@ -13,6 +13,10 @@ function FormCategoria() {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const { usuario, handleLogout } = useContext(AuthContext);
+
+    const token = usuario.token;
+
     const { id } = useParams<{ id: string }>();
 
     const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
@@ -21,11 +25,18 @@ function FormCategoria() {
         try {
             await listar(`/categorias/${id}`, setCategoria);
         } catch (error: unknown) {
-            console.error("Erro ao atualizar categoria:", error);
+            console.error("Erro ao cadastrar/atualizar categoria:", error);
             ToastAlerta("Categoria não encontrada!", "info");
             retornar();
         }
     }
+
+    useEffect(() => {
+        if (token === '') {
+            ToastAlerta('Você precisa estar logado!', 'info')
+            navigate('/')
+        }
+    }, [token])
 
     useEffect(() => {
         if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
@@ -34,7 +45,11 @@ function FormCategoria() {
         } else {
             setCategoria({
                 id: 0,
-                tipo: "",
+                nome_categoria: '',
+                status: false,
+                descricao: '',
+                criado_em: '',
+                atualizado_em: '',
             });
         }
     }, [id]);
@@ -52,19 +67,31 @@ function FormCategoria() {
 
         if (id !== undefined) {
             try {
-                await atualizar(`/categorias`, categoria, setCategoria);
+                await atualizar(`/categorias`, categoria, setCategoria, {
+                    headers: { Authorization: token },
+                })
                 ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
             } catch (error: unknown) {
-                console.error("Erro ao atualizar categoria:", error);
-                ToastAlerta("Erro ao atualizar a categoria!", "erro");
+                if (error instanceof Error && error.message.includes("401")) {
+                    handleLogout();
+                } else {
+                    console.error("Erro ao atualizar categoria:", error);
+                    ToastAlerta("Erro ao atualizar a categoria!", "erro");
+                }
             }
         } else {
             try {
-                await cadastrar(`/categorias`, categoria, setCategoria);
+                await cadastrar(`/categorias`, categoria, setCategoria, {
+                    headers: { Authorization: token }
+                })
                 ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
             } catch (error: unknown) {
-                console.error("Erro ao atualizar categoria:", error);
-                ToastAlerta("Erro ao cadastrar a categoria!", "erro");
+                if (error instanceof Error && error.message.includes("401")) {
+                    handleLogout();
+                } else {
+                    console.error("Erro ao cadastrar a categoria:", error);
+                    ToastAlerta("Erro ao cadastrar a categoria!", "erro");
+                }
             }
         }
 
@@ -105,7 +132,7 @@ function FormCategoria() {
                                 name='nome'
                                 className="text-sm md:text-base p-2 border-2 rounded border-slate-700 bg-white"
                                 required
-                                value={categoria.nome}
+                                value={categoria.nome_categoria}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
                             <input
