@@ -5,7 +5,7 @@ function Footer() {
     let data = new Date().getFullYear()
 
     return (
-        <footer className="w-full px-15 flex justify-center bg-slate-800 text-white">
+        <footer className="w-full bottom-0 fixed px-15 flex justify-center bg-slate-800 text-white">
       {/* Footer Responsivo (Mobile e Desktop) */}
       <div className="container mx-auto max-md:flex-col px-4 flex flex-row justify-between items-center py-4">
         {/* <img
