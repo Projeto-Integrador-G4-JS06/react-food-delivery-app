@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../../contexts/AuthContext"
 
 
 function Perfil() {
@@ -7,19 +8,19 @@ function Perfil() {
 
 	const { usuario } = useContext(AuthContext)
 
-	useEffect(() => {
-		if (usuario.token === "") {
-			alert("Você precisa estar logado")
-			navigate("/")
-		}
-	}, [usuario.token])
+	// useEffect(() => {
+	// 	if (usuario.token === "") {
+	// 		alert("Você precisa estar logado")
+	// 		navigate("/")
+	// 	}
+	// }, [usuario.token])
 
 	return (
 		<div className="flex justify-center mx-4">
 			<div className="container mx-auto my-4 rounded-2xl overflow-hidden">
 				<img
 					className="w-full h-72 object-cover border-b-8 border-white"
-					src="https://i.imgur.com/ZZFAmzo.jpg"
+					src="https://ik.imagekit.io/22g34n0mo/Restaurantes/foodu.jpg?updatedAt=1741200397225"
 					alt="Capa do Perfil"
 				/>
 
@@ -31,7 +32,7 @@ function Perfil() {
 
 				<div
 					className="relative mt-[-6rem] h-72 flex flex-col 
-                    bg-sky-500 text-white text-2xl items-center justify-center"
+                    bg-[#CD533B] text-white text-2xl items-center justify-center"
 				>
 					<p>Nome: {usuario.nome} </p>
 					<p>Email: {usuario.usuario}</p>
