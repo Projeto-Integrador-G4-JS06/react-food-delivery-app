@@ -1,7 +1,7 @@
 import { Check, X } from "@phosphor-icons/react";
 import { useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { deletar, listar } from "../../../services/Service";
 import { PacmanLoader } from "react-spinners";
@@ -13,6 +13,10 @@ function DeletarCategoria() {
   const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { usuario, handleLogout } = useContext(AuthContext);
+
+  const token = usuario.token;
 
   const { id } = useParams<{ id: string }>();
 
@@ -29,6 +33,13 @@ function DeletarCategoria() {
   }
 
   useEffect(() => {
+    if (token === "") {
+      ToastAlerta("Você precisa estar logado!", 'info')
+      navigate("/")
+    }
+  }, [token])
+
+  useEffect(() => {
     if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
       buscaExecutada.current = true; // Marca a busca como executada
       buscarCategoriaPorId(id);
@@ -39,11 +50,17 @@ function DeletarCategoria() {
     setIsLoading(true);
 
     try {
-      await deletar(`/categorias/${id}`);
+      await deletar(`/categorias/${id}`, {
+        headers: { Authorization: token },
+      })
       ToastAlerta("Categoria apagada com sucesso!", "sucesso");
     } catch (error: unknown) {
-      console.error("Erro ao deletar categoria:", error);
-      ToastAlerta("Erro ao deletar a categoria!", "erro");
+      if (error instanceof Error && error.message.includes("401")) {
+        handleLogout()
+      } else {
+        console.error("Erro ao deletar categoria:", error);
+        ToastAlerta("Erro ao deletar a categoria!", "erro");
+      }
     } finally {
       setIsLoading(false);
       retornar();
