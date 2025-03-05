@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
 function Login() {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
     {} as UsuarioLogin
@@ -14,11 +14,11 @@ function Login() {
 
   const { usuario, handleLogin, isLoading } = useContext(AuthContext);
 
-  //   useEffect(() => {
-  //     if (usuario.token !== "") {
-  //       navigate("/home");
-  //     }
-  //   }, [usuario]);
+//   useEffect(() => {
+//     if (usuario.token !== "") {
+//       navigate("/home");
+//     }
+//   }, [usuario]);
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioLogin({
