@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import Login from "./pages/login/Login";
 import Perfil from "./pages/perfil/Perfil";
 import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
-import CardProdutos from "./components/produtos/cardprodutos/CardProdutos";
+
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
-            <Navbar />
+          <Navbar />
 
-          <div className="flex flex-col min-h-[80vh] bg-gray-200 ">
+          <div className="flex flex-col min-h-[80vh] bg-[#F5F5DC] ">
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -30,7 +30,7 @@ function App() {
               </Routes>
             </div>
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </BrowserRouter>
       </AuthProvider>
     </>
