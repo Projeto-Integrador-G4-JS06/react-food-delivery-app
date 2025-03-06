@@ -55,7 +55,7 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
 
       {usuarioDropdown && (
         <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 right-0">
-          {usuario ? (
+          {usuario.token ? (  // Verificando se o usuário está autenticado (token não nulo)
             <>
               <Link
                 to="/perfil"
@@ -82,6 +82,6 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
           )}
         </div>
       )}
-    </div>
-  );
+    </div>
+  );
 }

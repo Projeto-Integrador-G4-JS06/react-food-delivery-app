@@ -4,6 +4,7 @@ import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
 import { ClipLoader } from "react-spinners";
+import CardProdutosSaudaveis from "../cardprodutossaudaveis/CardProdutosSaudaveis";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -47,7 +48,7 @@ function ListaProdutosSaudaveis() {
               {/* Primeira linha com card e imagem */}
               <div className="grid grid-cols-1 md:grid-cols-2  mb-8 grid-co">
                 <div className="order-2 sm:order-2">
-                  <CardProdutos produto={produtos[0]} />
+                  <CardProdutosSaudaveis produto={produtos[0]} />
                 </div>
                 <div className="flex items-center justify-center sm:order-2 order-1">
                   <img
@@ -61,7 +62,7 @@ function ListaProdutosSaudaveis() {
               {/* Restante dos produtos */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
                 {produtos.slice(1).map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
+                  <CardProdutosSaudaveis key={produto.id} produto={produto} />
                 ))}
               </div>
             </div>
