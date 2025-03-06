@@ -6,6 +6,7 @@ import Footer from "./components/footer/Footer";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/login/Login";
+import ListaCategorias from "./components/categorias/listarcategorias/ListarCategorias";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/categorias" element={<ListaCategorias />} />
                 <Route path="/login" element={<Login />} />
               </Routes>
             </div>

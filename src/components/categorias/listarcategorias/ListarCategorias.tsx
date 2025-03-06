@@ -17,7 +17,7 @@ function ListaCategorias() {
 
             setIsLoading(true);
 
-            await listar('/categorias', setCategorias);
+            await listar('/categorias/all', setCategorias);
 
         } catch (error: unknown) {
             if (error instanceof Error) {
