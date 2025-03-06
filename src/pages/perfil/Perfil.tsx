@@ -8,12 +8,12 @@ function Perfil() {
 
 	const { usuario } = useContext(AuthContext)
 
-	// useEffect(() => {
-	// 	if (usuario.token === "") {
-	// 		alert("Você precisa estar logado")
-	// 		navigate("/")
-	// 	}
-	// }, [usuario.token])
+	useEffect(() => {
+		if (usuario.token === "") {
+			alert("Você precisa estar logado")
+			navigate("/")
+		}
+	}, [usuario.token])
 
 	return (
 		<div className="flex justify-center mx-4">
@@ -26,7 +26,7 @@ function Perfil() {
 
 				<img
 					className="rounded-full w-56 mx-auto mt-[-8rem] border-8 border-white relative z-10"
-					src= "https://ik.imagekit.io/22g34n0mo/Restaurantes/Captura%20de%20tela%202025-03-05%20155134.png?updatedAt=1741202097438" // src={usuario.foto}
+					src={usuario.foto}
 					alt={`Foto de perfil de ${usuario.nome}`}
 				/>
 

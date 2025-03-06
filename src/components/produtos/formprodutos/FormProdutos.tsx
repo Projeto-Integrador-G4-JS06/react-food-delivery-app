@@ -159,7 +159,7 @@ function FormProdutos() {
   }
 
   function retornar() {
-    navigate("/");
+    navigate("/produtos");
   }
 
   return (
