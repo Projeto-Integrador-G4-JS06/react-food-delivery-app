@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { User } from "@phosphor-icons/react";
+import { AuthContext } from "../../contexts/AuthContext";
 
-export function DropdownUsuario() {
+interface DropdownUsuarioProps {
+  children?: React.ReactNode;
+}
+
+export function DropdownUsuario({ children }: DropdownUsuarioProps) {
   const navigate = useNavigate();
-  //   const { handleLogout, usuario } = useContext(AuthContext);
+  const { usuario, handleLogout } = useContext(AuthContext);
   const [usuarioDropdown, setUsuarioDropdown] = useState(false);
   const usuarioDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Fechar dropdown ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,22 +31,31 @@ export function DropdownUsuario() {
   }, []);
 
   function logout() {
-    // handleLogout();
+    handleLogout();
     ToastAlerta("O Usuário foi desconectado com sucesso!", "info");
     navigate("/");
   }
 
   return (
-    <div className="relative capitalize" ref={usuarioDropdownRef}>
+    <div className="relative capitalize z-20" ref={usuarioDropdownRef}>
       <button
         onClick={() => setUsuarioDropdown(!usuarioDropdown)}
-        className="cursor-pointer border-[#FFC100] rounded-xl p-1.5 bg-[#FFC100] hover:text-pink-50 transition duration-300 ease-in-out hover:-translate-y-1"
+        className="flex items-center cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
       >
-        <User size={32} weight="bold" />
+        {/* Ícone visível apenas no desktop */}
+        <div className="p-2 bg-[#FFC100] rounded-lg text-white hidden md:block">
+          <User size={32} weight="regular" />
+        </div>
+
+        {/* Texto "Perfil" visível apenas no menu hambúrguer */}
+        <span className="text-white hover:underline uppercase md:hidden">
+          {children}
+        </span>
       </button>
+
       {usuarioDropdown && (
-        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 left-0">
-          {/* {usuario ? ( */}
+        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 right-0">
+          {usuario ? (
             <>
               <Link
                 to="/perfil"
@@ -58,15 +71,15 @@ export function DropdownUsuario() {
                 Sair
               </button>
             </>
-          {/* ) : (
+          ) : (
             <Link
               to="/login"
               className="block px-4 py-2 hover:bg-gray-200"
               onClick={() => setUsuarioDropdown(false)}
             >
               Login
-            </Link> */}
-          {/* )} */}
+            </Link>
+          )}
         </div>
       )}
     </div>

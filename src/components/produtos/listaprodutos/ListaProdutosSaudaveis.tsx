@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
-import { DNA } from "react-loader-spinner";
 import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
+import { ClipLoader } from "react-spinners";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -14,11 +14,7 @@ function ListaProdutosSaudaveis() {
 
   async function buscarProdutos() {
     try {
-      await listar("/produtos/healthy", setProdutos, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await listar("/produtos/healthy", setProdutos);
     } catch (error: any) {
       if (error.toString().includes("403")) {
         alert("Erro ao carregar produtos.");
@@ -37,14 +33,7 @@ function ListaProdutosSaudaveis() {
       {/* Exibe o loading enquanto os produtos estão sendo carregados */}
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
-          <DNA
-            visible={true}
-            height="200"
-            width="200"
-            ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass="dna-wrapper"
-          />
+          <ClipLoader color="#FF6F61"/>
         </div>
       )}
 
