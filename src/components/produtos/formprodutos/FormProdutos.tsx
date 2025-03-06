@@ -27,7 +27,7 @@ function FormProdutos() {
 
   const alertaExibido = useRef(false);
 
-  // captura id da url
+  // Captura id da URL
   const { id } = useParams<{ id: string }>();
 
   const { usuario, handleLogout } = useContext(AuthContext);
@@ -94,7 +94,7 @@ function FormProdutos() {
     });
   }, [categoria]);
 
-  // Função para atualizar o estado do produto quando o usuário digita nos campos
+  // Função para atualizar o estado do produto quando o usuário digita nos campos de input
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     const { type, value, name } = e.target;
 
@@ -110,6 +110,18 @@ function FormProdutos() {
     setProduto({
       ...produto,
       [name]: valor,
+      categoria: categoria,
+      usuario: usuario,
+    });
+  }
+
+  // Função para atualizar o estado do produto quando o usuário seleciona uma opção no select
+  function atualizarEstadoSelect(e: ChangeEvent<HTMLSelectElement>) {
+    const { name, value } = e.target;
+
+    setProduto({
+      ...produto,
+      [name]: value,
       categoria: categoria,
       usuario: usuario,
     });
@@ -163,7 +175,7 @@ function FormProdutos() {
   }
 
   return (
-    <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center  min-h-screen">
+    <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
       <div className="container mx-auto px-4 flex flex-col justify-center items-center">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">
           {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
@@ -184,9 +196,7 @@ function FormProdutos() {
               required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.nome_produto}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -200,9 +210,7 @@ function FormProdutos() {
               required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.descricao}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -217,9 +225,7 @@ function FormProdutos() {
               required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.preco}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -231,9 +237,7 @@ function FormProdutos() {
               required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.foto}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                atualizarEstado(e)
-              }
+              onChange={atualizarEstado}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -252,11 +256,9 @@ function FormProdutos() {
                 </option>
 
                 {categorias.map((categoria) => (
-                  <>
-                    <option className="text-gray-700" value={categoria.id}>
-                      {categoria.nome_categoria}
-                    </option>
-                  </>
+                  <option className="text-gray-700" value={categoria.id} key={categoria.id}>
+                    {categoria.nome_categoria}
+                  </option>
                 ))}
               </select>
             </div>
@@ -269,31 +271,26 @@ function FormProdutos() {
                 id="nutri_score"
                 value={produto.nutri_score}
                 className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  atualizarEstado(e)
-                }
+                onChange={atualizarEstadoSelect}
               >
                 <option value="" selected disabled>
                   Selecione o Nutri Score
                 </option>
-
-                <>
-                  <option className="text-gray-700" value="A">
-                    A
-                  </option>
-                  <option className="text-gray-700" value="B">
-                    B
-                  </option>
-                  <option className="text-gray-700" value="C">
-                    C
-                  </option>
-                  <option className="text-gray-700" value="D">
-                    D
-                  </option>
-                  <option className="text-gray-700" value="E">
-                    E
-                  </option>
-                </>
+                <option className="text-gray-700" value="A">
+                  A
+                </option>
+                <option className="text-gray-700" value="B">
+                  B
+                </option>
+                <option className="text-gray-700" value="C">
+                  C
+                </option>
+                <option className="text-gray-700" value="D">
+                  D
+                </option>
+                <option className="text-gray-700" value="E">
+                  E
+                </option>
               </select>
             </div>
           </div>
@@ -301,7 +298,7 @@ function FormProdutos() {
           <button
             type="submit"
             className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
+                        cursor-pointer text-sm lg:text-base text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
           >
             {isLoading ? (
               <RotatingLines
