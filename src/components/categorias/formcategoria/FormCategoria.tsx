@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import { atualizar, cadastrar, listar } from "../../../services/Service";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { PacmanLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -47,10 +47,11 @@ function FormCategoria() {
             setCategoria({
                 id: 0,
                 nome_categoria: '',
-                status: false,
                 descricao: '',
+                icone: '',   
                 criado_em: '',
                 atualizado_em: '',
+                status: false,
             });
         }
     }, [id]);
