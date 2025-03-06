@@ -32,12 +32,12 @@ function FormCategoria() {
         }
     }
 
-    useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
-        }
-    }, [token])
+    // useEffect(() => {
+    //     if (token === '') {
+    //         ToastAlerta('Você precisa estar logado!', 'info')
+    //         navigate('/')
+    //     }
+    // }, [token])
 
     useEffect(() => {
         if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
@@ -48,7 +48,7 @@ function FormCategoria() {
                 id: 0,
                 nome_categoria: '',
                 descricao: '',
-                icone: '',   
+                icone: '',
                 criado_em: '',
                 atualizado_em: '',
                 status: false,
@@ -69,7 +69,7 @@ function FormCategoria() {
 
         if (id !== undefined) {
             try {
-                await atualizar(`/categorias`, categoria, setCategoria, {
+                await atualizar(`/categorias/atualizar`, categoria, setCategoria, {
                     headers: { Authorization: token },
                 })
                 ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
@@ -83,7 +83,7 @@ function FormCategoria() {
             }
         } else {
             try {
-                await cadastrar(`/categorias`, categoria, setCategoria, {
+                await cadastrar(`/categorias/cadastrar`, categoria, setCategoria, {
                     headers: { Authorization: token }
                 })
                 ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
@@ -109,12 +109,12 @@ function FormCategoria() {
         <section className="w-full py-8 flex flex-col justify-center items-center">
             <div className="container mx-auto px-4 flex flex-col justify-center items-center">
                 <div className="mx-1 lg:w-1/3">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-[family-name:var(--font-heading)] text-[#CD533B]">
                         {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
                     </h1>
 
                     {isLoading && (
-                        <div className="fixed inset-0 flex justify-center items-center bg-gray-200 bg-opacity-75 z-50">
+                        <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
                             <PacmanLoader
                                 color="#0D9488"
                                 margin={0}

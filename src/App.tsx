@@ -7,6 +7,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/login/Login";
 import ListaCategorias from "./components/categorias/listarcategorias/ListarCategorias";
+import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
+import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
 
 function App() {
   return (
@@ -19,8 +21,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/categorias" element={<ListaCategorias />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/categorias" element={<ListaCategorias />} />
+              <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+              <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+              <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
             </Routes>
           </div>
           {/* <Footer /> */}
