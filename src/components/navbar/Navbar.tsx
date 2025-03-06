@@ -43,10 +43,10 @@ function Navbar() {
     <nav className="font-body uppercase w-full px-5 py-3 bg-[#CD533B] shadow-lg relative">
       <div className="container mx-auto flex items-center justify-between">
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white border-3 rounded-lg border-[#FFC100] p-1.25"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <X size={32} /> : <List size={32} />}
+          {menuOpen ? <X size={32} /> : <List size={32} weight="regular" />}
         </button>
 
         <Link to="/home">
@@ -108,7 +108,7 @@ function Navbar() {
             to="/carrinho"
             className="p-2 bg-[#FFC100] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
           >
-            <ShoppingCart size={32} weight="bold" />
+            <ShoppingCart size={32} weight="regular" />
           </Link>
         </div>
       </div>
@@ -121,7 +121,7 @@ function Navbar() {
           ></div>
           <nav
             ref={menuRef}
-            className="absolute top-[70px] left-0 w-5/6 bg-[#CD533B] text-white py-2 z-50 shadow-lg"
+            className="absolute top-[100px] left-0 w-4/6 bg-[#CD533B] text-white py-2 z-50 shadow-lg"
           >
             <ul className="flex flex-col items-start px-4">
               <li className="w-full py-3 border-b border-gray-400">

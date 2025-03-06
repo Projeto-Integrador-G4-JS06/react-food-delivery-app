@@ -44,7 +44,7 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
       >
         {/* Ícone visível apenas no desktop */}
         <div className="p-2 bg-[#FFC100] rounded-lg text-white hidden md:block">
-          <User size={32} weight="bold" />
+          <User size={32} weight="regular" />
         </div>
 
         {/* Texto "Perfil" visível apenas no menu hambúrguer */}
