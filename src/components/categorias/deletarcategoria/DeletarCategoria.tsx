@@ -5,6 +5,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { deletar, listar } from "../../../services/Service";
 import { PacmanLoader } from "react-spinners";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 function DeletarCategoria() {
 

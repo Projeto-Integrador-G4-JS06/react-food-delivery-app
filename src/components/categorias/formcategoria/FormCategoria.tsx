@@ -4,6 +4,7 @@ import { atualizar, cadastrar, listar } from "../../../services/Service";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { PacmanLoader } from "react-spinners";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 function FormCategoria() {
 
