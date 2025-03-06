@@ -1,8 +1,10 @@
 import { ShoppingCart, User } from "@phosphor-icons/react";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
 import { DropdownUsuario } from "./DropdownUsuario";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();

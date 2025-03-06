@@ -1,6 +1,7 @@
 import { FacebookLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react"
 import { Link } from "react-router-dom"
 
+
 function Footer() {
 
     let data = new Date().getFullYear()
