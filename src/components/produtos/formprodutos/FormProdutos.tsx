@@ -15,12 +15,12 @@ function FormProdutos() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: 0,
-    nome_categoria: "",
-    status: true,
-    descricao: "",
-    criado_em: "",
-    atualizado_em: "",
-    produtos: null,
+    nome_categoria: '',
+    descricao: '',
+    icone: '',
+    criado_em: '',
+    atualizado_em: '',
+    status: false,
   });
 
   const [produto, setProduto] = useState<Produto>({} as Produto);
