@@ -106,7 +106,7 @@ function FormProdutos() {
         setIsLoading(true);
 
         try {
-            await cadastrar(`/produtos`, produto, setProduto, ); // Envia os dados do produto para a API
+            await cadastrar(`/produtos`, produto, setProduto); // Envia os dados do produto para a API
             ToastAlerta("O Produto foi cadastrado com sucesso!", "sucesso");
             navigate('/produtos'); // Redireciona para a lista de produtos após o cadastro
         } catch (error: any) {
