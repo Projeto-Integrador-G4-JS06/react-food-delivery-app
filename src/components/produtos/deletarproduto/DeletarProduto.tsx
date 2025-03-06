@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { listar, deletar } from "../../../services/Service";
+import { listar, deletar, buscar } from "../../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Produto from "../../../models/Produto";
@@ -13,17 +13,25 @@ function DeletarProduto() {
 
   const { id } = useParams<{ id: string }>();
   const { usuario, handleLogout } = useContext(AuthContext);
+
   const token = usuario.token;
 
   async function buscarPorId(id: string) {
+    console.log("Buscando produto com ID:", id);
     try {
-      await listar(`/produtos/${id}`, setProduto);
+      await buscar(`/produtos/id/${id}`, setProduto, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log("Produto carregado:", produto);
     } catch (error: any) {
       console.error("Erro ao buscar produto:", error);
     }
   }
 
   useEffect(() => {
+    console.log("ID do produto:", id); // 🔹 Debug para ver se o ID está vindo correto
     if (id !== undefined) {
       buscarPorId(id);
     }
@@ -36,7 +44,7 @@ function DeletarProduto() {
         headers: { Authorization: token },
       });
       ToastAlerta("Produto deletado com sucesso!", "sucesso");
-      navigate("/postagens");
+      navigate("/produtos");
     } catch (error: any) {
       console.error("Erro ao deletar produto:", error);
     }
@@ -47,13 +55,25 @@ function DeletarProduto() {
     navigate("/produtos");
   }
 
-  // if (!produto.nome_produto) {
-  //   return (
-  //     <div className="flex justify-center items-center h-screen">
-  //       <RotatingLines strokeColor="#FF6F61" strokeWidth="5" width="50" visible={true} />
-  //     </div>
-  //   );
-  // }
+  useEffect(() => {
+    if (token === "") {
+      ToastAlerta("Você precisa estar logado!", "info");
+      navigate("/");
+    }
+  }, [token]);
+
+  if (!produto.nome_produto) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <RotatingLines
+          strokeColor="#FF6F61"
+          strokeWidth="5"
+          width="50"
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FFF7F0] p-4">
@@ -80,11 +100,13 @@ function DeletarProduto() {
             <p className="text-[#333333] mt-3">
               <span className="font-semibold">Preço:</span> R$ {produto.preco}
             </p>
-            <p className="text-[#333333]">
-              <span className="font-semibold">Status:</span> {produto.status}
+            <p className="text-[#333333] text-center">
+              <span className="font-semibold">Descrição:</span>{" "}
+              {produto.descricao}
             </p>
             <p className="text-[#333333]">
-              <span className="font-semibold">Categoria:</span> {produto.categoria?.nome_categoria}
+              <span className="font-semibold">Categoria:</span>{" "}
+              {produto.categoria?.nome_categoria}
             </p>
           </div>
 
@@ -97,11 +119,16 @@ function DeletarProduto() {
               Não, voltar
             </button>
             <button
-              className="flex-1 bg-[#FF6F61] hover:bg-[#E65A50] text-white font-bold py-3 rounded-br-lg transition"
+              className="flex-1 bg-[#FF6F61] hover:bg-[#E65A50] text-white font-bold py-3 rounded-br-lg transition flex items-center justify-center"
               onClick={deletarProduto}
             >
               {isLoading ? (
-                <RotatingLines strokeColor="white" strokeWidth="5" width="24" visible={true} />
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  width="24"
+                  visible={true}
+                />
               ) : (
                 "Sim, deletar"
               )}
@@ -114,4 +141,3 @@ function DeletarProduto() {
 }
 
 export default DeletarProduto;
-
