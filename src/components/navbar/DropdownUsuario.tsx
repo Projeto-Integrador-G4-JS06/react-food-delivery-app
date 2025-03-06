@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { User } from "@phosphor-icons/react";
@@ -37,7 +37,7 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
   }
 
   return (
-    <div className="relative capitalize" ref={usuarioDropdownRef}>
+    <div className="relative capitalize z-20" ref={usuarioDropdownRef}>
       <button
         onClick={() => setUsuarioDropdown(!usuarioDropdown)}
         className="flex items-center cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
@@ -54,7 +54,7 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
       </button>
 
       {usuarioDropdown && (
-        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 left-0">
+        <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 right-0">
           {usuario ? (
             <>
               <Link

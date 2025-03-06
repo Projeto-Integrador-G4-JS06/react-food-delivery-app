@@ -69,7 +69,7 @@ function Navbar() {
             />
             <button
               type="submit"
-              className="p-2 ms-2 bg-[#FFC100] hover:bg-[#FFA500] rounded-lg border transition duration-300"
+              className="text-white p-2 ms-2 bg-[#FFC100] hover:bg-[#FFA500] rounded-lg transition duration-300"
             >
               <MagnifyingGlass size={17} weight="bold" />
             </button>
