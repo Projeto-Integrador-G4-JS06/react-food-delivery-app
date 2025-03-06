@@ -1,85 +1,61 @@
-import {
-  Calendar,
-  CurrencyCircleDollar,
-  HourglassMedium,
-  MapPin,
-  Pencil,
-  Trash,
-} from "@phosphor-icons/react";
-
-import { Link } from "react-router-dom";
+import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
+import { useState } from "react";
 
-interface CardProdutoProps {
+interface CardProdutosProps {
   produto: Produto;
 }
 
-function CardProduto({ produto }: CardProdutoProps) {
+function CardProduto({ produto }: CardProdutosProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="flex flex-col my-10 mx-10 overflow-hidden bg-gray-50 w-[13.5rem] h-[25rem] rounded-lg">
-      <div className="flex  border-amber-500 bg-orange py-1.5 justify-between pt-2 pr-2">
-        <p className="text-[#293241] mx-1.5">Produto</p>
-        {/* <Link to={`/editarproduto/${produto.id}`}> */}
-        <div className="flex ">
-          <Pencil
-            size={24}
-            color="#293241"
-            className="mr-1 hover:fill-teal-800"
-          />
-          {/* </Link> */}
-          {/* <Link to={`/deletarproduto/${produto.id}`}> */}
-          <Trash
-            size={24}
-            color="#293241"
-            className="mr-1 hover:fill-red-700"
-          />
-          {/* </Link> */}
-        </div>
+    <div
+      className="w-100 h-auto sm:w-139 mx-auto mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-lg flex drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Div para o conteúdo do card */}
+      <div className="flex flex-col w-60 justify-between gap-y-2">
+        <h2 className="text-xl font-bold text-gray-800 font-heading">
+          {produto.nome_produto}
+        </h2>
+        <p className="text-gray-600 text-sm text-right font-body">
+          {produto.descricao}
+        </p>
+        {/* Preço ajustado com mt-auto */}
+        <p className="text-lg font-semibold text-gray-700 mt-auto text-right">
+          R$ {produto.preco}
+        </p>
+        {/* Botão sem muito espaçamento extra */}
+        <button className="bg-[#CD533B] hover:bg-[#b7452f] text-white py-2 rounded-4xl transition font-body">
+          Adicionar ao carrinho
+        </button>
       </div>
-      <div className="p-4 flex flex-col items-start ">
-        <p className="text-sm flex font-poppins">
-          <MapPin size={20} color="#293241" />
-          Partida:
-        </p>
-        <p className="text-sm font-poppins">
-          {produto.nome_produto} - {produto.preco}
-        </p>
-        <br />
-        <p className="text-sm flex font-poppins">
-          <MapPin size={20} color="#293241" />
-          Destino:
-        </p>
-        <p className="text-sm font-poppins">
-          {produto.descricao} - {produto.nutri_score}
-        </p>
-        <br />
-        <p className="text-sm flex font-poppins">
-          <Calendar size={20} color="#293241" />
-          Data:
-        </p>
-        <p className="text-sm font-poppins">
-          {new Intl.DateTimeFormat("pt-BR", {
-            dateStyle: "short",
-            timeStyle: "short",
-          }).format(new Date(produto.criado_em))}
-        </p>
-        <br />
-        <p className="text-sm flex font-poppins">
-          <CurrencyCircleDollar size={20} color="#293241" />
-          Preço:
-        </p>
-        <p className="text-sm font-poppins">
-          {Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(produto.preco)}
-        </p>
-        <br />
-        <p className="text-sm flex font-poppins">
-          <HourglassMedium size={20} color="#293241" />
-          Duração:
-        </p>
-        <p className="text-sm font-poppins">{produto.foto}</p>
+
+      {/* Div para a imagem e botões */}
+      <div className="ml-4 relative min-w-[66px] min-h-[66px]">
+        <div className="relative group">
+          <img
+            src={produto.foto}
+            alt={produto.nome_produto}
+            className="w-66 h-66 rounded-lg object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
+        </div>
+
+        <div
+          className={`absolute top-2 right-2 flex gap-2 transition-all duration-700 ${
+            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+          }`}
+        >
+          <button className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition">
+            <Pencil size={28} />
+          </button>
+          <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
+            <Trash size={28} />
+          </button>
+        </div>
       </div>
     </div>
   );
