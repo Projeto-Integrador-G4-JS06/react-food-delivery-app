@@ -1,0 +1,22 @@
+/* Adicione este CSS no seu arquivo de estilos */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #F6EED9; /* Cor das setas */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #FFA500; /* Cor das setas ao passar o mouse */
+}
+
+/* Estilo das bolinhas de paginação */
+.swiper-pagination-bullet {
+    background-color: #4A5568; /* Cinza escuro para as bolinhas inativas */
+    opacity: 0.5; /* Opacidade das bolinhas inativas */
+  }
+  
+  /* Estilo da bolinha ativa */
+  .swiper-pagination-bullet-active {
+    background-color: #2D3748; /* Cinza mais escuro para a bolinha ativa */
+    opacity: 1; /* Opacidade da bolinha ativa */
+  }

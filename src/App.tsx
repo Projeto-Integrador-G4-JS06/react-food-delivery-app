@@ -6,6 +6,10 @@ import Footer from "./components/footer/Footer";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/login/Login";
+import Perfil from "./pages/perfil/Perfil";
+import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
+import ListaProdutosSaudaveis from "./components/produtos/listaprodutos/ListaProdutosSaudaveis";
+import FormProdutos from "./components/produtos/formprodutos/FormProdutos";
 import ListaCategorias from "./components/categorias/listarcategorias/ListarCategorias";
 import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
@@ -16,21 +20,26 @@ function App() {
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
-          {/* <Navbar /> */}
+          <Navbar />
           <div className="scroll-smooth antialiased min-h-[80vh] bg-[var(--color-beige-500)]">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/perfil" element={<Perfil />} />
               <Route path="/categorias" element={<ListaCategorias />} />
               <Route path="/cadastrarcategoria" element={<FormCategoria />} />
               <Route path="/editarcategoria/:id" element={<FormCategoria />} />
               <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+              <Route path="/produtos" element={<ListaProdutos />} />
+              <Route path="/produtos/healthy" element={<ListaProdutosSaudaveis />} />
+              <Route path="/cadastrarproduto" element={<FormProdutos />} />
+              <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
             </Routes>
           </div>
-          {/* <Footer /> */}
-        </BrowserRouter>
-      </AuthProvider>
+          <Footer />
+        </BrowserRouter >
+      </AuthProvider >
     </>
   );
 }

@@ -17,4 +17,17 @@ body {
   --color-beige-600: #F5F5DC;
   --color-red-500: #CD533B;
   --color-olive-500: #646F4B;
+  --breakpoint-3xl: 120rem;
+}
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
