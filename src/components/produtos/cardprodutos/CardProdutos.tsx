@@ -56,9 +56,11 @@ function CardProduto({ produto }: CardProdutosProps) {
               <Pencil size={28} />
             </Link>
           </button>
-          <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
-            <Trash size={28} />
-          </button>
+          <Link to={`/produto/${produto.id}`}>
+            <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
+              <Trash size={28} />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
