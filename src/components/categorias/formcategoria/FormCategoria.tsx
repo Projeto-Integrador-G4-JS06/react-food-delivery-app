@@ -126,9 +126,9 @@ function FormCategoria() {
                         </div>
                     )} */}
 
-                    <form className="flex flex-col w-full gap-4" onSubmit={gerarNovaCategoria}>
+                    <form className="flex flex-col w-full gap-4 text-gray-700 font-medium" onSubmit={gerarNovaCategoria}>
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="categoria" className="flex justify-center lg:justify-start"></label>
+                            <label htmlFor="categoria" className="flex justify-center lg:justify-start">Nome da Categoria</label>
                             <input
                                 type="text"
                                 placeholder="Informe aqui o nome da categoria"
@@ -138,7 +138,7 @@ function FormCategoria() {
                                 value={categoria.nome_categoria}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
-                            <label htmlFor="descricao" className="flex justify-center lg:justify-start"></label>
+                            <label htmlFor="descricao" className="flex justify-center lg:justify-start">Descrição</label>
                             <input
                                 type="text"
                                 placeholder="Informe aqui a descrição da categoria"
@@ -148,7 +148,7 @@ function FormCategoria() {
                                 value={categoria.descricao}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
-                            <label htmlFor="icone" className="flex justify-center lg:justify-start"></label>
+                            <label htmlFor="icone" className="flex justify-center lg:justify-start">ícone (imagem)</label>
                             <input
                                 type="text"
                                 placeholder="Insira o link da imagem da categoria"
