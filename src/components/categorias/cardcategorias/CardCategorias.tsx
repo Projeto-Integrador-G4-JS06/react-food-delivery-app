@@ -7,8 +7,8 @@ interface CardCategoriaProps {
 }
 
 // Função para garantir que o src da imagem sempre seja válido
-const getImagemSrc = (foto?: string) => {
-  return foto && foto.trim() !== '' ? foto : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/meal.png?updatedAt=1741281654261';
+const getImagemSrc = (icone?: string) => {
+  return icone && icone.trim() !== '' ? icone : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/meal.png?updatedAt=1741281654261';
 };
 
 function CardCategorias({ categoria }: CardCategoriaProps) {
