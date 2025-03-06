@@ -50,7 +50,7 @@ function CardProduto({ produto }: CardProdutosProps) {
             isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
           }`}
         >
-          <button className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition">
+          <button className="bg-[#FFD166] text-white p-2 rounded-full hover:bg-[#E6B952] transition cursor-pointer ">
             <Pencil size={28} />
           </button>
           <Link to={`/produto/${produto.id}`}>

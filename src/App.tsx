@@ -12,15 +12,16 @@ import DeletarProduto from "./components/produtos/deletarproduto/DeletarProduto"
 import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
 import ListaProdutosSaudaveis from "./components/produtos/listaprodutos/ListaProdutosSaudaveis";
 
+
 function App() {
   return (
     <>
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
-            <Navbar />
+          <Navbar />
 
-          <div className="flex flex-col min-h-[80vh] bg-gray-200 ">
+          <div className="flex flex-col min-h-[80vh] bg-[#F5F5DC] ">
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
