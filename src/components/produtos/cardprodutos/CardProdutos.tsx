@@ -1,6 +1,7 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface CardProdutosProps {
   produto: Produto;
@@ -50,7 +51,10 @@ function CardProduto({ produto }: CardProdutosProps) {
           }`}
         >
           <button className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition">
-            <Pencil size={28} />
+            {" "}
+            <Link to={`/atualizarproduto/${produto.id}`}>
+              <Pencil size={28} />
+            </Link>
           </button>
           <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
             <Trash size={28} />

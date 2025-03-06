@@ -4,6 +4,7 @@ import { DNA } from "react-loader-spinner";
 import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
+import { Link } from "react-router-dom";
 
 function ListaProdutos() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -60,7 +61,7 @@ function ListaProdutos() {
                 type="submit"
                 className="font-heading mt-4 rounded-lg bg-[#CD533B] text-white h-13 w-55"
               >
-                Cadastrar Produto
+                <Link to={'/cadastrarproduto'}> Cadastrar Produto</Link>
               </button>
             </div>
           </div>

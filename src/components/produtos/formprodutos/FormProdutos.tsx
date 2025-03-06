@@ -159,23 +159,24 @@ function FormProdutos() {
   }
 
   function retornar() {
-    navigate("/");
+    navigate("/produtos");
   }
 
   return (
     <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center  min-h-screen">
       <div className="container mx-auto px-4 flex flex-col justify-center items-center">
-        <div className="mx-1 lg:w-1/3">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">
-            {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
-          </h1>
-        </div>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">
+          {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
+        </h1>
+
         <form
           className="flex flex-col w-full lg:w-1/2 gap-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
           <div className="flex flex-col gap-2">
-            <label>Nome do Produto</label>
+            <label className="flex justify-center lg:justify-start">
+              Nome do Produto
+            </label>
             <input
               type="text"
               placeholder="Nome do Produto"
@@ -189,7 +190,9 @@ function FormProdutos() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label>Descrição do Produto</label>
+            <label className="flex justify-center lg:justify-start">
+              Descrição do Produto
+            </label>
             <input
               type="text"
               placeholder="Breve descrição do produto. . "
@@ -203,7 +206,9 @@ function FormProdutos() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label>Preço</label>
+            <label className="flex justify-center lg:justify-start">
+              Preço
+            </label>
             <input
               type="number"
               step=".01"
@@ -218,7 +223,7 @@ function FormProdutos() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label>Foto</label>
+            <label className="flex justify-center lg:justify-start">Foto</label>
             <input
               type="text"
               placeholder="Link da foto do produto"
@@ -233,11 +238,13 @@ function FormProdutos() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p>Categoria do Produto</p>
+              <p className="flex justify-center lg:justify-start">
+                Categoria do Produto
+              </p>
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
               >
                 <option value="" selected disabled>
@@ -254,12 +261,14 @@ function FormProdutos() {
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <p>Nutri Score</p>
+              <p className="flex justify-center lg:justify-start">
+                Nutri Score
+              </p>
               <select
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                   atualizarEstado(e)
                 }
@@ -292,7 +301,7 @@ function FormProdutos() {
           <button
             type="submit"
             className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer       text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
+                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
           >
             {isLoading ? (
               <RotatingLines
