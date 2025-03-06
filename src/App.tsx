@@ -21,7 +21,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
 
-          <div className="flex flex-col min-h-[80vh] bg-gray-200 ">
+          <div className="scroll-smooth antialiased min-h-[80vh] bg-[var(--color-beige-500)]">
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -38,6 +38,7 @@ function App() {
               </Routes>
             </div>
           </div>
+          
           <Footer />
         </BrowserRouter>
       </AuthProvider>
