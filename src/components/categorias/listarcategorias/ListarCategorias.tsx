@@ -4,6 +4,7 @@ import Categoria from "../../../models/Categoria";
 import CardCategorias from "../cardcategorias/CardCategorias";
 import { listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
+import { Link } from "react-router-dom";
 
 function ListaCategorias() {
 
@@ -56,20 +57,33 @@ function ListaCategorias() {
                             Nenhuma categoria foi encontrada!
                         </span>
                     )}
-                    <div className="grid grid-cols-1 mx-6 gap-10 md:grid-cols-3 lg:grid-cols-4">
-                        {categorias
-                            .sort((a, b) => a.id - b.id)
-                            .map((categoria: Categoria) => (
-                                <CardCategorias
-                                    key={categoria.id}
-                                    categoria={categoria}
-                                />
-                            ))
-                        }
-                    </div>
-                </div>
+                    <section className="container w-full mx-autopx-4 flex flex-col justify-center items-center gap-10">
+                        <div className="w-full h-30 flex justify-between px-8 items-center bg-[var(--color-olive-500)] text-white">
+                            <p className="text-2xl font-[family-name:var(--font-heading)]">Categorias</p>
+                            <Link to={`/cadastrarcategoria`}>
+                                <button className="text-lg border-[var(--color-red-500)] rounded-lg py-1 px-3 font-[family-name:var(--font-quicksand)] bg-[var(--color-red-500)] h-full transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer">Cadastrar Categoria</button>
+                            </Link>
+
+                        </div>
+                        {/* <div className='  flex flex-col justify-center items-center'> */}
+
+                        <div className="grid grid-cols-1 mx-6 gap-10 md:grid-cols-3 lg:grid-cols-4">
+                            {categorias
+                                .sort((a, b) => a.id - b.id)
+                                .map((categoria: Categoria) => (
+                                    <CardCategorias
+                                        key={categoria.id}
+                                        categoria={categoria}
+                                    />
+                                ))
+                            }
+                        </div>
+                        {/* </div> */}
+
+                    </section>
+                </div >
             </div>
         </>
-    )
+    );
 }
 export default ListaCategorias;
