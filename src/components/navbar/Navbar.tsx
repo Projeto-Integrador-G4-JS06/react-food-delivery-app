@@ -1,4 +1,4 @@
-import { ShoppingCart, User } from "@phosphor-icons/react";
+import { ShoppingCart } from "@phosphor-icons/react";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { useState, ChangeEvent, FormEvent } from "react";
 

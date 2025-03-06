@@ -17,7 +17,7 @@ function App() {
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
-          <div className="flex flex-col">{/* <Navbar /> */}</div>
+            <Navbar />
 
           <div className="flex flex-col min-h-[80vh] bg-gray-200 ">
             <div className="flex-grow">
