@@ -9,6 +9,9 @@ import Login from "./pages/login/Login";
 import Perfil from "./pages/perfil/Perfil";
 import Sobre from "./pages/sobre/Sobre";
 import CardSobre from "./components/cardsobre/CardSobre";
+import CarrosselSobre from "./components/carrosselsobre/CarrosselSobre";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
   return (
@@ -28,7 +31,6 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/sobre" element={<Sobre />} />
-                <Route path="/card" element={<CardSobre />} />
               </Routes>
             </div>
           </div>
