@@ -9,4 +9,5 @@ body {
   --font-heading: "Poppins", sans-serif;
   --font-logo: "Protest Riot", serif;
   --font-body: "Open Sans", serif;
+  --breakpoint-3xl: 120rem;
 }
