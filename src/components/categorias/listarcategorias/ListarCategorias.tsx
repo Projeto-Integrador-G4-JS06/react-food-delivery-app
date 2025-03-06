@@ -39,9 +39,9 @@ function ListaCategorias() {
 
             {/* Centralized PacmanLoader */}
             {isLoading && (
-                <div className="fixed inset-0 flex justify-center items-center bg-gray-200 bg-opacity-75 z-50">
+                <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
                     <PacmanLoader
-                        color="#0D9488"
+                        color="#CD533B"
                         margin={0}
                         size={50}
                         speedMultiplier={2}
@@ -56,7 +56,7 @@ function ListaCategorias() {
                             Nenhuma categoria foi encontrada!
                         </span>
                     )}
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 mx-6 gap-10 md:grid-cols-3 lg:grid-cols-4">
                         {categorias
                             .sort((a, b) => a.id - b.id)
                             .map((categoria: Categoria) => (
