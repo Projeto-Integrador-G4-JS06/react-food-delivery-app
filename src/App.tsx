@@ -7,6 +7,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/login/Login";
 import Perfil from "./pages/perfil/Perfil";
+import DeletarProduto from "./components/produtos/deletarproduto/DeletarProduto";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/perfil" element={<Perfil />} />
+                
+                <Route path="/produto/:id" element={<DeletarProduto />} />
               </Routes>
             </div>
           </div>
