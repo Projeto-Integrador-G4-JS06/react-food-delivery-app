@@ -11,6 +11,7 @@ function ListaProdutos() {
   const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
 
   const { usuario, handleLogout } = useContext(AuthContext);
+  // fdskjdkjds
   const token = usuario.token;
 
   async function buscarProdutos() {
