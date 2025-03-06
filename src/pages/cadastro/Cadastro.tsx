@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom"
-import "./Cadastro.css"
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
-import Usuario from "../../models/Usuario"
-import { cadastrarUsuario } from "../../services/Service"
-import { RotatingLines } from "react-loader-spinner"
-import { ToastAlerta } from "../../utils/ToastAlerta"
+import { useNavigate } from "react-router-dom";
+import "./Cadastro.css";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import Usuario from "../../models/Usuario";
+import { cadastrarUsuario } from "../../services/Service";
+import { RotatingLines } from "react-loader-spinner";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 function Cadastro() {
     /**
@@ -12,7 +12,7 @@ function Cadastro() {
      * Através da constante navigate, o usuário será redirecionado
      * para outras rotas da aplicação, conforme a necessidade.
      */
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     /**
      * Definimos um estado chamado isLoading, do tipo boolean, através do
@@ -27,7 +27,7 @@ function Cadastro() {
      * setIsLoading, responsável por atualizar o valor do estado
      * isLoading, seguindo a sintaxe básica do Hook useState.
      */
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     /**
      * Criamos um estado chamado confirmarSenha, do tipo string, através
@@ -39,7 +39,7 @@ function Cadastro() {
      * setConfirmarSenha, responsável por atualizar o valor do estado
      * confirmarSenha, seguindo a sintaxe básica do Hook useState.
      */
-    const [confirmarSenha, setConfirmarSenha] = useState<string>("")
+    const [confirmarSenha, setConfirmarSenha] = useState<string>("");
 
     /**
      * Criamos um estado chamado usuario, do tipo Usuario (Interface Model),
@@ -63,10 +63,9 @@ function Cadastro() {
         cnpj: "",
         foto: "",
         endereco: "",
-        produtos: [],
         criado_em: "",
-        atualizado_em: ""
-    })
+        atualizado_em: "",
+    });
 
     /**
      * Adicionamos o Hook useEffect, que será executado sempre que houver
@@ -80,9 +79,9 @@ function Cadastro() {
      */
     useEffect(() => {
         if (usuario.id !== 0) {
-            retornar()
+            retornar();
         }
-    }, [usuario])
+    }, [usuario]);
 
     /**
      * Cria a função retornar(), que será responsável por redirecionar o usuário
@@ -92,7 +91,7 @@ function Cadastro() {
      * o usuário para o Componente Login, caso ele desista de efetuar o Cadastro.
      */
     function retornar() {
-        navigate("/login")
+        navigate("/login");
     }
 
     /**
@@ -118,7 +117,7 @@ function Cadastro() {
         setUsuario({
             ...usuario,
             [e.target.name]: e.target.value,
-        })
+        });
     }
 
     /**
@@ -128,7 +127,7 @@ function Cadastro() {
      * chamada e atualiza o Estado.
      */
     function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
-        setConfirmarSenha(e.target.value)
+        setConfirmarSenha(e.target.value);
     }
 
     /**
@@ -146,7 +145,7 @@ function Cadastro() {
          * recarregada todas as vezes que os dados do formulário forem enviados, ao clicar
          * no botão cadastrar.
          */
-        e.preventDefault()
+        e.preventDefault();
 
         /**
          * O Laço Condicional verifica se a senha digitada no input senha e
@@ -159,7 +158,7 @@ function Cadastro() {
              * para true, indicando que o processo de cadastro está em andamento,
              * exibindo o Loader.
              */
-            setIsLoading(true)
+            setIsLoading(true);
 
             try {
                 /**
@@ -172,25 +171,32 @@ function Cadastro() {
                  * - A função setUsuario, que será utilizada para atualizar o Estado do objeto usuario,
                  *   com os dados recebidos na Resposta da Requisição HTTP.
                  */
-                await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario)
-                ToastAlerta("Usuário Cadastrado com sucesso!", 'sucesso')
+                await cadastrarUsuario(
+                    "/usuarios/cadastrar",
+                    usuario,
+                    setUsuario
+                );
+                ToastAlerta("Usuário Cadastrado com sucesso!", "sucesso");
             } catch (error) {
-                ToastAlerta("Erro ao cadastrar o Usuário!", 'erro')
+                ToastAlerta("Erro ao cadastrar o Usuário!", "erro");
             }
         } else {
-            ToastAlerta("Dados do usuário inconsistentes! Verifique as informações e tente novamente.", 'erro')
-            setUsuario({ ...usuario, senha: "" })
-            setConfirmarSenha("")
+            ToastAlerta(
+                "Dados do usuário inconsistentes! Verifique as informações e tente novamente.",
+                "info"
+            );
+            setUsuario({ ...usuario, senha: "" });
+            setConfirmarSenha("");
         }
 
-        setIsLoading(false)
+        setIsLoading(false);
     }
 
     return (
         <>
             <div
                 className="grid grid-cols-1 lg:grid-cols-2 h-screen 
-            place-items-center font-bold"
+            place-items-center font-bold "
             >
                 <div className="fundoCadastro hidden lg:block"></div>
 
@@ -212,7 +218,7 @@ function Cadastro() {
                             id="nome_usuario"
                             name="nome_usuario"
                             placeholder="Nome"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className=" rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -229,7 +235,9 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
                     <div className="flex flex-col w-full">
@@ -238,8 +246,8 @@ function Cadastro() {
                             type="text"
                             id="usuario"
                             name="usuario"
-                            placeholder="Usuario"
-                            className="border-2 border-slate-700 rounded p-2"
+                            placeholder="user@email.com"
+                            className="rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -256,18 +264,20 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <label htmlFor="num_celular">Número Celular</label>
+                        <label htmlFor="num_celular">Telefone</label>
                         <input
                             type="text"
                             id="num_celular"
                             name="num_celular"
-                            placeholder="Número celular"
-                            className="border-2 border-slate-700 rounded p-2"
+                            placeholder="(xx) xxxxx-xxxx"
+                            className="rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -284,7 +294,9 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
 
@@ -294,8 +306,8 @@ function Cadastro() {
                             type="text"
                             id="endereco"
                             name="endereco"
-                            placeholder="endereco"
-                            className="border-2 border-slate-700 rounded p-2"
+                            placeholder="R. Nome da Rua, 123 - Bairro - Cidade/UF - CEP"
+                            className="rounded-2xl border-2 border-slate-700  p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -312,10 +324,11 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
-
 
                     <div className="flex flex-col w-full">
                         <label htmlFor="foto">Foto</label>
@@ -323,8 +336,8 @@ function Cadastro() {
                             type="text"
                             id="foto"
                             name="foto"
-                            placeholder="Foto"
-                            className="border-2 border-slate-700 rounded p-2"
+                            placeholder="Insira o link da sua foto de perfil..."
+                            className="rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -341,7 +354,9 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
                     <div className="flex flex-col w-full">
@@ -350,8 +365,8 @@ function Cadastro() {
                             type="password"
                             id="senha"
                             name="senha"
-                            placeholder="Senha"
-                            className="border-2 border-slate-700 rounded p-2"
+                            placeholder="Insira sua senha..."
+                            className="rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -368,7 +383,9 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e),
                              * receberá os dados do input que foi modificado, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                atualizarEstado(e)
+                            }
                         />
                     </div>
                     <div className="flex flex-col w-full">
@@ -378,7 +395,7 @@ function Cadastro() {
                             id="confirmarSenha"
                             name="confirmarSenha"
                             placeholder="Confirmar Senha"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className="rounded-xl border-2 border-slate-700 p-2"
                             /**
                              * Através da propriedade value, definimos que o valor dentro desse
                              * input será o valor armazenado no Estado confirmaSenha.
@@ -394,13 +411,15 @@ function Cadastro() {
                              * A função (e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e),
                              * receberá os dados do input confirmarSenha, através do parâmetro e (Evento).
                              */
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                handleConfirmarSenha(e)
+                            }
                         />
                     </div>
                     <div className="flex justify-around w-full gap-8">
                         <button
                             type="reset"
-                            className="rounded text-white bg-red-400 hover:bg-red-700 w-1/2 py-2"
+                            className="rounded  text-white bg-red-400 hover:bg-red-700 w-1/2 py-2"
                             onClick={retornar}
                         >
                             Cancelar
@@ -438,7 +457,7 @@ function Cadastro() {
                 </form>
             </div>
         </>
-    )
+    );
 }
 
-export default Cadastro
+export default Cadastro;

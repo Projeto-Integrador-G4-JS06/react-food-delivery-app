@@ -1,4 +1,4 @@
-import { ShoppingCart, User } from "@phosphor-icons/react";
+import { ShoppingCart } from "@phosphor-icons/react";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { useState, ChangeEvent, FormEvent } from "react";
 
@@ -58,7 +58,7 @@ function Navbar() {
 
           <div className="flex items-center gap-7 py-4">
             <Link
-              to="/produtos"
+              to="/cadastrarproduto"
               className="hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
             >
               Produtos

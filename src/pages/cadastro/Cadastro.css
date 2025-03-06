@@ -1,8 +1,13 @@
 .fundoCadastro {
-    background-image: url("https://i.imgur.com/ZZFAmzo.jpg");
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-  }
+  background: linear-gradient(rgba(74, 0, 224, 0.7), rgba(142, 45, 226, 0.7)), 
+              url("https://ik.imagekit.io/t10wpd1oka/produtos%20food%20ecommerce/imagem_cadastro_usuario.svg?updatedAt=1741283857496");
+  background-repeat: no-repeat;
+  background-size: contain; /* Ajusta a imagem sem cortar */
+  background-position: center;
+  background-color: #4A00E0; /* Cor de fundo caso a imagem não carregue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
