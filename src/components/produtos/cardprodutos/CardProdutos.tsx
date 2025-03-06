@@ -11,7 +11,7 @@ function CardProduto({ produto }: CardProdutosProps) {
 
   return (
     <div
-      className="w-100 h-auto sm:w-139 mx-auto mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-lg flex drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+      className="w-100 h-auto sm:w-139 mx-auto m-6 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-lg flex drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
