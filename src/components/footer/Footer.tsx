@@ -8,19 +8,16 @@ import { Link } from "react-router-dom";
 function Footer() {
   let data = new Date().getFullYear();
 
-  return (
-    <footer className="w-full bottom-0 px-15 flex justify-center bg-[#CD533B] text-white font-heading">
+    return (
+        <footer className="w-full px-15 flex justify-center bg-[#CD533B] text-white font-heading">
       {/* Footer Responsivo (Mobile e Desktop) */}
-      <div className="container mx-auto max-md:flex-col px-4 flex flex-row justify-between items-center py-4 pt-5">
-        <Link
-          to="/home"
-          className="text-3xl font-logo ease-in-out hover:text-[#FFC100] transition-colors duration-200"
-        >
+      <div className="container mx-auto max-md:flex-col px-5 flex flex-row justify-between items-center py-4 pt-5">
+        <Link to="/home" className="text-3xl font-logo ease-in-out hover:text-[#FFC100] transition-colors duration-200">
           PedeAí!
         </Link>
 
-        <p className="text-xs md:text-sm xl:text-lg py-2">
-          Tá com fome? Pede Aí! | © {data}
+        <p className="text-xs md:text-sm xl:text-lg py-2 text-center">
+        Bateu a fome? Quer comer saudável? Pede Aí! | © {data} 
         </p>
 
         <section className="flex gap-3 py-1">

@@ -11,6 +11,7 @@ import Perfil from "./pages/perfil/Perfil";
 import DeletarProduto from "./components/produtos/deletarproduto/DeletarProduto";
 import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
 import ListaProdutosSaudaveis from "./components/produtos/listaprodutos/ListaProdutosSaudaveis";
+import FormProdutos from "./components/produtos/formprodutos/FormProdutos";
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
 
-          <div className="flex flex-col min-h-[80vh] bg-[#F5F5DC] ">
+          <div className="scroll-smooth antialiased min-h-[80vh]">
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -31,10 +32,16 @@ function App() {
                 
                 <Route path="/produto/:id" element={<DeletarProduto />} />
                 <Route path="/produtos" element={<ListaProdutos />} />
-                <Route path="/produtos/healthy" element={<ListaProdutosSaudaveis />} />
+                <Route
+                  path="/produtos/healthy"
+                  element={<ListaProdutosSaudaveis />}
+                />
+                <Route path="/cadastrarproduto" element={<FormProdutos />} />
+                <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
               </Routes>
             </div>
           </div>
+          
           <Footer />
         </BrowserRouter>
       </AuthProvider>
