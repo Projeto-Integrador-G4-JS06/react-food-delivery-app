@@ -9,15 +9,14 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/login/Login";
 import Perfil from "./pages/perfil/Perfil";
 import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
+import ListaProdutosSaudaveis from "./components/produtos/listaprodutos/ListaProdutosSaudaveis";
+import FormProdutos from "./components/produtos/formprodutos/FormProdutos";
 
 function App() {
   return (
       <AuthProvider>
         <BrowserRouter>
-            <Navbar />
-
-          <div className="flex flex-col min-h-[80vh] bg-gray-200 ">
-            <div className="flex-grow">
+          <Navbar />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
@@ -25,9 +24,14 @@ function App() {
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/produtos" element={<ListaProdutos />} />
+                <Route
+                  path="/produtos/healthy"
+                  element={<ListaProdutosSaudaveis />}
+                />
+                <Route path="/cadastrarproduto" element={<FormProdutos />} />
+                <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
               </Routes>
-            </div>
-          </div>
+    
           <Footer />
         </BrowserRouter>
       </AuthProvider>

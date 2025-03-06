@@ -58,7 +58,7 @@ function Navbar() {
 
           <div className="flex items-center gap-7 py-4">
             <Link
-              to="/cadastrarproduto"
+              to="/produtos"
               className="hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#FFC100]"
             >
               Produtos
