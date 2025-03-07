@@ -7,16 +7,22 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Produto from "../../../models/Produto";
 
 function DeletarProduto() {
+
   const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [produto, setProduto] = useState<Produto>({} as Produto);
 
-  const alertaExibido = useRef(false);
-
   const { id } = useParams<{ id: string }>();
+
   const { usuario, handleLogout } = useContext(AuthContext);
 
   const token = usuario.token;
+
+  const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
+
+  const alertaExibido = useRef(false);
 
   async function buscarPorId(id: string) {
     console.log("Buscando produto com ID:", id);
@@ -25,14 +31,22 @@ function DeletarProduto() {
       console.log("Produto carregado:", produto);
     } catch (error: unknown) {
       console.error("Erro ao buscar produto:", error);
-      ToastAlerta("EErro ao buscar produto!", "erro");
+      ToastAlerta("Erro ao buscar produto!", "erro");
       retornar();
     }
   }
 
   useEffect(() => {
-    console.log("ID do produto:", id); // 🔹 Debug para ver se o ID está vindo correto
-    if (id !== undefined) {
+    if (token === "" && !alertaExibido.current) {
+      ToastAlerta("Você precisa estar logado", "info");
+      alertaExibido.current = true;
+      navigate("/login");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
+      buscaExecutada.current = true; // Marca a busca como executada
       buscarPorId(id);
     }
   }, [id]);
@@ -60,13 +74,7 @@ function DeletarProduto() {
     navigate("/produtos");
   }
 
-  useEffect(() => {
-    if (token === "" && !alertaExibido.current) {
-      ToastAlerta("Você precisa estar logado", "info");
-      alertaExibido.current = true;
-      navigate("/login");
-    }
-  }, [token]);
+  
 
   if (!produto.nome_produto) {
     return (
