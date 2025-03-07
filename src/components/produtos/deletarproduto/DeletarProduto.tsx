@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { listar, deletar, buscar } from "../../../services/Service";
+import { listar, deletar } from "../../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Produto from "../../../models/Produto";
@@ -11,6 +11,8 @@ function DeletarProduto() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [produto, setProduto] = useState<Produto>({} as Produto);
 
+  const alertaExibido = useRef(false);
+
   const { id } = useParams<{ id: string }>();
   const { usuario, handleLogout } = useContext(AuthContext);
 
@@ -19,14 +21,12 @@ function DeletarProduto() {
   async function buscarPorId(id: string) {
     console.log("Buscando produto com ID:", id);
     try {
-      await buscar(`/produtos/id/${id}`, setProduto, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await listar(`/produtos/id/${id}`, setProduto);
       console.log("Produto carregado:", produto);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erro ao buscar produto:", error);
+      ToastAlerta("EErro ao buscar produto!", "erro");
+      retornar();
     }
   }
 
@@ -45,10 +45,15 @@ function DeletarProduto() {
       });
       ToastAlerta("Produto deletado com sucesso!", "sucesso");
       navigate("/produtos");
-    } catch (error: any) {
-      console.error("Erro ao deletar produto:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message.includes("401")) {
+        handleLogout()
+      } else {
+        ToastAlerta("Erro ao deletar produto!", "erro");
+      }
     }
     setIsLoading(false);
+    retornar();
   }
 
   function retornar() {
@@ -56,9 +61,10 @@ function DeletarProduto() {
   }
 
   useEffect(() => {
-    if (token === "") {
-      ToastAlerta("Você precisa estar logado!", "info");
-      navigate("/");
+    if (token === "" && !alertaExibido.current) {
+      ToastAlerta("Você precisa estar logado", "info");
+      alertaExibido.current = true;
+      navigate("/login");
     }
   }, [token]);
 
