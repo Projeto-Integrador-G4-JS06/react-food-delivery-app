@@ -52,7 +52,7 @@ function CarroselCategoria() {
       {
         breakpoint: 768, // Telas médias
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -68,7 +68,7 @@ function CarroselCategoria() {
 
   return (
     <>
-      <div className="p-10  overflow-hidden">
+      <div className="p-10 -mb-5 overflow-hidden">
         <Slider {...settings}>
           {categorias.map((categoria) => (
             <div

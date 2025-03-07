@@ -17,7 +17,9 @@ import FormProdutos from "./components/produtos/formprodutos/FormProdutos";
 import ListaCategorias from "./components/categorias/listarcategorias/ListarCategorias";
 import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
-import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
+// import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
+import Cadastro from "./pages/cadastro/Cadastro";
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/categorias" element={<ListaCategorias />} />

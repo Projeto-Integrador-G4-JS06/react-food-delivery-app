@@ -11,7 +11,7 @@ export default interface Usuario {
     cnpj: string | null;
     foto: string;
     endereco: string;
-    criado_em: string | null;
-    atualizado_em: string | null;
+    criado_em: string;
+    atualizado_em: string;
     produtos?: Produto[] | null;
 }

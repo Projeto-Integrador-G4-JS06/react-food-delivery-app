@@ -20,8 +20,8 @@ function FormProdutos() {
     nome_categoria: '',
     descricao: '',
     icone: '',
-    criado_em: '',
-    atualizado_em: '',
+    criado_em: new Date().toISOString(),
+    atualizado_em: new Date().toISOString(),
     status: false,
   });
 
@@ -33,7 +33,7 @@ function FormProdutos() {
   const { id } = useParams<{ id: string }>();
 
   const { usuario, handleLogout } = useContext(AuthContext);
-  
+
   const token = usuario.token;
 
   async function buscarProdutoPorId(id: string) {
@@ -249,13 +249,13 @@ function FormProdutos() {
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
+                required // Campo obrigatório
               >
-                <option value="" selected disabled>
+                <option value="" disabled>
                   Selecione uma Categoria
                 </option>
-
                 {categorias.map((categoria) => (
                   <option className="text-gray-700" value={categoria.id} key={categoria.id}>
                     {categoria.nome_categoria}
@@ -271,10 +271,11 @@ function FormProdutos() {
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
                 onChange={atualizarEstadoSelect}
+                required // Campo obrigatório
               >
-                <option value="" selected disabled>
+                <option value="" disabled>
                   Selecione o Nutri Score
                 </option>
                 <option className="text-gray-700" value="A">
