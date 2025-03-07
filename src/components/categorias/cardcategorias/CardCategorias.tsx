@@ -27,16 +27,16 @@ function CardCategorias({ categoria }: CardCategoriaProps) {
       <div className="flex">
         {/* Versão para mobile */}
         <Link to={`/editarcategoria/${categoria.id}`}
-          className='flex items-center justify-center w-full py-2 bg-emerald-500 text-slate-50 hover:bg-emerald-700'>
+          className='flex items-center justify-center w-full py-2 bg-emerald-700 text-slate-50 hover:bg-emerald-500'>
           <button className="md:hidden"><Pencil size={24} className='text-white' /></button>
-          <button className="hidden md:block text-xs font-semibold">Editar</button>
+          <button className="hidden md:block text-s font-semibold">Editar</button>
         </Link>
 
         {/* Versão para mobile */}
         <Link to={`/deletarcategoria/${categoria.id}`}
-          className='flex items-center justify-center w-full bg-red-600 text-slate-50 hover:bg-red-700'>
+          className='flex items-center justify-center w-full bg-red-700 text-slate-50 hover:bg-red-600'>
           <button className="md:hidden"><Trash size={24} className='text-white font-bold' /></button>
-          <button className="hidden md:block text-xs font-semibold">Deletar</button>
+          <button className="hidden md:block text-s font-semibold">Deletar</button>
         </Link>
       </div>
     </div >
