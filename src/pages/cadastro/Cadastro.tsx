@@ -63,8 +63,8 @@ function Cadastro() {
         cnpj: "",
         foto: "",
         endereco: "",
-        criado_em: "",
-        atualizado_em: "",
+        criado_em: new Date().toISOString(),
+        atualizado_em: new Date().toISOString(),
     });
 
     /**
@@ -198,7 +198,7 @@ function Cadastro() {
                 className="grid grid-cols-1 lg:grid-cols-2 h-screen 
             place-items-center font-bold "
             >
-                <div className="fundoCadastro hidden lg:block"></div>
+                <div className=" fundoCadastro hidden lg:block"></div>
 
                 {/* 
 				Adicionamos o Evento onSubmit no formulário, passando como argumento 
