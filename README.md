@@ -1,38 +1,47 @@
-# Nome do Projeto - Frontend 
+
+# PedeAí - Delivery de Alimentos - Frontend 
 
 <br />
 
 <div align="center">
-    <img src="https://i.imgur.com/AzshGmS.png" title="source: imgur.com" width="50%"/>
+    <img src="https://ik.imagekit.io/liaMatsubara/T%C3%A1%20com%20fome%20PedeA%C3%AD%20(1012%20x%20300%20px).png?updatedAt=1741355032966" title="source: imgur.com" width="150%"/>
 </div>
-*O Logo do React pode ser substituído pelo Logo do Projeto*
 
 <br /><br />
 
 ## 1. Descrição
 
-*Descreva brevemente o seu projeto*
+O PedeAí é um frontend desenvolvido com React e Vite, projetado para proporcionar uma experiência intuitiva e dinâmica em uma plataforma de delivery de alimentos. A aplicação se integra a um backend robusto, desenvolvido em NestJS, garantindo eficiência e rapidez na comunicação entre fornecedores e clientes.
+
+A interface responsiva e acessível permite que os usuários realizem cadastro, login e naveguem facilmente pelos produtos cadastrados pelos fornecedores. Além disso, o sistema oferece uma experiência de compra fluida, com listagem detalhada de produtos, organização por categorias e um processo simplificado de pedido.
+
+Os fornecedores podem gerenciar seus produtos e categorias diretamente na plataforma, enquanto os clientes desfrutam de uma navegação otimizada, com recomendações de alimentos saudáveis para uma escolha mais consciente. Tudo isso em um ambiente moderno e intuitivo, pensado para tornar o delivery mais prático e eficiente.
 
 ------
 
 ## 2. Recursos
 
-1. *Liste as principais funcionalidades e as features especiais implementadas no Projeto React*
+🔹 Cadastro e autenticação de usuários – Permite que clientes e fornecedores criem suas contas e façam login de forma segura.
+
+🔹 Gerenciamento de produtos – Fornecedores podem cadastrar, editar e remover produtos, garantindo que o catálogo esteja sempre atualizado.
+
+🔹 Exploração de produtos – Usuários podem visualizar todos os produtos disponíveis, filtrados por categorias, facilitando a navegação.
+
+🔹 Organização por categorias – Os produtos são estruturados em categorias para uma experiência mais intuitiva e prática.
+
+🔹 Recomendações de alimentos saudáveis – A plataforma sugere opções mais nutritivas para incentivar escolhas equilibradas.
+
+🔹 Interface responsiva e acessível – O design foi pensado para garantir uma navegação fluida em diferentes dispositivos, incluindo smartphones e desktops.
 
 ------
 
 ## 3. Protótipo e Capturas de Tela
 
-
-*Adicione print da tela inicial e/ou o link do protótipo no Figma (se houver)*
-
-<div align="center">
-    <img src="mudar" title="source: imgur.com" width="50%"/>
-</div>
-
 <br />
 
-<a href="https://imgur.com/vK8ulM5"><img src="https://i.imgur.com/vK8ulM5.png" title="source: imgur.com" width="3%"/></a> [Protótipo desenvolvido no Figma](link para o Figma do Projeto)
+<div align="center">
+    <img src="https://ik.imagekit.io/liaMatsubara/Design%20sem%20nome%20(16).png?updatedAt=1741355453096" title="source: imgur.com" width="50%"/>
+</div>
 
 ------
 
@@ -54,19 +63,44 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 
 - [Node.js](https://nodejs.org/) (v16+)
 - [yarn](https://yarnpkg.com/)
-- API NestJS API NestJS ([Repositório da API](link do repositório da api))
+- Backend da API NestJS rodando ([Repositório da API](https://github.com/Projeto-Integrador-G4-JS06/nest-food-delivery-app))
 
 ---
 
-## 6. Configuração e Execução
+## 6. Instalação - Ambiente Local
 
-1. Clone o repositório do Projeto
-2. Instale as dependências: `yarn`
-3. Clone o repositório do Projeto Backend: [Link](link do repositório do Backend)
-4. Siga as instruções de **Configuração e Execução** descritas no README do Projeto Backend
-5. Adicione o endereço de execução do projeto na variável de ambiente **VITE_API_URL**, no projeto React
-6. Execute o Projeto React: `yarn dev`
-7. A aplicação React estará disponível no endereço: `http://localhost:5173`
+### 6.1. Clonando o repositório
+
+```bash
+git clone git@github.com:Projeto-Integrador-G4-JS06/react-food-delivery-app.git
+cd react-food-delivery-app
+```
+
+### 6.2. Instalando as dependências
+
+Utilize o comando abaixo para instalar todas as bibliotecas através do yarn:
+
+```bash
+yarn
+```
+
+### 6.3. Configuração do ambiente
+
+A URL da API NestJS deve estar apontando para o endereço abaixo:
+
+```bash
+http://localhost:4000
+```
+
+### 6.4. Executando o projeto
+
+Inicie o servidor de desenvolvimento com o yarn:
+
+```bash
+yarn dev
+```
+
+A aplicação estará disponível no enderço: `http://localhost:5173`
 
 ---
 
@@ -86,10 +120,7 @@ src/
 
 ---
 
-## 8. Como Contribuir
+## 8. Implementações Futuras
 
-1. Faça um fork do projeto
-2. Crie uma branch com a sua feature (`git checkout -b minha-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Faça um push para a branch (`git push origin minha-feature`)
-5. Abra um Pull Request
+- [x] API externa para cálculo do Nutri Score
+- [x] API para métodos de pagamento e geolocalização
