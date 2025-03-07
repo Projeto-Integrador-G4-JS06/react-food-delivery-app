@@ -17,7 +17,7 @@ import FormProdutos from "./components/produtos/formprodutos/FormProdutos";
 import ListaCategorias from "./components/categorias/listarcategorias/ListarCategorias";
 import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
-// import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
+import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
 import Cadastro from "./pages/cadastro/Cadastro";
 
 
@@ -51,10 +51,10 @@ function App() {
               />
               <Route path="/cadastrarproduto" element={<FormProdutos />} />
               <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
-              {/* <Route
+              <Route
                 path="/produtos/categoria/:nome_categoria"
                 element={<ListaProdutosCategorias />}
-              /> */}
+              />
             </Routes>
           </div>
           <Footer />

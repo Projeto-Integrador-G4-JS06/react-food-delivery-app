@@ -73,8 +73,8 @@ function CarroselCategoria() {
           {categorias.map((categoria) => (
             <div
               key={categoria.id}
-              // className="cursor-pointer"
-              // onClick={() => handleCategoriaClick(categoria.nome_categoria)}
+              className="cursor-pointer"
+              onClick={() => handleCategoriaClick(categoria.nome_categoria)}
             >
               <CardCategoriaHome categoria={categoria} />
             </div>
