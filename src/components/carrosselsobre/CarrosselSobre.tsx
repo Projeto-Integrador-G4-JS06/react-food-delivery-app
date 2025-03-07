@@ -15,7 +15,7 @@ const CardsDados = [
     nome: "Fernando",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/fernando.jpeg?updatedAt=1740587313152",
     cargo: "Desenvolvedor Full Stack",
-    responsabilidades: ['Perfil', 'Deploy'],
+    responsabilidades: ['Perfil', 'Deploy','Home-Produtos Saudáveis'],
     linkedin: "https://www.linkedin.com/in/fernando-lana/",
     github: "https://github.com/loslanas"
   },
@@ -31,7 +31,7 @@ const CardsDados = [
     nome: "Isis",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/Isis.png?updatedAt=1740587313258",
     cargo: "Desenvolvedora Full Stack",
-    responsabilidades: ['Home', 'NavBar', 'Footer', 'DeletarProduto'],
+    responsabilidades: ['Home', 'NavBar', 'Footer', 'DeletarProduto', 'Figma'],
     linkedin: "https://www.linkedin.com/in/isis-okamoto/",
     github: "https://github.com/iyumw"
   },
@@ -54,8 +54,8 @@ const CardsDados = [
   {
     nome: "Samuel",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/samuel.jpeg?updatedAt=1740587313309",
-    cargo: "Desenvolvedor Full Stack",
-    responsabilidades: ['Categoria', 'CardProduto'],
+    cargo: "Desenvolvedor Full Stack & Tester",
+    responsabilidades: ['API Back-End', 'CardProduto', 'Tester','Design Responsivo'],
     linkedin: "https://www.linkedin.com/in/samueldos-santos/",
     github: "https://github.com/Samuel-1210"
   },
