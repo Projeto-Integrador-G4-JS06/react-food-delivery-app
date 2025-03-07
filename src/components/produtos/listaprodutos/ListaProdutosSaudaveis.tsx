@@ -18,7 +18,7 @@ function ListaProdutosSaudaveis() {
       await listar("/produtos/healthy", setProdutos);
     } catch (error: any) {
       if (error.toString().includes("403")) {
-        alert("Erro ao carregar produtos.");
+        alert("Erro ao carregar produtos.");  
       }
     } finally {
       setIsLoading(false); // Finaliza o carregamento, independentemente do resultado
