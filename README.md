@@ -24,7 +24,6 @@
 ## 3. Protótipo e Capturas de Tela
 
 
-
 *Adicione print da tela inicial e/ou o link do protótipo no Figma (se houver)*
 
 <div align="center">
