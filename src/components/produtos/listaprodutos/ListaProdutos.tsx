@@ -11,6 +11,7 @@ function ListaProdutos() {
   const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
 
   const { usuario, handleLogout } = useContext(AuthContext);
+  
   const token = usuario.token;
 
   async function buscarProdutos() {
@@ -41,8 +42,8 @@ function ListaProdutos() {
       {/* Renderiza os componentes apenas quando o carregamento terminar */}
       {!isLoading && produtos.length > 0 && (
         <>
-          <div className="sm:p-16 mb- flex flex-col w-screen justify-center items-end sm:flex-row sm:justify-between bg-[#646F4B] h-[8.18rem] sm:items-center ">
-            <div className="hidden sm:block mr-6 text-white text-3xl mt-5">
+          <div className="sm:p-16 flex flex-col w-screen justify-center items-end sm:flex-row sm:justify-between bg-[#646F4B] h-[8.18rem] sm:items-center ">
+            <div className="hidden sm:block mr-6 text-white text-3xl ">
               Produtos
             </div>
             <div className="mr-4 mb-2">

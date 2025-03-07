@@ -61,7 +61,12 @@ function ListaCategorias() {
                         <div className="w-full h-30 flex justify-between px-8 items-center bg-[var(--color-olive-500)] text-white">
                             <p className="text-2xl font-[family-name:var(--font-heading)]">Categorias</p>
                             <Link to={`/cadastrarcategoria`}>
-                                <button className="text-lg border-[var(--color-red-500)] rounded-lg py-1 px-3 font-[family-name:var(--font-quicksand)] bg-[var(--color-red-500)] h-full transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer">Cadastrar Categoria</button>
+                            <button
+                type="submit"
+                className="font-heading mt-4 rounded-lg bg-[#CD533B] text-white h-13 w-55"
+              >
+                <Link to={'/cadastrarcategoria'}> Cadastrar Categoria</Link>
+              </button>
                             </Link>
 
                         </div>
