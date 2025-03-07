@@ -207,10 +207,10 @@ function Cadastro() {
 				executada. 
 				*/}
                 <form
-                    className="flex justify-center items-center flex-col w-2/3 gap-3"
+                    className="font-heading flex justify-center items-center flex-col w-2/3 gap-3"
                     onSubmit={cadastrarNovoUsuario}
                 >
-                    <h2 className="text-slate-900 text-5xl">Cadastrar</h2>
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">Cadastrar</h2>
                     <div className="flex flex-col w-full">
                         <label htmlFor="nome_usuario">Nome</label>
                         <input
@@ -218,7 +218,7 @@ function Cadastro() {
                             id="nome_usuario"
                             name="nome_usuario"
                             placeholder="Nome"
-                            className=" rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -247,7 +247,7 @@ function Cadastro() {
                             id="usuario"
                             name="usuario"
                             placeholder="user@email.com"
-                            className="rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -277,7 +277,7 @@ function Cadastro() {
                             id="num_celular"
                             name="num_celular"
                             placeholder="(xx) xxxxx-xxxx"
-                            className="rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -307,7 +307,7 @@ function Cadastro() {
                             id="endereco"
                             name="endereco"
                             placeholder="R. Nome da Rua, 123 - Bairro - Cidade/UF - CEP"
-                            className="rounded-2xl border-2 border-slate-700  p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -337,7 +337,7 @@ function Cadastro() {
                             id="foto"
                             name="foto"
                             placeholder="Insira o link da sua foto de perfil..."
-                            className="rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -366,7 +366,7 @@ function Cadastro() {
                             id="senha"
                             name="senha"
                             placeholder="Insira sua senha..."
-                            className="rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -395,7 +395,7 @@ function Cadastro() {
                             id="confirmarSenha"
                             name="confirmarSenha"
                             placeholder="Confirmar Senha"
-                            className="rounded-xl border-2 border-slate-700 p-2"
+                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor dentro desse
                              * input será o valor armazenado no Estado confirmaSenha.
@@ -419,16 +419,16 @@ function Cadastro() {
                     <div className="flex justify-around w-full gap-8">
                         <button
                             type="reset"
-                            className="rounded  text-white bg-red-400 hover:bg-red-700 w-1/2 py-2"
+                            className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
+                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
                             onClick={retornar}
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            className="rounded text-white bg-indigo-400 
-                           hover:bg-indigo-900 w-1/2 py-2
-                           flex justify-center"
+                            className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
+                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
                         >
                             {/* 
                             Através de uma Expressão Ternária, verificaremos qual é o valor atual do Estado 
