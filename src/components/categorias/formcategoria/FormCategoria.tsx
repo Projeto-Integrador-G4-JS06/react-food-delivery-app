@@ -25,18 +25,19 @@ function FormCategoria() {
 
     async function buscarCategoriaPorId(id: string) {
         try {
-            await listar(`/categorias/${id}`, setCategoria);
+            await listar(`/categorias/id/${id}`, setCategoria);
         } catch (error: unknown) {
-            console.error("Erro ao cadastrar/atualizar categoria:", error);
-            ToastAlerta("Categoria não encontrada!", "info");
+            console.error("Erro ao encontrar categoria:", error);
+            ToastAlerta("Categoria não encontrada!", "erro");
             retornar();
         }
     }
 
     useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
+        if (token === "" && !buscaExecutada.current) {
+            ToastAlerta("Você precisa estar logado", "info");
+            buscaExecutada.current = true;
+            navigate('/login')
         }
     }, [token])
 
