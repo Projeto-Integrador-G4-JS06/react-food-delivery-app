@@ -50,7 +50,7 @@ function ListaCategorias() {
                     />
                 </div>
             )}
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full pb-8 flex justify-center items-center">
                 <div className="container flex flex-col mx-4">
                     {(!isLoading && categorias.length === 0) && (
                         <span className="my-8 text-3xl text-center">
