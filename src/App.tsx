@@ -8,6 +8,9 @@ import "./App.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/login/Login";
 import Perfil from "./pages/perfil/Perfil";
+import Sobre from "./pages/sobre/Sobre";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import DeletarProduto from "./components/produtos/deletarproduto/DeletarProduto";
 import ListaProdutos from "./components/produtos/listaprodutos/ListaProdutos";
 import ListaProdutosSaudaveis from "./components/produtos/listaprodutos/ListaProdutosSaudaveis";
@@ -28,6 +31,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/perfil" element={<Perfil />} />
+              <Route path="/sobre" element={<Sobre />} />
               <Route path="/categorias" element={<ListaCategorias />} />
               <Route path="/cadastrarcategoria" element={<FormCategoria />} />
               <Route path="/editarcategoria/:id" element={<FormCategoria />} />

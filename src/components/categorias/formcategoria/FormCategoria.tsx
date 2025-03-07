@@ -3,8 +3,9 @@ import Categoria from "../../../models/Categoria";
 import { atualizar, cadastrar, listar } from "../../../services/Service";
 import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
-import { PacmanLoader } from "react-spinners";
+// import { PacmanLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { RotatingLines } from "react-loader-spinner";
 
 function FormCategoria() {
 
@@ -24,20 +25,21 @@ function FormCategoria() {
 
     async function buscarCategoriaPorId(id: string) {
         try {
-            await listar(`/categorias/${id}`, setCategoria);
+            await listar(`/categorias/id/${id}`, setCategoria);
         } catch (error: unknown) {
-            console.error("Erro ao cadastrar/atualizar categoria:", error);
-            ToastAlerta("Categoria não encontrada!", "info");
+            console.error("Erro ao encontrar categoria:", error);
+            ToastAlerta("Categoria não encontrada!", "erro");
             retornar();
         }
     }
 
-    // useEffect(() => {
-    //     if (token === '') {
-    //         ToastAlerta('Você precisa estar logado!', 'info')
-    //         navigate('/')
-    //     }
-    // }, [token])
+    useEffect(() => {
+        if (token === "" && !buscaExecutada.current) {
+            ToastAlerta("Você precisa estar logado", "info");
+            buscaExecutada.current = true;
+            navigate('/login')
+        }
+    }, [token])
 
     useEffect(() => {
         if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
@@ -113,7 +115,7 @@ function FormCategoria() {
                         {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
                     </h1>
 
-                    {isLoading && (
+                    {/* {isLoading && (
                         <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
                             <PacmanLoader
                                 color="#0D9488"
@@ -123,36 +125,57 @@ function FormCategoria() {
                                 aria-label="Pacman-loading"
                             />
                         </div>
-                    )}
+                    )} */}
 
-                    <form className="flex flex-col w-full gap-4" onSubmit={gerarNovaCategoria}>
+                    <form className="flex flex-col w-full gap-4 text-gray-700 font-medium" onSubmit={gerarNovaCategoria}>
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="categoria" className="flex justify-center lg:justify-start">Informações da Categoria</label>
+                            <label htmlFor="categoria" className="flex justify-center lg:justify-start">Nome da Categoria</label>
                             <input
                                 type="text"
                                 placeholder="Informe aqui o nome da categoria"
-                                name='nome'
-                                className="text-sm md:text-base p-2 border-2 rounded border-slate-700 bg-white"
+                                name='nome_categoria'
+                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
                                 required
                                 value={categoria.nome_categoria}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
+                            <label htmlFor="descricao" className="flex justify-center lg:justify-start">Descrição</label>
                             <input
                                 type="text"
                                 placeholder="Informe aqui a descrição da categoria"
                                 name='descricao'
-                                className="text-sm md:text-base p-2 border-2 rounded border-slate-700 bg-white"
+                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
                                 required
                                 value={categoria.descricao}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
+                            <label htmlFor="icone" className="flex justify-center lg:justify-start">ícone (imagem)</label>
+                            <input
+                                type="text"
+                                placeholder="Insira o link da imagem da categoria"
+                                name='icone'
+                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+                                required
+                                value={categoria.icone}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            />
                         </div>
                         <button
-                            className="flex justify-center w-32 lg:w-48 py-2 mx-auto rounded text-white text-sm lg:text-base bg-slate-700 hover:bg-slate-800"
+                            className="flex justify-center w-32 lg:w-48 py-2 mx-auto rounded-xl text-white text-sm lg:text-base bg-[#CD533B] hover:bg-[#EA5A3D]"
                             type="submit"
-                            disabled={isLoading} // Desabilita o botão durante o carregamento
+                        // disabled={isLoading} // Desabilita o botão durante o carregamento
                         >
-                            <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
+                            {isLoading ? (
+                                <RotatingLines
+                                    strokeColor="white"
+                                    strokeWidth="5"
+                                    animationDuration="0.75"
+                                    width="24"
+                                    visible={true}
+                                />
+                            ) : (
+                                <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
+                            )}
                         </button>
                     </form>
                 </div>
