@@ -36,7 +36,7 @@ function ListaProdutos() {
             <div className="hidden sm:block mr-6 text-white text-3xl ">
               Produtos
             </div>
-            <div className="mr-4 mb-2">
+            <div className="mr-12 mb-2">
               <button
                 type="submit"
                 className="font-heading mt-4 rounded-lg bg-[#CD533B] text-white h-13 w-55"
