@@ -31,18 +31,8 @@ function ListaProdutos() {
   }, [produtos.length]);
 
   return (
-    <div className="">
-      {/* Exibe o loading enquanto os produtos estão sendo carregados */}
-      {isLoading && (
-        <div className="flex justify-center items-center h-screen">
-          <ClipLoader color="#FF6F61"/>
-        </div>
-      )}
-
-      {/* Renderiza os componentes apenas quando o carregamento terminar */}
-      {!isLoading && produtos.length > 0 && (
-        <>
-          <div className="sm:p-16 flex flex-col w-screen justify-center items-end sm:flex-row sm:justify-between bg-[#646F4B] h-[8.18rem] sm:items-center ">
+  <>
+    <div className="sm:p-16 flex flex-col w-screen justify-center items-end sm:flex-row sm:justify-between bg-[#646F4B] h-[8.18rem] sm:items-center ">
             <div className="hidden sm:block mr-6 text-white text-3xl ">
               Produtos
             </div>
@@ -55,6 +45,18 @@ function ListaProdutos() {
               </button>
             </div>
           </div>
+    <div className="">
+      {/* Exibe o loading enquanto os produtos estão sendo carregados */}
+      {isLoading && (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader color="#FF6F61"/>
+        </div>
+      )}
+
+      {/* Renderiza os componentes apenas quando o carregamento terminar */}
+      {!isLoading && produtos.length > 0 && (
+        <>
+          
 
           <div className="flex justify-center bg-[#F6EED9] ">
             <div className="flex flex-col">
@@ -68,7 +70,7 @@ function ListaProdutos() {
         </>
       )}
     </div>
-  );
+    </> );
 }
 
 export default ListaProdutos;

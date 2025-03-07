@@ -7,12 +7,14 @@ function Sobre() {
             <div className="container">
                 <div className="mx-4">
                     {/* sobre o projeto */}
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="flex flex-col justify-center items-center gap-8">
-                            <h1 className="font-heading text-4xl text-[#CD533B] font-medium">
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
+                        <div className=" flex flex-col justify-center items-center gap-8">
+                            <div className="">
+                            <h1 className="pt-4 font-heading text-4xl text-[#CD533B] font-medium">
                                 Tá com fome? PedeAí!
                             </h1>
-                            <div>
+                            </div>
+                            <div className="text-justify">
                                 <p>
                                     Com o <span className="font-semibold">PedeAí</span>, pedir comida é simples e rápido. Escolha entre diversos restaurantes, encontre o prato perfeito e receba tudo no conforto da sua casa – sem complicação e do jeito que você gosta!
                                 </p>
@@ -30,8 +32,8 @@ function Sobre() {
 
                         </div>
 
-                        <div className="">
-                            <img src="https://ik.imagekit.io/liaMatsubara/Obrigado!.svg?updatedAt=1741277224988" alt="" className="" />
+                        <div className="order-2">
+                            <img src="https://ik.imagekit.io/liaMatsubara/Obrigado!.svg?updatedAt=1741277224988" alt="" className="order-2" />
                         </div>
                     </div>
 
