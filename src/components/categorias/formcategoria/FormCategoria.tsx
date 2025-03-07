@@ -52,8 +52,8 @@ function FormCategoria() {
                 nome_categoria: '',
                 descricao: '',
                 icone: '',
-                criado_em: '',
-                atualizado_em: '',
+                criado_em: new Date().toISOString(),
+                atualizado_em: new Date().toISOString(),
                 status: false,
             });
         }
