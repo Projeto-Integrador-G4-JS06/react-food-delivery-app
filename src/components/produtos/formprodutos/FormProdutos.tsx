@@ -2,7 +2,7 @@ import { useState, useEffect, ChangeEvent, useContext, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import Produto from "../../../models/Produto";
-import { cadastrar, buscar, atualizar, listar } from "../../../services/Service";
+import { cadastrar, atualizar, listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
