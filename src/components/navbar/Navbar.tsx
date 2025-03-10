@@ -1,29 +1,52 @@
-import { ShoppingCart, List, X } from "@phosphor-icons/react";
+import {
+  ShoppingCart,
+  List,
+  X,
+  User,
+  SignIn,
+  SignOut,
+} from "@phosphor-icons/react";
 import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
-import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  FormEvent,
+  useContext,
+} from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 import { DropdownUsuario } from "./DropdownUsuario";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import logo from '../../assets/PedeAi_padrao.svg';
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [nome, setNome] = useState<string>("");
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const [nome, setNome] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef(null);
 
-  function handleBuscarProdutos(e: ChangeEvent<HTMLInputElement>) {
+  function handleBuscarProdutos(e) {
     setNome(e.target.value);
   }
 
-  function buscarProdutos(e: FormEvent<HTMLFormElement>) {
+  function buscarProdutos(e) {
     e.preventDefault();
     navigate(`/consultarnome/${nome}`);
     setNome("");
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+  function logout() {
+    handleLogout();
+    ToastAlerta("O Usuário foi desconectado com sucesso!", "info");
+    navigate("/");
+  }
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
   };
@@ -39,28 +62,34 @@ function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
+  // Função para abrir/fechar o menu
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   return (
-    <nav className="font-body uppercase w-full px-5 py-3 bg-[#CD533B] shadow-lg relative">
+    <nav className="font-body uppercase w-full px-8 py-3 bg-[#f1f1f1] shadow-lg relative">
       <div className="container mx-auto flex items-center justify-between">
+        {/* Botão do menu mobile */}
         <button
-          className="md:hidden text-white border-3 rounded-lg border-[#FFC100] p-1.25"
-          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden text-red-100 border-3 rounded-lg border-red-100 p-1.25"
+          onClick={toggleMenu}
         >
-          {menuOpen ? <X size={32} /> : <List size={32} weight="regular" />}
+          <List size={32} weight="regular" />
         </button>
 
+        {/* Logo */}
         <Link to="/home">
           <img
-            src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/logo.png?updatedAt=1741184467390"
+            src={logo}
             alt="Logo"
-            className="w-20"
+            className="w-28 md:w-35"
           />
         </Link>
 
+        {/* Barra de busca (desktop) */}
         <div className="hidden md:flex items-center w-2/5">
           <form className="flex w-full" onSubmit={buscarProdutos}>
             <input
-              className="font-body w-full px-4 py-2 bg-white rounded-lg focus:outline-[#FFA500]"
+              className="font-body w-full px-4 py-2 bg-white rounded-lg focus:outline-red-100 border border-[#B8B8B8] shadow-sm"
               type="search"
               placeholder="Busque por itens ou lojas"
               required
@@ -69,97 +98,136 @@ function Navbar() {
             />
             <button
               type="submit"
-              className="text-white p-2 ms-2 bg-[#FFC100] hover:bg-[#FFA500] rounded-lg transition duration-300"
+              className="text-white p-2 ms-2 bg-red-100 hover:bg-[#e04a4a] rounded-lg transition duration-300"
             >
               <MagnifyingGlass size={17} weight="bold" />
             </button>
           </form>
         </div>
 
+        {/* Menu Desktop */}
         <div className="hidden md:flex gap-6 items-center ml-6">
           <Link
             to="/produtos"
-            className="text-white transition duration-300 ease-in-out hover:-translate-y-1"
+            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Produtos
           </Link>
           <Link
             to="/categorias"
-            className="text-white transition duration-300 ease-in-out hover:-translate-y-1"
+            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Categorias
           </Link>
           <Link
             to="/sobre"
-            className="text-white transition duration-300 ease-in-out hover:-translate-y-1"
+            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Sobre
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          {/* Ícone do perfil só aparece no desktop */}
+        {/* Ícones do usuário e carrinho */}
+        <div className="flex items-center gap-6">
           <div className="hidden md:block">
-            <DropdownUsuario />
+            {usuario.token ? (
+              <DropdownUsuario />
+            ) : (
+              <Link
+                to="/login"
+                className="p-2 rounded-lg text-red-100 transition duration-300 ease-in-out hover:-translate-y-1 active:text-[#e04a4a]"
+              >
+                <SignIn size={32} weight="regular" />
+              </Link>
+            )}
           </div>
 
-          {/* Carrinho continua visível */}
+          {/* Ícone do carrinho */}
           <Link
             to="/carrinho"
-            className="p-2 bg-[#FFC100] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
+            className="p-2 bg-red-100 active:bg-[#e04a4a] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
           >
             <ShoppingCart size={32} weight="regular" />
           </Link>
         </div>
       </div>
 
+      {/* Menu Mobile */}
       {menuOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
+          {/* Overlay com desfoque e transparência */}
           <div
-            className="absolute inset-0 backdrop-brightness-80"
+            className="absolute inset-0 backdrop-brightness-80 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           ></div>
-          <nav
+
+          {/* Conteúdo do Menu */}
+          <div
             ref={menuRef}
-            className="absolute top-[100px] left-0 w-4/6 bg-[#CD533B] text-white py-2 z-50 shadow-lg"
+            className="absolute top-0 h-full left-0 w-64 bg-[#E14848] bg-opacity-90 text-white py-4 z-50 shadow-lg"
           >
             <ul className="flex flex-col items-start px-4">
-              <li className="w-full py-3 border-b border-gray-400">
+              <li className="w-full py-3 border-b border-gray-300">
                 <Link
                   to="/produtos"
-                  className="transition duration-300 ease-in-out hover:-translate-y-1"
+                  className="block transition duration-300 ease-in-out hover:-translate-y-1"
                   onClick={() => setMenuOpen(false)}
                 >
                   Produtos
                 </Link>
               </li>
-              <li className="w-full py-3 border-b border-gray-400">
+              <li className="w-full py-3 border-b border-gray-300">
                 <Link
                   to="/categorias"
-                  className="transition duration-300 ease-in-out hover:-translate-y-1"
+                  className="block transition duration-300 ease-in-out hover:-translate-y-1"
                   onClick={() => setMenuOpen(false)}
                 >
                   Categorias
                 </Link>
               </li>
-              <li className="w-full py-3 border-b border-gray-400">
+              <li className="w-full py-3 border-b border-gray-300">
                 <Link
                   to="/sobre"
-                  className="transition duration-300 ease-in-out hover:-translate-y-1"
+                  className="block transition duration-300 ease-in-out hover:-translate-y-1"
                   onClick={() => setMenuOpen(false)}
                 >
                   Sobre
                 </Link>
               </li>
-              <li className="w-full py-3">
-                <DropdownUsuario>
-                  <span className="text-white hover:underline uppercase">
-                    Perfil
-                  </span>
-                </DropdownUsuario>
-              </li>
+
+              {usuario.token ? (
+                <>
+                  <li className="border-b border-gray-300 w-full py-3">
+                    <Link
+                      to="/perfil"
+                      className="block transition duration-300 ease-in-out hover:-translate-y-1"
+                    >
+                      Perfil
+                    </Link>
+                  </li>
+
+                  <li className="border-b border-gray-300 w-full py-3">
+                    <button
+                      onClick={logout}
+                      className="block uppercase transition duration-300 ease-in-out hover:-translate-y-1"
+                    >
+                      Sair
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li className="border-b border-gray-300 w-full py-3">
+                  <Link
+                    to="/login"
+                    className="block transition duration-300 ease-in-out hover:-translate-y-1"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
-          </nav>
+          </div>
         </div>
       )}
     </nav>
