@@ -20,7 +20,7 @@ const Home = () => {
         medium: 'https://ik.imagekit.io/iyume/pede%20a%C3%AD/1.png?updatedAt=1741271831216',
         large: 'https://ik.imagekit.io/iyume/pede%20a%C3%AD/Fa%C3%A7a_seu_pedido_agora!_upscaled.png?updatedAt=1741198804947',
       },
-      link: '/comprar',
+      link: '/produtos',
     },
     {
       image: {
@@ -28,7 +28,7 @@ const Home = () => {
         medium: 'https://ik.imagekit.io/iyume/pede%20a%C3%AD/1.png?updatedAt=1741271831216',
         large: 'https://ik.imagekit.io/iyume/pede%20a%C3%AD/Fa%C3%A7a_seu_pedido_agora!_upscaled.png?updatedAt=1741198804947',
       },
-      link: '/promocoes',
+      link: '/produtos',
     },
   ];
 

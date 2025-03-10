@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
-import { DNA } from "react-loader-spinner";
 import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
+import { ClipLoader } from "react-spinners";
+import CardProdutosSaudaveis from "../cardprodutossaudaveis/CardProdutosSaudaveis";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -14,14 +15,10 @@ function ListaProdutosSaudaveis() {
 
   async function buscarProdutos() {
     try {
-      await listar("/produtos/healthy", setProdutos, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await listar("/produtos/healthy", setProdutos);
     } catch (error: any) {
       if (error.toString().includes("403")) {
-        alert("Erro ao carregar produtos.");
+        alert("Erro ao carregar produtos.");  
       }
     } finally {
       setIsLoading(false); // Finaliza o carregamento, independentemente do resultado
@@ -37,14 +34,7 @@ function ListaProdutosSaudaveis() {
       {/* Exibe o loading enquanto os produtos estão sendo carregados */}
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
-          <DNA
-            visible={true}
-            height="200"
-            width="200"
-            ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass="dna-wrapper"
-          />
+          <ClipLoader color="#FF6F61"/>
         </div>
       )}
 
@@ -58,7 +48,7 @@ function ListaProdutosSaudaveis() {
               {/* Primeira linha com card e imagem */}
               <div className="grid grid-cols-1 md:grid-cols-2  mb-8 grid-co">
                 <div className="order-2 sm:order-2">
-                  <CardProdutos produto={produtos[0]} />
+                  <CardProdutosSaudaveis produto={produtos[0]} />
                 </div>
                 <div className="flex items-center justify-center sm:order-2 order-1">
                   <img
@@ -72,7 +62,7 @@ function ListaProdutosSaudaveis() {
               {/* Restante dos produtos */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
                 {produtos.slice(1).map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
+                  <CardProdutosSaudaveis key={produto.id} produto={produto} />
                 ))}
               </div>
             </div>
