@@ -198,7 +198,7 @@ function Cadastro() {
                 className="grid grid-cols-1 lg:grid-cols-2 h-screen 
             place-items-center font-bold "
             >
-                <div className=" fundoCadastro hidden lg:block"></div>
+                <div className="fundoCadastro hidden lg:block"></div>
 
                 {/* 
 				Adicionamos o Evento onSubmit no formulário, passando como argumento 
@@ -207,7 +207,7 @@ function Cadastro() {
 				executada. 
 				*/}
                 <form
-                    className="font-heading flex justify-center items-center flex-col w-2/3 gap-3"
+                    className="font-medium flex justify-center items-center flex-col w-2/3 gap-3"
                     onSubmit={cadastrarNovoUsuario}
                 >
                     <h2 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">Cadastrar</h2>
@@ -241,7 +241,7 @@ function Cadastro() {
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="usuario">Usuario</label>
+                        <label htmlFor="usuario">Usuário</label>
                         <input
                             type="text"
                             id="usuario"
