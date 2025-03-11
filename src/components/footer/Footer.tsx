@@ -10,7 +10,7 @@ function Footer() {
   let data = new Date().getFullYear();
 
     return (
-        <footer className="w-full px-15 flex justify-center bg-[#F0F0F0] text-[#333333] font-heading">
+        <footer className="w-full px-15 border-t-2 border-gray-300 flex justify-center bg-[#F0F0F0] text-[#333333] font-heading">
       {/* Footer Responsivo (Mobile e Desktop) */}
       <div className="container mx-auto max-md:flex-col px-5 flex flex-row justify-between items-center py-4 pt-5">
         <Link to="/home" className="w-28 md:w-35">
