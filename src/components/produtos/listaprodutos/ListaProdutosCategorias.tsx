@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import { listar } from "../../../services/Service";
-import CardProdutos from "../cardprodutos/CardProdutos";
+import CardProdutos from "../cardprodutos/CardProdutos2";
 import Produto from "../../../models/Produto";
 
 function ListaProdutosCategorias() {

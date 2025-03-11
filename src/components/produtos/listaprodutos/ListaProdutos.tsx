@@ -1,28 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
-import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { ClipLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutos() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
-
-  const { usuario, handleLogout } = useContext(AuthContext);
-  
-  const token = usuario.token;
+  const [isLoading, setIsLoading] = useState(false);
 
   async function buscarProdutos() {
     try {
+      setIsLoading(true);
       await listar("/produtos/all", setProdutos);
-    } catch (error: any) {
-      if (error.toString().includes("403")) {
-        alert("Erro ao carregar produtos.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        ToastAlerta(`Erro ao listar produtos: ${error.message}`, 'erro');
+      } else {
+        ToastAlerta("Erro desconhecido ao listar os produtos!", 'erro');
       }
     } finally {
-      setIsLoading(false); // Finaliza o carregamento, independentemente do resultado
+      setIsLoading(false);
     }
   }
 
@@ -31,46 +30,61 @@ function ListaProdutos() {
   }, [produtos.length]);
 
   return (
-  <>
-    <div className="sm:p-16 flex flex-col w-screen justify-center items-end sm:flex-row sm:justify-between bg-[#646F4B] h-[8.18rem] sm:items-center ">
-            <div className="hidden sm:block mr-6 text-white text-3xl ">
-              Produtos
-            </div>
-            <div className="mr-12 mb-2">
-              <button
-                type="submit"
-                className="font-heading mt-4 rounded-lg bg-[#CD533B] text-white h-13 w-55"
-              >
-                <Link to={'/cadastrarproduto'}> Cadastrar Produto</Link>
-              </button>
-            </div>
-          </div>
-    <div className="">
-      {/* Exibe o loading enquanto os produtos estão sendo carregados */}
+    <>
+      {/* Centralized PacmanLoader */}
       {isLoading && (
-        <div className="flex justify-center items-center h-screen">
-          <ClipLoader color="#FF6F61"/>
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-50">
+          <PacmanLoader
+            color="#E02D2D"
+            margin={0}
+            size={50}
+            speedMultiplier={2}
+            aria-label="Pacman-loading"
+          />
         </div>
       )}
 
-      {/* Renderiza os componentes apenas quando o carregamento terminar */}
-      {!isLoading && produtos.length > 0 && (
-        <>
-          
+      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
+      <div className="w-full bg-[#D9D9D9] py-6">
+        <div className="container mx-auto flex justify-between items-center py-2 px-8">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">Produtos</p>
+          <Link to={`/cadastrarproduto`} className="flex justify-end w-full sm:w-auto">
+            <button
+              type="submit"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45"
+            >
+              Cadastrar Produto
+            </button>
+          </Link>
+        </div>
+      </div>
 
-          <div className="flex justify-center bg-[#F6EED9] ">
-            <div className="flex flex-col">
-              <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
-                {produtos.map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
-                ))}
-              </div>
+      {/* Conteúdo principal dentro do container */}
+      <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
+        <div className="w-full flex flex-col mx-4">
+          {(!isLoading && produtos.length === 0) && (
+            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+              Nenhum produto foi encontrado!
+            </span>
+          )}
+
+          <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
+            <div className="grid grid-cols-1 mx-6 gap-10 md:grid-cols-2 lg:mx-10">
+              {produtos
+                .sort((a, b) => a.id - b.id)
+                .map((produto: Produto) => (
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                  />
+                ))
+              }
             </div>
-          </div>
-        </>
-      )}
-    </div>
-    </> );
+          </section>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default ListaProdutos;

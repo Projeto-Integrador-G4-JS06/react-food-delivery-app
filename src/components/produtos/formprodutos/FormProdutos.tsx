@@ -104,6 +104,11 @@ function FormProdutos() {
       valor = parseFloat(Number(value).toFixed(2));
     }
 
+    // Verifica se o campo é a descrição e limita a 80 caracteres
+    if (name === "descricao" && typeof valor === "string") {
+      valor = valor.slice(0, 80);
+    }
+
     setProduto({
       ...produto,
       [name]: valor,
@@ -213,6 +218,9 @@ function FormProdutos() {
               value={produto.descricao}
               onChange={atualizarEstado}
             />
+            <span className="text-sm text-gray-500">
+              {produto.descricao ? produto.descricao.length : 0}/80 caracteres
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <label className="flex justify-center lg:justify-start">

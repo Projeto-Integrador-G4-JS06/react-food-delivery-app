@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
-import CardProdutos from "../cardprodutos/CardProdutos";
+import CardProdutos from "../cardprodutos/CardProdutos2";
 import { ClipLoader } from "react-spinners";
 import CardProdutosSaudaveis from "../cardprodutossaudaveis/CardProdutosSaudaveis";
 
