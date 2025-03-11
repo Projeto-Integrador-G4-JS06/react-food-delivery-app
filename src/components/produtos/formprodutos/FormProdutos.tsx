@@ -243,7 +243,6 @@ function FormProdutos() {
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.foto}
               onChange={atualizarEstado}
