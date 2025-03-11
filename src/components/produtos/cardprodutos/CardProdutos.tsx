@@ -30,21 +30,21 @@ function CardProdutos({ produto }: CardProdutosProps) {
           <img
             src={getImagemSrc(produto?.foto)}
             alt={produto.nome_produto}
-            className="w-48 h-48 rounded-lg object-cover lg:w-64 lg:h-64 transition-opacity duration-300 lg:group-hover:opacity-75"
+            className="w-48 h-48 rounded-lg object-cover lg:w-64 lg:h-64 transition-opacity duration-300"
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
-          <div className="absolute inset-0 bg-black opacity-0 lg:group-hover:opacity-30 transition-opacity duration-300 rounded-lg"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
-          <div className="absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700">
             <Link to={`/atualizarproduto/${produto.id}`}>
-              <button className="bg-gray-700/50 text-white p-2 rounded-full hover:bg-gray-800/70 transition hover:cursor-pointer">
+              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
               </button>
             </Link>
             <Link to={`/produto/${produto.id}`}>
-              <button className="bg-gray-700/50 text-white p-2 rounded-full hover:bg-gray-800/70 transition hover:cursor-pointer">
+              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Trash size={28} />
               </button>
             </Link>
@@ -52,7 +52,7 @@ function CardProdutos({ produto }: CardProdutosProps) {
         </div>
 
         {/* Detalhes do produto */}
-        <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center my-2">
+        <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center">
           <h2 className="text-base xl:text-lg font-medium text-gray-800 font-[family-name:var(--font-heading)] mx-4">
             {produto.nome_produto}
           </h2>
