@@ -3,7 +3,7 @@ import Categoria from '../../../models/Categoria'
 import { Pencil, Trash } from '@phosphor-icons/react';
 
 interface CardCategoriaProps {
-  categoria: Categoria
+  categoria: Categoria;
 }
 
 // Função para garantir que o src da imagem sempre seja válido

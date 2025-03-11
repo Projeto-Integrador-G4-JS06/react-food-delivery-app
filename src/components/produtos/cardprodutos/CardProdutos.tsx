@@ -30,7 +30,7 @@ function CardProdutos({ produto }: CardProdutosProps) {
           <img
             src={getImagemSrc(produto?.foto)}
             alt={produto.nome_produto}
-            className="w-48 h-48 rounded-lg object-cover lg:w-64 lg:h-64 transition-opacity duration-300"
+            className="w-48 h-48 rounded-lg object-cover lg:w-70 lg:h-64 transition-opacity duration-300"
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
