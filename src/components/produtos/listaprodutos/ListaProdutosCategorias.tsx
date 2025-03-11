@@ -104,7 +104,7 @@ function ListaProdutosCategorias() {
       {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
-          {(!isLoading && categoria?.produtos?.length === 0) && (
+          {(!isLoading && categoria?.produto?.length === 0) && (
             <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
               Nenhum produto foi encontrado!
             </span>
@@ -112,7 +112,7 @@ function ListaProdutosCategorias() {
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
             <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-              {categoria?.produtos
+              {categoria?.produto
                 ?.map((produto) => (
                   <CardProdutos
                     key={produto.id}
