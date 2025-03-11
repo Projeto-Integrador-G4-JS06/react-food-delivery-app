@@ -198,7 +198,7 @@ function Cadastro() {
                 className="grid grid-cols-1 lg:grid-cols-2 h-screen 
             place-items-center font-bold "
             >
-                <div className="fundoCadastro hidden lg:block"></div>
+                <div className="fundoCadastro hidden lg:block "></div>
 
                 {/* 
 				Adicionamos o Evento onSubmit no formulário, passando como argumento 
@@ -207,10 +207,14 @@ function Cadastro() {
 				executada. 
 				*/}
                 <form
-                    className="font-medium flex justify-center items-center flex-col w-2/3 gap-3"
+                    className="font-medium flex justify-center items-center flex-col 
+               w-full sm:w-11/12 md:w-3/4 lg:w-2/3 max-w-2xl 
+               gap-6 p-6 py-8 mt-[-200px] sm:mt-[-100px] md:mt-[-100px]"
                     onSubmit={cadastrarNovoUsuario}
                 >
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">Cadastrar</h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center my-4 font-heading text-[#CD533B]">
+                        Cadastrar
+                    </h2>
                     <div className="flex flex-col w-full">
                         <label htmlFor="nome_usuario">Nome</label>
                         <input
@@ -419,16 +423,14 @@ function Cadastro() {
                     <div className="flex justify-around w-full gap-8">
                         <button
                             type="reset"
-                            className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
+                            className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45 cursor-pointer  "
                             onClick={retornar}
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer  text-sm lg:text-base     text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
+                            className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45 cursor-pointer"
                         >
                             {/* 
                             Através de uma Expressão Ternária, verificaremos qual é o valor atual do Estado 
