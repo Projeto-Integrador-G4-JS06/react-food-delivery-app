@@ -8,5 +8,5 @@ export default interface Categoria {
   criado_em: string;
   atualizado_em: string;
   status: boolean;
-  produto?: Produto[] | null;
+  produtos?: Produto[] | null;
 }
