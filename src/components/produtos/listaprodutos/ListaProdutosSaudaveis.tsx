@@ -51,7 +51,7 @@ function ListaProdutosSaudaveis() {
 
         {!isLoading && produtos.length > 0 && (
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
               <div className="order-2">
                 <CardProdutos produto={produtos[0]} />
               </div>
