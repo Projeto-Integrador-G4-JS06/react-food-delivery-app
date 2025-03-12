@@ -42,10 +42,11 @@ function ListaProdutosSaudaveis() {
         <>
 
 
-          <div className="flex justify-center ">
-            <div className="flex flex-col">
+          <div className="flex justify-center">
+          <div className="container w-full mx-auto px-4 flex flex-col 
+          justify-center items-center gap-10">
               {/* Primeira linha com card e imagem */}
-              <div className="grid grid-cols-1 md:grid-cols-2  mb-8 grid-co">
+              <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-40">
                 <div className="order-2 sm:order-2">
                   <CardProdutos produto={produtos[0]} />
                 </div>
@@ -53,13 +54,13 @@ function ListaProdutosSaudaveis() {
                   <img
                     src="https://ik.imagekit.io/p2qsb5ajs/food_delivery/Eating%20healthy%20food-amico.svg?updatedAt=1741286199584" // Substitua pela URL da imagem desejada
                     alt="Imagem"
-                    className=" w-89 h-89 object-cover rounded-lg"
+                    className=" max-sm:object-fill  w-89 h-89 object-cover rounded-lg"
                   />
                 </div>
               </div>
 
               {/* Restante dos produtos */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
+              <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-40">
                 {produtos.slice(1).map((produto) => (
                   <CardProdutos key={produto.id} produto={produto} />
                 ))}
