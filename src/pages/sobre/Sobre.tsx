@@ -1,4 +1,4 @@
-import CardSobre from "../../components/cardsobre/CardSobre"
+
 import CarrosselSobre from "../../components/carrosselsobre/CarrosselSobre"
 
 function Sobre() {
