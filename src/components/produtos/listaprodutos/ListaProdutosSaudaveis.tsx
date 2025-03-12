@@ -50,37 +50,34 @@ function ListaProdutosSaudaveis() {
               Nenhum produto foi encontrado!
             </span>
           )}
-
-          <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-              {/* Primeira linha com card e imagem */}
-              <div className="order-2">
-                <CardProdutos produto={produtos[0]} />
-              </div>
-              <div className="order-2 flex justify-center">
-                <img
-                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
-                  alt="Imagem"
-                  className="w-72.5 h-72.5 object-cover rounded-lg"
+        </div>
+        <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
+          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+            {/* Primeira linha com card e imagem */}
+            <div className="order-2">
+              <CardProdutos produto={produtos[0]} />
+            </div>
+            <div className="order-2 flex justify-center">
+              <img
+                src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                alt="Imagem"
+                className="w-72.5 h-72.5 object-cover rounded-lg"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+            {produtos
+              .sort((a, b) => a.id - b.id)
+              .slice(1).map((produto) => (
+                <CardProdutos
+                  key={produto.id}
+                  produto={produto}
                 />
-              </div>
-            </div>
-
-            {/* Restante dos produtos */}
-            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-              {produtos
-                .sort((a, b) => a.id - b.id)
-                .slice(1).map((produto) => (
-                  <CardProdutos
-                    key={produto.id}
-                    produto={produto}
-                  />
-                ))
-              }
-            </div>
-          </section >
-        </div >
-      </div >
+              ))
+            }
+          </div>
+        </section>
+      </div>
     </>
   );
 }
