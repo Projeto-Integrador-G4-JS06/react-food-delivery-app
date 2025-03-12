@@ -19,6 +19,7 @@ import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
 // import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
 import Cadastro from "./pages/cadastro/Cadastro";
+import ModalDeletarProduto from "./components/produtos/deletarproduto/ModalDeletarProduto";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                             <Route path="/cadastro" element={<Cadastro />} />
                             <Route path="/perfil" element={<Perfil />} />
                             <Route path="/sobre" element={<Sobre />} />
+                            <Route path="/deletar/:id" element={<ModalDeletarProduto />} />
                             <Route
                                 path="/categorias"
                                 element={<ListaCategorias />}

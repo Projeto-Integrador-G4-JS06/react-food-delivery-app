@@ -1,14 +1,85 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { deletar } from "../../../services/Service";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import "./CardProduto.css";
 
 interface CardProdutosProps {
   produto: Produto;
+  onDelete: (id: string) => void; // Adiciona a prop onDelete
 }
 
-function CardProduto({ produto }: CardProdutosProps) {
+function CardProdutos({ produto, onDelete }: CardProdutosProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    if (!token) {
+      ToastAlerta("Você precisa estar logado para deletar um produto.", "info");
+      navigate("/login");
+      return;
+    }
+
+    Swal.fire({
+      title: "Tem certeza?",
+      html: `Você está prestes a deletar o produto "<b>${produto.nome_produto}</b>".<br>Essa ação não pode ser desfeita!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E02D2D",
+      cancelButtonColor: "#F0F0F0",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
+      background: "#F5E9D9",
+      customClass: {
+        popup: "custom-swal-popup",
+        confirmButton: "custom-confirm-button",
+        cancelButton: "custom-cancel-button",
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deletarProduto(produto.id.toString());
+          onDelete(produto.id.toString()); // Chama a função onDelete passada pelo componente pai
+          Swal.fire({
+            title: "Deletado!",
+            text: "O produto foi deletado com sucesso.",
+            icon: "success",
+            background: "#F5E9D9",
+            confirmButtonColor: "#E02D2D",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Erro!",
+            text: "Ocorreu um erro ao tentar deletar o produto.",
+            icon: "error",
+            background: "#F5E9D9",
+            confirmButtonColor: "#E02D2D",
+          });
+        }
+      }
+    });
+  };
+
+  const deletarProduto = async (id: string) => {
+    try {
+      await deletar(`/produtos/${id}`, {
+        headers: { Authorization: token },
+      });
+      ToastAlerta("Produto deletado com sucesso!", "sucesso");
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message.includes("401")) {
+        handleLogout();
+      } else {
+        ToastAlerta("Erro ao deletar produto!", "erro");
+      }
+    }
+  };
 
   return (
     <div
@@ -24,11 +95,9 @@ function CardProduto({ produto }: CardProdutosProps) {
         <p className="text-gray-600 text-sm text-right font-body">
           {produto.descricao}
         </p>
-        {/* Preço ajustado com mt-auto */}
         <p className="text-lg font-semibold text-gray-700 mt-auto text-right">
           R$ {produto.preco}
         </p>
-        {/* Botão sem muito espaçamento extra */}
         <button className="bg-[#CD533B] hover:bg-[#b7452f] text-white py-2 rounded-4xl transition font-body">
           Adicionar ao carrinho
         </button>
@@ -56,15 +125,16 @@ function CardProduto({ produto }: CardProdutosProps) {
               <Pencil size={28} />
             </Link>
           </button>
-          <Link to={`/produto/${produto.id}`}>
-            <button className="bg-[#FF6F61] text-black p-2 rounded-full hover:bg-[#E65A4D] transition hover:cursor-pointer">
-              <Trash size={28} />
-            </button>
-          </Link>
+          <button
+            className="bg-[#FF6F61] text-black p-2 rounded-full hover:bg-[#E65A4D] transition hover:cursor-pointer"
+            onClick={handleDelete}
+          >
+            <Trash size={28} />
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default CardProduto;
+export default CardProdutos;

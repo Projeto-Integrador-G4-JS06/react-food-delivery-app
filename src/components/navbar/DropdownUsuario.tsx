@@ -53,7 +53,7 @@ export function DropdownUsuario({ children, isMobile = false }: DropdownUsuarioP
         className="flex items-center cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
       >
         {/* Ícone visível apenas no desktop */}
-        <div className="p-2 bg-[#FFC100] rounded-lg text-white hidden md:block transition duration-300 ease-in-out hover:-translate-y-1">
+        <div className="p-2 text-red-100 rounded-lg hidden md:block transition duration-300 ease-in-out hover:-translate-y-1">
           <User size={32} weight="regular" />
         </div>
 
