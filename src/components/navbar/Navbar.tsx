@@ -19,7 +19,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { DropdownUsuario } from "./DropdownUsuario";
-import logo from '../../assets/PedeAi_padrao.svg';
+import logo from "../../assets/PedeAi_padrao.svg";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ function Navbar() {
       <div className="container mx-auto flex items-center justify-between">
         {/* Botão do menu mobile */}
         <button
-          className="md:hidden text-red-100 border-3 rounded-lg border-red-100 p-1.25"
+          className="lg:hidden text-red-100 border-3 rounded-lg border-red-100 p-1.25" // Alterado de md:hidden para lg:hidden
           onClick={toggleMenu}
         >
           <List size={32} weight="regular" />
@@ -78,15 +78,13 @@ function Navbar() {
 
         {/* Logo */}
         <Link to="/home">
-          <img
-            src={logo}
-            alt="Logo"
-            className="w-28 md:w-35"
-          />
+          <img src={logo} alt="Logo" className="w-28 md:w-35" />
         </Link>
 
         {/* Barra de busca (desktop) */}
-        <div className="hidden md:flex items-center w-2/5">
+        <div className="hidden lg:flex items-center w-2/5">
+          {" "}
+          {/* Alterado de md:flex para lg:flex */}
           <form className="flex w-full" onSubmit={buscarProdutos}>
             <input
               className="font-body w-full px-4 py-2 bg-white rounded-lg focus:outline-red-100 border border-[#B8B8B8] shadow-sm"
@@ -106,7 +104,9 @@ function Navbar() {
         </div>
 
         {/* Menu Desktop */}
-        <div className="hidden md:flex gap-6 items-center ml-6">
+        <div className="hidden lg:flex gap-6 items-center ml-6">
+          {" "}
+          {/* Alterado de lg:flex para xl:flex se necessário */}
           <Link
             to="/produtos"
             className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
@@ -129,7 +129,9 @@ function Navbar() {
 
         {/* Ícones do usuário e carrinho */}
         <div className="flex items-center gap-6">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
+            {" "}
+            {/* Alterado de md:block para lg:block */}
             {usuario.token ? (
               <DropdownUsuario />
             ) : (
@@ -154,13 +156,14 @@ function Navbar() {
 
       {/* Menu Mobile */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
+        <div className="fixed inset-0 z-40 lg:hidden">
+          {" "}
+          {/* Alterado de md:hidden para lg:hidden */}
           {/* Overlay com desfoque e transparência */}
           <div
             className="absolute inset-0 backdrop-brightness-80 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           ></div>
-
           {/* Conteúdo do Menu */}
           <div
             ref={menuRef}

@@ -12,8 +12,8 @@ function Footer() {
     return (
         <footer className="w-full px-15 border-t-2 border-gray-300 flex justify-center bg-[#F0F0F0] text-[#333333] font-heading">
       {/* Footer Responsivo (Mobile e Desktop) */}
-      <div className="container mx-auto max-md:flex-col px-5 flex flex-row justify-between items-center pb-4 pt-5">
-        <Link to="/home" className="w-28 md:w-29">
+      <div className="container mx-auto max-md:flex-col px-5 flex flex-row justify-between items-center pb-4 pt-2 lg:pt-5">
+        <Link to="/home" className="w-30 md:w-29">
           <img src={logo} alt="" />
         </Link>
 
