@@ -43,27 +43,6 @@ function ListaProdutosCategorias() {
     }
   }
 
-  // async function buscarProdutosCategorias() {
-  //   try {
-  //     setIsLoading(true);
-  //     const dados = await listar(`/categorias/nome/${nome_categoria}`);
-  //     if (Array.isArray(dados) && dados.length > 0) {
-  //       setCategoria(dados[0]); // Acessa o primeiro elemento do array
-  //     } else {
-  //       setCategoria(null); // Define como null se não houver dados
-  //     }
-  //     console.log('Categoria carregada:', dados); // Verifique os dados retornados
-  //     console.log('Produtos:', dados[0]?.produto); // Verifique os produtos retornados
-  //   } catch (error: unknown) {
-  //     if (error instanceof Error) {
-  //       ToastAlerta(`Erro ao buscar a categoria: ${error.message}`, 'erro');
-  //     } else {
-  //       ToastAlerta("Erro desconhecido ao buscar a categoria!", 'erro');
-  //     }
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
 
   const removerProduto = (id: string) => {
     if (categoria) {
