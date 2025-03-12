@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const cadastrarUsuario = async (
@@ -22,6 +22,18 @@ export const listar = async (url: string, setDados: Function) => {
   const resposta = await api.get(url);
   setDados(resposta.data);
 };
+
+// Função alternativa para ser usada na busca de produtos, por categoria
+// export const listar = async (url: string) => {
+//   try {
+//     const resposta = await api.get(url);
+//     console.log('Resposta da API:', resposta.data); // Verifique a resposta da API
+//     return resposta.data; // Retorna os dados diretamente
+//   } catch (error) {
+//     console.error('Erro na requisição:', error);
+//     throw error;
+//   }
+// };
 
 export const cadastrar = async (
   url: string,

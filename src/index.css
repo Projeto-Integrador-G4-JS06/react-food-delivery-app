@@ -3,7 +3,7 @@
 
 body {
   font-family: var(--font-body);
-  background-color: #f5f5dc;
+  background-color: #F0F0F0;
 }
 
 @theme {
@@ -11,6 +11,8 @@ body {
   --font-heading: "Poppins", sans-serif;
   --font-logo: "Protest Riot", serif;
   --font-body: "Open Sans", serif;
+  
+  /* Button Font */
   --font-quicksand: "Quicksand", sans-serif;
 
   /* Colors */
@@ -18,6 +20,9 @@ body {
   --color-beige-600: #F5F5DC;
   --color-red-500: #CD533B;
   --color-olive-500: #646F4B;
+
+  --color-red-100: #FF5656;
+
   --breakpoint-3xl: 120rem;
 }
 
@@ -35,7 +40,7 @@ body {
 
 /* Cor padrão das setas */
 .slick-arrow.slick-prev::before, .slick-arrow.slick-next::before {
-  color: #FFC100; /* Cor amarela para as setas */
+  color: #7a7a7a; /* Cor amarela para as setas */
 }
 
 /* Cor das setas ao passar o mouse */
