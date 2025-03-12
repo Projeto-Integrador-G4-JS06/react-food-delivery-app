@@ -63,7 +63,7 @@ function ListaProdutosSaudaveis() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
               {produtos
                 .sort((a, b) => a.id - b.id)
                 .slice(1)
