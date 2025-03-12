@@ -194,11 +194,13 @@ function Cadastro() {
 
     return (
         <>
+        <section className="container w-full mx-auto flex flex-col justify-center gap-8">
             <div
-                className="grid grid-cols-1 lg:grid-cols-2 h-screen 
-            place-items-center font-bold "
+                className="rounded-3xl grid grid-cols-1 lg:grid-cols-2 h-screen 
+            place-items-center font-bold " 
+            
             >
-                <div className="fundoCadastro hidden lg:block "></div>
+                <div className=" bg-[#FF5656]  fundoCadastro hidden lg:block "></div>
 
                 {/* 
 				Adicionamos o Evento onSubmit no formulário, passando como argumento 
@@ -206,23 +208,29 @@ function Cadastro() {
 				(clicar no botão entrar), a função definida dentro dos parênteses será
 				executada. 
 				*/}
+                <div className="md:bg-white md:rounded-3xl md:h-[100%] md:z-55 md:w-[110%] md:flex md:items-center md:justify-center">
                 <form
                     className="font-medium flex justify-center items-center flex-col 
                w-full sm:w-11/12 md:w-3/4 lg:w-2/3 max-w-2xl 
                gap-6 p-6 py-8 mt-[-200px] sm:mt-[-100px] md:mt-[-100px]"
                     onSubmit={cadastrarNovoUsuario}
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center my-4 font-heading text-[#CD533B]">
-                        Cadastrar
+                    <h2
+                        className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center my-4 font-heading text-[#333333] font-semibold"
+                    >
+                        Cadastre-se
                     </h2>
+                    <div className="w-[110%] max-w-none h-[2px] bg-[#000000] mt-1 mb-4"></div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="nome_usuario">Nome</label>
+                        <label className="text-gray-700" htmlFor="nome_usuario">
+                            Nome
+                        </label>
                         <input
                             type="text"
                             id="nome_usuario"
                             name="nome_usuario"
                             placeholder="Nome"
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -245,13 +253,15 @@ function Cadastro() {
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="usuario">Usuário</label>
+                        <label className="text-gray-700" htmlFor="usuario">
+                            Usuário
+                        </label>
                         <input
                             type="text"
                             id="usuario"
                             name="usuario"
                             placeholder="user@email.com"
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -275,13 +285,15 @@ function Cadastro() {
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <label htmlFor="num_celular">Telefone</label>
+                        <label className="text-gray-700" htmlFor="num_celular">
+                            Telefone
+                        </label>
                         <input
                             type="text"
                             id="num_celular"
                             name="num_celular"
                             placeholder="(xx) xxxxx-xxxx"
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -305,13 +317,15 @@ function Cadastro() {
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <label htmlFor="endereco">Endereço</label>
+                        <label className="text-gray-700" htmlFor="endereco">
+                            Endereço
+                        </label>
                         <input
                             type="text"
                             id="endereco"
                             name="endereco"
                             placeholder="R. Nome da Rua, 123 - Bairro - Cidade/UF - CEP"
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -335,13 +349,15 @@ function Cadastro() {
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <label htmlFor="foto">Foto</label>
+                        <label className="text-gray-700" htmlFor="foto">
+                            Foto
+                        </label>
                         <input
                             type="text"
                             id="foto"
                             name="foto"
                             placeholder="Insira o link da sua foto de perfil..."
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -364,13 +380,15 @@ function Cadastro() {
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="senha">Senha</label>
+                        <label className="text-gray-700" htmlFor="senha">
+                            Senha
+                        </label>
                         <input
                             type="password"
                             id="senha"
                             name="senha"
                             placeholder="Insira sua senha..."
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor exibido
                              * nesse input será o mesmo que estiver armazenado no respectivo
@@ -393,13 +411,18 @@ function Cadastro() {
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="confirmarSenha">Confirmar Senha</label>
+                        <label
+                            className="text-gray-700"
+                            htmlFor="confirmarSenha"
+                        >
+                            Confirmar Senha
+                        </label>
                         <input
                             type="password"
                             id="confirmarSenha"
                             name="confirmarSenha"
                             placeholder="Confirmar Senha"
-                            className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                            className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#F0F0F0] rounded-xl p-2 focus:outline-[#F0F0F0] text-gray-400"
                             /**
                              * Através da propriedade value, definimos que o valor dentro desse
                              * input será o valor armazenado no Estado confirmaSenha.
@@ -423,7 +446,7 @@ function Cadastro() {
                     <div className="flex justify-around w-full gap-8">
                         <button
                             type="reset"
-                            className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45 cursor-pointer  "
+                            className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E97E7E] hover:bg-[#B22222] text-white h-13 w-45 cursor-pointer  "
                             onClick={retornar}
                         >
                             Cancelar
@@ -458,6 +481,8 @@ function Cadastro() {
                     </div>
                 </form>
             </div>
+            </div>
+            </section>
         </>
     );
 }
