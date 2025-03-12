@@ -185,14 +185,14 @@ function FormProdutos() {
     produto.nutri_score === undefined;
 
   return (
-    <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
-      <div className="container mx-auto px-4 flex flex-col justify-center items-center">
+    <section className=" flex flex-col justify-center items-center min-h-screen py-4 md:py-0">
+      <div className="container w-[80%] md:w-[50%] lg:w-[50%]  mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#333333]">
           {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
         </h1>
-        <div className="w-full lg:w-1/2 bg-[#333333] h-[1px] mt- mb-2"></div>
+        <div className="w-full lg:w-[80%] bg-[#333333] h-[1px] mt-2 mb-2"></div>
         <form
-          className="flex flex-col w-full lg:w-1/2 gap-4 text-gray-700 font-medium m-1.5"
+          className="flex flex-col w-full lg:w-[80%] gap-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
           <div className="flex flex-col gap-2">
@@ -252,9 +252,9 @@ function FormProdutos() {
               onChange={atualizarEstado}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center lg:justify-start">
+              <p className="flex justify-center text-center lg:justify-start">
                 Categoria do Produto
               </p>
               <select
@@ -314,15 +314,15 @@ function FormProdutos() {
               </select>
             </div>
           </div>
-          <div className="flex justify-between gap-12">
-            <Link to={`/produtos`} className="h-13 w-full">
-              <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-60 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
+          <div className="flex justify-between gap-4 lg:gap-12 flex-col lg:flex-row">
+            <Link to={`/produtos`} className="h-13 w-full order-2 lg:order-1">
+              <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
                 Cancelar
               </button>
             </Link>
             <button
               type="submit"
-              className="flex items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
+              className="flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
               disabled={carregandoProdutos}
             >
               {isLoading ? (

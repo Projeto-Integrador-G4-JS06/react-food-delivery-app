@@ -67,10 +67,20 @@ function FormCategoria() {
   }, [id]);
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    const { value, name } = e.target;
+
+    let valor = value;
+
+    if (name === "descricao" && typeof valor === "string") {
+      valor = valor.slice(0, 80);
+    }
+
     setCategoria({
       ...categoria,
-      [e.target.name]: e.target.value,
+      [name]: valor,
     });
+
+    // Verifica se o campo é a descrição e limita a 80 caracteres
   }
 
   async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
@@ -130,9 +140,9 @@ function FormCategoria() {
   console.log(JSON.stringify(categoria));
 
   return (
-    <section className="w-full py-8 flex flex-col justify-center items-center">
-      <div className="container mx-auto px-4 flex flex-col justify-center items-center">
-        <div className="mx-1 lg:w-1/3">
+    <section className="flex flex-col justify-center items-center min-h-screen ">
+      <div className="container w-[75%] md:w-[50%] lg:w-[33%] mx-8 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
+        <div className="mx-1 lg:w-[80%] ">
           <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-[family-name:var(--font-heading)] text-[#text-[#333333]]">
             {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
           </h1>
@@ -148,7 +158,7 @@ function FormCategoria() {
                             />
                         </div>
                     )} */}
-          <div className="w-full lg:w-1/2 bg-[#333333] h-[1px] mt- mb-2"></div>
+          <div className="w-full  bg-[#333333] h-[1px] mt- mb-2 "></div>
 
           <form
             className="flex flex-col w-full gap-4 text-gray-700 font-medium"
@@ -189,6 +199,10 @@ function FormCategoria() {
                   atualizarEstado(e)
                 }
               />
+              <span className="text-sm text-gray-500">
+                {categoria.descricao ? categoria.descricao.length : 0}/80
+                caracteres
+              </span>
               <label
                 htmlFor="icone"
                 className="flex justify-center lg:justify-start"
@@ -207,9 +221,9 @@ function FormCategoria() {
                 }
               />
             </div>
-            <div className="flex justify-between gap-12">
+            <div className="flex justify-between gap-2 md:gap-12">
               <Link to={`/categorias`} className="h-13 w-full">
-                <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-60 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
+                <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
                   Cancelar
                 </button>
               </Link>
