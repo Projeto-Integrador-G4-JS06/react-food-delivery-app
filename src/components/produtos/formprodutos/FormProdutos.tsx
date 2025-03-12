@@ -8,7 +8,6 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
 function FormProdutos() {
-
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,9 +16,9 @@ function FormProdutos() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: 0,
-    nome_categoria: '',
-    descricao: '',
-    icone: '',
+    nome_categoria: "",
+    descricao: "",
+    icone: "",
     criado_em: new Date().toISOString(),
     atualizado_em: new Date().toISOString(),
     status: false,
@@ -143,10 +142,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto atualizado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao atualizar o Produto", "erro");
         }
@@ -160,10 +158,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto cadastrado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao cadastrar o Produto", "erro");
         }
@@ -178,7 +175,12 @@ function FormProdutos() {
     navigate("/produtos");
   }
 
-  const carregandoCategoria = categoria.descricao === '';
+  const carregandoProdutos =
+    produto.nome_produto === "" ||
+    produto.descricao === "" ||
+    produto.preco === undefined || // Verifica se o preço é undefined
+    produto.preco === null; // Verifica se o preço é null
+  typeof produto.preco === "number" && isNaN(produto.preco);
 
   return (
     <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
@@ -260,11 +262,15 @@ function FormProdutos() {
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                 required // Campo obrigatório
               >
-                <option value="" disabled>
+                <option value="" selected disabled>
                   Selecione uma Categoria
                 </option>
                 {categorias.map((categoria) => (
-                  <option className="text-gray-700" value={categoria.id} key={categoria.id}>
+                  <option
+                    className="text-gray-700"
+                    value={categoria.id}
+                    key={categoria.id}
+                  >
                     {categoria.nome_categoria}
                   </option>
                 ))}
@@ -282,7 +288,7 @@ function FormProdutos() {
                 onChange={atualizarEstadoSelect}
                 required // Campo obrigatório
               >
-                <option value="" disabled>
+                <option value="" disabled selected>
                   Selecione o Nutri Score
                 </option>
                 <option className="text-gray-700" value="A">
@@ -308,7 +314,7 @@ function FormProdutos() {
             type="submit"
             className="rounded-xl disabled:bg-[#d89d92] bg-[#CD533B] hover:bg-[#EA5A3D]
                         cursor-pointer text-sm lg:text-base text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
-            disabled={carregandoCategoria}
+            disabled={carregandoProdutos}
           >
             {isLoading ? (
               <RotatingLines

@@ -7,7 +7,9 @@ interface CardProdutosProps {
 }
 
 const getImagemSrc = (icone?: string) => {
-  return icone && icone.trim() !== '' ? icone : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817';
+  return icone && icone.trim() !== ""
+    ? icone
+    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817";
 };
 
 function CardProdutos({ produto }: CardProdutosProps) {
