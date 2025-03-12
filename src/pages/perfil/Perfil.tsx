@@ -17,7 +17,7 @@ function Perfil() {
 
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
-      <div className="flex justify-center mx-4 md:w-screen">
+      <div className="flex justify-center md:w-screen mx-4">
         <div className="container  mx-auto my-4 rounded-2xl overflow-hidden">
           <img
             className="w-full h-72 object-cover border-b-8 border-white"
