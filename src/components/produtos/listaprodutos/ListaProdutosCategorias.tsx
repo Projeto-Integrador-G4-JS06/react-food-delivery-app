@@ -65,6 +65,16 @@ function ListaProdutosCategorias() {
   //   }
   // }
 
+  const removerProduto = (id: string) => {
+    if (categoria) {
+      const produtosAtualizados = categoria.produto.filter((produto) => produto.id.toString() !== id);
+      setCategoria({
+        ...categoria,
+        produto: produtosAtualizados,
+      });
+    }
+  };
+
   useEffect(() => {
     buscarProdutosCategorias();
   }, [nome_categoria]);
@@ -117,6 +127,7 @@ function ListaProdutosCategorias() {
                   <CardProdutos
                     key={produto.id}
                     produto={produto}
+                    onDelete={removerProduto}
                   />
                 ))
               }
