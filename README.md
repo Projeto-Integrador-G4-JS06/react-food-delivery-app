@@ -4,7 +4,7 @@
 <br />
 
 <div align="center">
-    <img src="https://ik.imagekit.io/liaMatsubara/T%C3%A1%20com%20fome%20PedeA%C3%AD%20(1012%20x%20300%20px).png?updatedAt=1741355032966" title="source: imgur.com" width="150%"/>
+    <img src="https://ik.imagekit.io/liaMatsubara/readme_imagem.png?updatedAt=1741796206960" title="source: imgur.com" width="150%"/>
 </div>
 
 <br /><br />
