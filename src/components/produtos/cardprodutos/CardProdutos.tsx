@@ -118,7 +118,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           <img
             src={getImagemSrc(produto?.foto)}
             alt={produto.nome_produto}
-            className="w-48 h-48 rounded-lg object-cover lg:w-70 lg:h-64 transition-opacity duration-300"
+            className="w-48 h-48 rounded-lg object-cover lg:w-64 lg:h-64 transition-opacity duration-300"
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
@@ -146,7 +146,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
 
         {/* Detalhes do produto */}
         <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center">
-          <h2 className="text-base xl:text-lg font-medium text-gray-800 font-[family-name:var(--font-heading)] mx-4">
+          <h2 className="text-base xl:text-lg font-medium text-gray-800 font-[family-name:var(--font-heading)] mx-2">
             {produto.nome_produto}
           </h2>
 
@@ -154,7 +154,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
             <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] m-2">
               {produto.descricao}
             </p>
-            <p className="text-base xl:text-lg font-semibold text-gray-700 font-[family-name:var(--font-body)] m-4">
+            <p className="text-base xl:text-lg font-semibold text-gray-700 font-[family-name:var(--font-body)] m-2">
               R$ {produto.preco.toFixed(2)}
             </p>
           </div>

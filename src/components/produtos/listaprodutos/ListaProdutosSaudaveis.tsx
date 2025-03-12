@@ -7,7 +7,7 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Função para buscar os produtos saudáveis
   async function buscarProdutos() {
@@ -34,7 +34,7 @@ function ListaProdutosSaudaveis() {
 
   useEffect(() => {
     buscarProdutos();
-  }, []); // Executa apenas uma vez ao montar o componente
+  }, []);
 
   return (
     <>
@@ -51,49 +51,37 @@ function ListaProdutosSaudaveis() {
         </div>
       )}
 
-      {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
-        <div className="w-full flex flex-col mx-4">
-          {!isLoading && produtos.length === 0 && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
-              Nenhum produto foi encontrado!
-            </span>
-          )}
-        </div>
-        <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-          {/* Primeira linha com card e imagem */}
-          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-            <div className="order-2">
-              {produtos.length > 0 && (
-                <CardProdutos
-                  produto={produtos[0]}
-                  onDelete={removerProduto} // Passa a função onDelete
-                />
-              )}
-            </div>
-            <div className="order-2 flex justify-center">
-              <img
-                src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
-                alt="Imagem"
-                className="w-72.5 h-72.5 object-cover rounded-lg"
-              />
-            </div>
-          </div>
+        {!isLoading && produtos.length === 0 && (
+          <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+            Nenhum produto foi encontrado!
+          </span>
+        )}
 
-          {/* Demais produtos */}
-          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-            {produtos
-              .sort((a, b) => a.id - b.id)
-              .slice(1) // Ignora o primeiro produto, que já foi renderizado acima
-              .map((produto) => (
-                <CardProdutos
-                  key={produto.id}
-                  produto={produto}
-                  onDelete={removerProduto} // Passa a função onDelete
+        {!isLoading && produtos.length > 0 && (
+          <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-8">
+            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
+              <div className="order-2">
+                <CardProdutos produto={produtos[0]} onDelete={removerProduto}/>
+              </div>
+              <div className="order-2 flex justify-center">
+                <img
+                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                  alt="Imagem"
+                  className="w-72.5 h-72.5 object-cover rounded-lg"
                 />
-              ))}
-          </div>
-        </section>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
+              {produtos
+                .sort((a, b) => a.id - b.id)
+                .slice(1)
+                .map((produto) => (
+                  <CardProdutos key={produto.id} produto={produto} onDelete={removerProduto} />
+                ))}
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
