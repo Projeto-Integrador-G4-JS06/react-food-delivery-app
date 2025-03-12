@@ -24,13 +24,13 @@ function CardProdutos({ produto }: CardProdutosProps) {
       </div>
 
       {/* Conteúdo do card */}
-      <div className="container flex flex-col justify-center items-center gap-2 p-4 text-center lg:flex-row lg:items-start lg:text-center">
+      <div className="container flex flex-col justify-center items-center gap-x-5 p-4 md:p-8 text-center lg:flex-row lg:items-start lg:text-center">
         {/* Div para a imagem e botões (hover effect a partir de lg) */}
         <div className="lg:flex lg:order-2 relative group">
           <img
             src={getImagemSrc(produto?.foto)}
             alt={produto.nome_produto}
-            className="w-48 h-48 rounded-lg object-cover lg:w-64 lg:h-64 transition-opacity duration-300"
+            className="w-48 h-48 rounded-lg object-cover lg:w-90 lg:h-64 transition-opacity duration-300"
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
@@ -53,7 +53,7 @@ function CardProdutos({ produto }: CardProdutosProps) {
 
         {/* Detalhes do produto */}
         <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center">
-          <h2 className="text-base xl:text-lg font-medium text-gray-800 font-[family-name:var(--font-heading)] mx-2">
+          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 my-4 md:my-0">
             {produto.nome_produto}
           </h2>
 
