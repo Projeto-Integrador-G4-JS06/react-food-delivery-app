@@ -44,6 +44,16 @@ function ListaProdutosCategorias() {
   }
 
 
+  const removerProduto = (id: string) => {
+    if (categoria) {
+      const produtosAtualizados = categoria.produto.filter((produto) => produto.id.toString() !== id);
+      setCategoria({
+        ...categoria,
+        produto: produtosAtualizados,
+      });
+    }
+  };
+
   useEffect(() => {
     buscarProdutosCategorias();
   }, [nome_categoria]);
@@ -90,12 +100,13 @@ function ListaProdutosCategorias() {
           )}
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
               {categoria?.produto
                 ?.map((produto) => (
                   <CardProdutos
                     key={produto.id}
                     produto={produto}
+                    onDelete={removerProduto}
                   />
                 ))
               }
