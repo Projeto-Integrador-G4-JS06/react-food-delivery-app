@@ -40,7 +40,7 @@ function ListaCategorias() {
 
             {/* Centralized PacmanLoader */}
             {isLoading && (
-                <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
+                <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-50">
                     <PacmanLoader
                         color="#CD533B"
                         margin={0}
@@ -51,7 +51,7 @@ function ListaCategorias() {
                 </div>
             )}
             <div className="w-full pb-8 flex flex-col justify-center items-center gap-8">
-                <div className="w-full h-30 flex justify-between px-8 items-center bg-[var(--color-olive-500)] text-white">
+                <div className="w-full h-30 flex justify-between px-8 items-center bg-[#D9D9D9] text-gray-600">
                     <p className="hidden sm:block text-2xl font-[family-name:var(--font-heading)]">Categorias</p>
                     <Link to={`/cadastrarcategoria`} className="flex justify-end w-full sm:w-auto">
                         <button

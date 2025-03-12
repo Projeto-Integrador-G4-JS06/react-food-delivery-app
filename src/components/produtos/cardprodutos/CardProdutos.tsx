@@ -80,6 +80,11 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
       }
     }
   };
+  const getImagemSrc = (icone?: string) => {
+    return icone && icone.trim() !== ""
+      ? icone
+      : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817";
+  };
 
   return (
     <div
@@ -101,36 +106,72 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
         <button className="bg-[#CD533B] hover:bg-[#b7452f] text-white py-2 rounded-4xl transition font-body">
           Adicionar ao carrinho
         </button>
-      </div>
-
-      {/* Div para a imagem e botões */}
-      <div className="ml-4 relative min-w-[66px] min-h-[66px]">
-        <div className="relative group">
-          <img
-            src={produto.foto}
-            alt={produto.nome_produto}
-            className="w-66 h-66 rounded-lg object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
-        </div>
-
-        <div
-          className={`absolute top-2 right-2 flex gap-2 transition-all duration-700 ${
-            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          }`}
-        >
-          <button className="bg-[#FFD166] text-black p-2 rounded-full hover:bg-[#E6B952] transition hover:cursor-pointer">
-            {" "}
+        <div className="overflow-hidden border bg-white border-gray-200 rounded-2xl drop-shadow-xl h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer">
+          
+          {/* Botões para mobile */}
+          <div className="flex justify-end gap-2 m-4 lg:hidden">
             <Link to={`/atualizarproduto/${produto.id}`}>
-              <Pencil size={28} />
+              <Pencil size={24} />
             </Link>
-          </button>
-          <button
-            className="bg-[#FF6F61] text-black p-2 rounded-full hover:bg-[#E65A4D] transition hover:cursor-pointer"
-            onClick={handleDelete}
-          >
-            <Trash size={28} />
-          </button>
+            <Link to={`/produto/${produto.id}`}>
+              <Trash size={24} />
+            </Link>
+          </div>
+
+          {/* Div para a imagem e botões */}
+          <div className="ml-4 relative min-w-[66px] min-h-[66px]">
+            <div className="relative group">
+              <img
+                src={produto.foto}
+                alt={produto.nome_produto}
+                className="w-66 h-66 rounded-lg object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+
+            <div
+              className={`absolute top-2 right-2 flex gap-2 transition-all duration-700 ${
+                isHovered
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-2"
+              }`}
+            >
+              <button className="bg-[#FFD166] text-black p-2 rounded-full hover:bg-[#E6B952] transition hover:cursor-pointer">
+                {" "}
+                <Link to={`/atualizarproduto/${produto.id}`}>
+                  <Pencil size={28} />
+                </Link>
+              </button>
+              <button
+                className="bg-[#FF6F61] text-black p-2 rounded-full hover:bg-[#E65A4D] transition hover:cursor-pointer"
+                onClick={handleDelete}
+              >
+                <Trash size={28} />
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Detalhes do produto */}
+        <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center">
+          <h2 className="text-base xl:text-lg font-medium text-gray-800 font-[family-name:var(--font-heading)] mx-4">
+            {produto.nome_produto}
+          </h2>
+
+          <div className="flex-1 flex flex-col justify-evenly">
+            <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] m-2">
+              {produto.descricao}
+            </p>
+            <p className="text-base xl:text-lg font-semibold text-gray-700 font-[family-name:var(--font-body)] m-4">
+              R$ {produto.preco.toFixed(2)}
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white py-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
+              Adicionar ao carrinho
+            </button>
+          </div>
         </div>
       </div>
     </div>
