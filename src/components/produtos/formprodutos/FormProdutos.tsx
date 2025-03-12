@@ -204,7 +204,7 @@ function FormProdutos() {
               placeholder="Nome do Produto"
               name="nome_produto"
               required
-              className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2"
               value={produto.nome_produto}
               onChange={atualizarEstado}
             />
@@ -218,7 +218,7 @@ function FormProdutos() {
               placeholder="Breve descrição do produto..."
               name="descricao"
               required
-              className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.descricao}
               onChange={atualizarEstado}
             />
@@ -236,7 +236,7 @@ function FormProdutos() {
               placeholder="Preço do produto"
               name="preco"
               required
-              className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.preco === 0 ? "" : produto.preco}
               onChange={atualizarEstado}
             />
@@ -247,7 +247,7 @@ function FormProdutos() {
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.foto}
               onChange={atualizarEstado}
             />
@@ -260,7 +260,7 @@ function FormProdutos() {
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700"
                 value={produto.categoria?.id || ""} // Controla o valor selecionado
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                 required // Campo obrigatório
@@ -287,7 +287,7 @@ function FormProdutos() {
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 focus:border-0"
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   atualizarEstadoSelect(e)
                 }
@@ -322,7 +322,7 @@ function FormProdutos() {
             </Link>
             <button
               type="submit"
-              className="flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
+              className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
               disabled={carregandoProdutos}
             >
               {isLoading ? (

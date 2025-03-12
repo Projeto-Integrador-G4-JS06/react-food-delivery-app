@@ -158,7 +158,7 @@ function FormCategoria() {
                             />
                         </div>
                     )} */}
-          <div className="w-full  bg-[#333333] h-[1px] mt- mb-2 "></div>
+          <div className="w-full  bg-[#333333] h-[2px] mt- mb-2 "></div>
 
           <form
             className="flex flex-col w-full gap-4 text-gray-700 font-medium"
@@ -175,7 +175,7 @@ function FormCategoria() {
                 type="text"
                 placeholder="Informe aqui o nome da categoria"
                 name="nome_categoria"
-                className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+                className="text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
                 required
                 value={categoria.nome_categoria}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -192,7 +192,7 @@ function FormCategoria() {
                 type="text"
                 placeholder="Informe aqui a descrição da categoria"
                 name="descricao"
-                className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+                className="text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
                 required
                 value={categoria.descricao}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -213,7 +213,7 @@ function FormCategoria() {
                 type="text"
                 placeholder="Insira o link da imagem da categoria"
                 name="icone"
-                className="border-2 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+                className="text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
                 // required
                 value={categoria.icone}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
