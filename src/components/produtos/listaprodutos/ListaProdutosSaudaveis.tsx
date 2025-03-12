@@ -9,6 +9,7 @@ function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Função para buscar os produtos saudáveis
   async function buscarProdutos() {
     try {
       setIsLoading(true);
@@ -24,12 +25,20 @@ function ListaProdutosSaudaveis() {
     }
   }
 
+  // Função para remover um produto da lista de produtos saudáveis
+  const removerProduto = (id: string) => {
+    setProdutos((prevProdutos) =>
+      prevProdutos.filter((produto) => produto.id.toString() !== id)
+    );
+  };
+
   useEffect(() => {
     buscarProdutos();
-  }, [produtos.length]);
+  }, []); // Executa apenas uma vez ao montar o componente
 
   return (
     <>
+      {/* Centralized PacmanLoader */}
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
           <PacmanLoader
@@ -42,20 +51,25 @@ function ListaProdutosSaudaveis() {
         </div>
       )}
 
-      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
+      {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
-          {(!isLoading && produtos.length === 0) && (
+          {!isLoading && produtos.length === 0 && (
             <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
               Nenhum produto foi encontrado!
             </span>
           )}
         </div>
         <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
+          {/* Primeira linha com card e imagem */}
           <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-            {/* Primeira linha com card e imagem */}
             <div className="order-2">
-              <CardProdutos produto={produtos[0]} />
+              {produtos.length > 0 && (
+                <CardProdutos
+                  produto={produtos[0]}
+                  onDelete={removerProduto} // Passa a função onDelete
+                />
+              )}
             </div>
             <div className="order-2 flex justify-center">
               <img
@@ -65,16 +79,19 @@ function ListaProdutosSaudaveis() {
               />
             </div>
           </div>
+
+          {/* Demais produtos */}
           <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
             {produtos
               .sort((a, b) => a.id - b.id)
-              .slice(1).map((produto) => (
+              .slice(1) // Ignora o primeiro produto, que já foi renderizado acima
+              .map((produto) => (
                 <CardProdutos
                   key={produto.id}
                   produto={produto}
+                  onDelete={removerProduto} // Passa a função onDelete
                 />
-              ))
-            }
+              ))}
           </div>
         </section>
       </div>
