@@ -3,7 +3,7 @@
 
 body {
   font-family: var(--font-body);
-  background-color: #f5f5dc;
+  background-color: #ECE9E3;
 }
 
 @theme {
@@ -35,7 +35,7 @@ body {
 
 /* Cor padrão das setas */
 .slick-arrow.slick-prev::before, .slick-arrow.slick-next::before {
-  color: #FFC100; /* Cor amarela para as setas */
+  color: #7a7a7a; /* Cor amarela para as setas */
 }
 
 /* Cor das setas ao passar o mouse */

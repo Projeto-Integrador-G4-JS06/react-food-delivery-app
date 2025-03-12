@@ -38,7 +38,6 @@ function CarroselCategoria() {
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
     autoplay: false, // Ativa o autoplay
-    autoplaySpeed: 2000, // Define o intervalo entre os slides em milissegundos
     responsive: [
       {
         breakpoint: 1024, // Telas grandes
@@ -70,7 +69,7 @@ function CarroselCategoria() {
         <Slider {...settings}>
           {categorias.map((categoria) => (
             <div key={categoria.id} className="cursor-pointer">
-              <Link to={`/produtos/categorias/${categoria.nome_categoria}`}>
+              <Link to={`/categorias/nome/${categoria.nome_categoria}`}>
                 <CardCategoriaHome categoria={categoria} />
               </Link>
             </div>

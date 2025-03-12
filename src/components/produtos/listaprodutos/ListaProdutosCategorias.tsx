@@ -14,32 +14,29 @@ function ListaProdutosCategorias() {
 
   // Função para converter o nome da categoria em title case
   const toTitleCase = (str: string | undefined): string => {
-    if (!str) return ""; // Retorna uma string vazia se str for undefined ou null
+    if (!str) return ''; // Retorna uma string vazia se str for undefined ou null
     return str
       .toLowerCase() // Converte toda a string para minúsculas
-      .split(" ") // Divide a string em um array de palavras
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
-      .join(" "); // Junta as palavras de volta em uma única string
+      .split(' ') // Divide a string em um array de palavras
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
+      .join(' '); // Junta as palavras de volta em uma única string
   };
 
   async function buscarProdutosCategorias() {
     try {
       setIsLoading(true);
-      await listar(
-        `/categorias/nome/${nome_categoria}`,
-        (dados: Categoria[]) => {
-          if (Array.isArray(dados) && dados.length > 0) {
-            setCategoria(dados[0]); // Acessa o primeiro elemento do array
-          } else {
-            setCategoria(null); // Define como null se não houver dados
-          }
+      await listar(`/categorias/nome/${nome_categoria}`, (dados: Categoria[]) => {
+        if (Array.isArray(dados) && dados.length > 0) {
+          setCategoria(dados[0]); // Acessa o primeiro elemento do array
+        } else {
+          setCategoria(null); // Define como null se não houver dados
         }
-      );
+      });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        ToastAlerta(`Erro ao buscar a categoria: ${error.message}`, "erro");
+        ToastAlerta(`Erro ao buscar a categoria: ${error.message}`, 'erro');
       } else {
-        ToastAlerta("Erro desconhecido ao buscar a categoria!", "erro");
+        ToastAlerta("Erro desconhecido ao buscar a categoria!", 'erro');
       }
     } finally {
       setIsLoading(false);
@@ -70,10 +67,7 @@ function ListaProdutosCategorias() {
       <div className="w-full bg-[#D9D9D9] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
           <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
-            Produtos da Categoria:{" "}
-            {categoria
-              ? toTitleCase(categoria.nome_categoria)
-              : " Carregando..."}
+            Produtos da Categoria: {categoria ? toTitleCase(categoria.nome_categoria) : ' Carregando...'}
           </p>
           <Link to={`/home`} className="flex justify-end w-full sm:w-auto">
             <button
@@ -89,7 +83,7 @@ function ListaProdutosCategorias() {
       {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
-          {!isLoading && categoria?.produto?.length === 0 && (
+          {(!isLoading && categoria?.produto?.length === 0) && (
             <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
               Nenhum produto foi encontrado!
             </span>
@@ -97,9 +91,14 @@ function ListaProdutosCategorias() {
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
             <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-              {categoria?.produto?.map((produto) => (
-                <CardProdutos key={produto.id} produto={produto} />
-              ))}
+              {categoria?.produto
+                ?.map((produto) => (
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                  />
+                ))
+              }
             </div>
           </section>
         </div>

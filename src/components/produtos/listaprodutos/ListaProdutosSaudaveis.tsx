@@ -4,7 +4,6 @@ import Produto from "../../../models/Produto";
 import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
 import { ClipLoader } from "react-spinners";
-import CardProdutosSaudaveis from "../cardprodutossaudaveis/CardProdutosSaudaveis";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -18,7 +17,7 @@ function ListaProdutosSaudaveis() {
       await listar("/produtos/healthy", setProdutos);
     } catch (error: any) {
       if (error.toString().includes("403")) {
-        alert("Erro ao carregar produtos.");  
+        alert("Erro ao carregar produtos.");
       }
     } finally {
       setIsLoading(false); // Finaliza o carregamento, independentemente do resultado
@@ -34,21 +33,21 @@ function ListaProdutosSaudaveis() {
       {/* Exibe o loading enquanto os produtos estão sendo carregados */}
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
-          <ClipLoader color="#FF6F61"/>
+          <ClipLoader color="#FF6F61" />
         </div>
       )}
 
       {/* Renderiza os componentes apenas quando o carregamento terminar */}
       {!isLoading && produtos.length > 0 && (
         <>
-         
+
 
           <div className="flex justify-center ">
             <div className="flex flex-col">
               {/* Primeira linha com card e imagem */}
               <div className="grid grid-cols-1 md:grid-cols-2  mb-8 grid-co">
                 <div className="order-2 sm:order-2">
-                  <CardProdutosSaudaveis produto={produtos[0]} />
+                  <CardProdutos produto={produtos[0]} />
                 </div>
                 <div className="flex items-center justify-center sm:order-2 order-1">
                   <img
@@ -62,7 +61,7 @@ function ListaProdutosSaudaveis() {
               {/* Restante dos produtos */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
                 {produtos.slice(1).map((produto) => (
-                  <CardProdutosSaudaveis key={produto.id} produto={produto} />
+                  <CardProdutos key={produto.id} produto={produto} />
                 ))}
               </div>
             </div>
