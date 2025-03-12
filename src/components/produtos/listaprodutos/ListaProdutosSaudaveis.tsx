@@ -1,26 +1,26 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
-import { AuthContext } from "../../../contexts/AuthContext";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { ClipLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
-
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const [isLoading, setIsLoading] = useState(false);
 
   async function buscarProdutos() {
     try {
+      setIsLoading(true);
       await listar("/produtos/healthy", setProdutos);
-    } catch (error: any) {
-      if (error.toString().includes("403")) {
-        alert("Erro ao carregar produtos.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        ToastAlerta(`Erro ao listar os produtos saudáveis: ${error.message}`, 'erro');
+      } else {
+        ToastAlerta("Erro desconhecido ao listar os produtos saudáveis!", 'erro');
       }
     } finally {
-      setIsLoading(false); // Finaliza o carregamento, independentemente do resultado
+      setIsLoading(false);
     }
   }
 
@@ -29,46 +29,59 @@ function ListaProdutosSaudaveis() {
   }, [produtos.length]);
 
   return (
-    <div>
-      {/* Exibe o loading enquanto os produtos estão sendo carregados */}
+    <>
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
-          <ClipLoader color="#FF6F61" />
+          <PacmanLoader
+            color="#E02D2D"
+            margin={0}
+            size={50}
+            speedMultiplier={2}
+            aria-label="Pacman-loading"
+          />
         </div>
       )}
 
-      {/* Renderiza os componentes apenas quando o carregamento terminar */}
-      {!isLoading && produtos.length > 0 && (
-        <>
+      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
+      <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
+        <div className="w-full flex flex-col mx-4">
+          {(!isLoading && produtos.length === 0) && (
+            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+              Nenhum produto foi encontrado!
+            </span>
+          )}
 
-
-          <div className="flex justify-center ">
-            <div className="flex flex-col">
+          <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
               {/* Primeira linha com card e imagem */}
-              <div className="grid grid-cols-1 md:grid-cols-2  mb-8 grid-co">
-                <div className="order-2 sm:order-2">
-                  <CardProdutos produto={produtos[0]} />
-                </div>
-                <div className="flex items-center justify-center sm:order-2 order-1">
-                  <img
-                    src="https://ik.imagekit.io/p2qsb5ajs/food_delivery/Eating%20healthy%20food-amico.svg?updatedAt=1741286199584" // Substitua pela URL da imagem desejada
-                    alt="Imagem"
-                    className=" w-89 h-89 object-cover rounded-lg"
-                  />
-                </div>
+              <div className="order-2">
+                <CardProdutos produto={produtos[0]} />
               </div>
-
-              {/* Restante dos produtos */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 3xl:grid-cols-3 gap-y-0 gap-x-8">
-                {produtos.slice(1).map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
-                ))}
+              <div className="order-2 flex justify-center">
+                <img
+                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                  alt="Imagem"
+                  className="w-72.5 h-72.5 object-cover rounded-lg"
+                />
               </div>
             </div>
-          </div>
-        </>
-      )}
-    </div>
+
+            {/* Restante dos produtos */}
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+              {produtos
+                .sort((a, b) => a.id - b.id)
+                .slice(1).map((produto) => (
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                  />
+                ))
+              }
+            </div>
+          </section >
+        </div >
+      </div >
+    </>
   );
 }
 
