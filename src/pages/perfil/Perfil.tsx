@@ -18,7 +18,7 @@ function Perfil() {
 
 	return (
 		<div className="flex justify-center mx-4">
-			<div className="container min-h-[100vh] mx-auto my-4 rounded-2xl overflow-hidden">
+			<div className="container  mx-auto my-4 rounded-2xl overflow-hidden">
 				<img
 					className="w-full h-72 object-cover border-b-8 border-white"
 					src="https://ik.imagekit.io/22g34n0mo/Restaurantes/foodu.jpg?updatedAt=1741200397225"

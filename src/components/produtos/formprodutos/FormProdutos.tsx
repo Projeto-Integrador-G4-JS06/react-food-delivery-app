@@ -2,15 +2,17 @@ import { useState, useEffect, ChangeEvent, useContext, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import Produto from "../../../models/Produto";
-import { cadastrar, buscar, atualizar } from "../../../services/Service";
+import { cadastrar, atualizar, listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
 function FormProdutos() {
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
   const [categoria, setCategoria] = useState<Categoria>({
@@ -18,8 +20,8 @@ function FormProdutos() {
     nome_categoria: '',
     descricao: '',
     icone: '',
-    criado_em: '',
-    atualizado_em: '',
+    criado_em: new Date().toISOString(),
+    atualizado_em: new Date().toISOString(),
     status: false,
   });
 
@@ -31,42 +33,37 @@ function FormProdutos() {
   const { id } = useParams<{ id: string }>();
 
   const { usuario, handleLogout } = useContext(AuthContext);
+
   const token = usuario.token;
 
   async function buscarProdutoPorId(id: string) {
     try {
-      await buscar(`/produtos/id/${id}`, setProduto, {
-        headers: { Authorization: token },
-      });
-    } catch (error: any) {
-      if (error.toString().includes("403")) {
-        handleLogout();
-      }
+      await listar(`/produtos/id/${id}`, setProduto);
+    } catch (error: unknown) {
+      console.error("Erro ao cadastrar/atualizar categoria:", error);
+      ToastAlerta("Categoria não encontrada!", "info");
+      retornar();
     }
   }
 
   // Função para buscar uma categoria pelo ID
   async function buscarCategoriaPorId(id: string) {
     try {
-      await buscar(`/categorias/id/${id}`, setCategoria, {
-        headers: { Authorization: token },
-      });
-    } catch (error: any) {
-      if (error.toString().includes("403")) {
-        handleLogout();
-      }
+      await listar(`/categorias/id/${id}`, setCategoria);
+    } catch (error: unknown) {
+      console.error("Erro ao encontrar categoria:", error);
+      ToastAlerta("Categoria não encontrada!", "erro");
+      retornar();
     }
   }
 
   async function buscarCategorias() {
     try {
-      await buscar("/categorias/all", setCategorias, {
-        headers: { Authorization: token },
-      });
-    } catch (error: any) {
-      if (error.toString().includes("403")) {
-        handleLogout();
-      }
+      await listar("/categorias/all", setCategorias);
+    } catch (error: unknown) {
+      console.error("Erro ao procurar categorias:", error);
+      ToastAlerta("Categorias não encontradas!", "erro");
+      retornar();
     }
   }
 
@@ -107,6 +104,11 @@ function FormProdutos() {
       valor = parseFloat(Number(value).toFixed(2));
     }
 
+    // Verifica se o campo é a descrição e limita a 80 caracteres
+    if (name === "descricao" && typeof valor === "string") {
+      valor = valor.slice(0, 80);
+    }
+
     setProduto({
       ...produto,
       [name]: valor,
@@ -141,9 +143,10 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto atualizado com sucesso", "sucesso");
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          handleLogout();
+
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message.includes("401")) {
+          handleLogout()
         } else {
           ToastAlerta("Erro ao atualizar o Produto", "erro");
         }
@@ -157,9 +160,10 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto cadastrado com sucesso", "sucesso");
-      } catch (error: any) {
-        if (error.toString().includes("403")) {
-          handleLogout();
+
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message.includes("401")) {
+          handleLogout()
         } else {
           ToastAlerta("Erro ao cadastrar o Produto", "erro");
         }
@@ -173,6 +177,8 @@ function FormProdutos() {
   function retornar() {
     navigate("/produtos");
   }
+
+  const carregandoCategoria = categoria.descricao === '';
 
   return (
     <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
@@ -205,13 +211,16 @@ function FormProdutos() {
             </label>
             <input
               type="text"
-              placeholder="Breve descrição do produto. . "
+              placeholder="Breve descrição do produto..."
               name="descricao"
               required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.descricao}
               onChange={atualizarEstado}
             />
+            <span className="text-sm text-gray-500">
+              {produto.descricao ? produto.descricao.length : 0}/80 caracteres
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <label className="flex justify-center lg:justify-start">
@@ -234,7 +243,6 @@ function FormProdutos() {
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              required
               className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
               value={produto.foto}
               onChange={atualizarEstado}
@@ -248,13 +256,13 @@ function FormProdutos() {
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
+                required // Campo obrigatório
               >
-                <option value="" selected disabled>
+                <option value="" disabled>
                   Selecione uma Categoria
                 </option>
-
                 {categorias.map((categoria) => (
                   <option className="text-gray-700" value={categoria.id} key={categoria.id}>
                     {categoria.nome_categoria}
@@ -270,10 +278,11 @@ function FormProdutos() {
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-400"
+                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
                 onChange={atualizarEstadoSelect}
+                required // Campo obrigatório
               >
-                <option value="" selected disabled>
+                <option value="" disabled>
                   Selecione o Nutri Score
                 </option>
                 <option className="text-gray-700" value="A">
@@ -297,8 +306,9 @@ function FormProdutos() {
 
           <button
             type="submit"
-            className="rounded-xl disabled:bg-slate-200 bg-[#CD533B] hover:bg-[#EA5A3D]
+            className="rounded-xl disabled:bg-[#d89d92] bg-[#CD533B] hover:bg-[#EA5A3D]
                         cursor-pointer text-sm lg:text-base text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
+            disabled={carregandoCategoria}
           >
             {isLoading ? (
               <RotatingLines

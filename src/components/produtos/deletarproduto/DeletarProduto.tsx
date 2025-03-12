@@ -1,38 +1,52 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { listar, deletar, buscar } from "../../../services/Service";
+import { listar, deletar } from "../../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Produto from "../../../models/Produto";
 
 function DeletarProduto() {
+
   const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [produto, setProduto] = useState<Produto>({} as Produto);
 
   const { id } = useParams<{ id: string }>();
+
   const { usuario, handleLogout } = useContext(AuthContext);
 
   const token = usuario.token;
 
+  const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
+
+  const alertaExibido = useRef(false);
+
   async function buscarPorId(id: string) {
     console.log("Buscando produto com ID:", id);
     try {
-      await buscar(`/produtos/id/${id}`, setProduto, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await listar(`/produtos/id/${id}`, setProduto);
       console.log("Produto carregado:", produto);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erro ao buscar produto:", error);
+      ToastAlerta("Erro ao buscar produto!", "erro");
+      retornar();
     }
   }
 
   useEffect(() => {
-    console.log("ID do produto:", id); // 🔹 Debug para ver se o ID está vindo correto
-    if (id !== undefined) {
+    if (token === "" && !alertaExibido.current) {
+      ToastAlerta("Você precisa estar logado", "info");
+      alertaExibido.current = true;
+      navigate("/login");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
+      buscaExecutada.current = true; // Marca a busca como executada
       buscarPorId(id);
     }
   }, [id]);
@@ -45,22 +59,22 @@ function DeletarProduto() {
       });
       ToastAlerta("Produto deletado com sucesso!", "sucesso");
       navigate("/produtos");
-    } catch (error: any) {
-      console.error("Erro ao deletar produto:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message.includes("401")) {
+        handleLogout()
+      } else {
+        ToastAlerta("Erro ao deletar produto!", "erro");
+      }
     }
     setIsLoading(false);
+    retornar();
   }
 
   function retornar() {
     navigate("/produtos");
   }
 
-  useEffect(() => {
-    if (token === "") {
-      ToastAlerta("Você precisa estar logado!", "info");
-      navigate("/");
-    }
-  }, [token]);
+  
 
   if (!produto.nome_produto) {
     return (

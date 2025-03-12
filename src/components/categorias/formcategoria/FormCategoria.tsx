@@ -25,23 +25,25 @@ function FormCategoria() {
 
     async function buscarCategoriaPorId(id: string) {
         try {
-            await listar(`/categorias/${id}`, setCategoria);
+            await listar(`/categorias/id/${id}`, setCategoria);
         } catch (error: unknown) {
-            console.error("Erro ao cadastrar/atualizar categoria:", error);
-            ToastAlerta("Categoria não encontrada!", "info");
+            console.error("Erro ao encontrar categoria:", error);
+            ToastAlerta("Categoria não encontrada!", "erro");
             retornar();
         }
     }
 
     useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
+        if (token === "" && !buscaExecutada.current) {
+            ToastAlerta("Você precisa estar logado", "info");
+            buscaExecutada.current = true;
+            navigate('/login')
         }
     }, [token])
 
     useEffect(() => {
         if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
+            console.log(`ID: ${id}`)
             buscaExecutada.current = true; // Marca a busca como executada
             buscarCategoriaPorId(id);
         } else {
@@ -50,8 +52,8 @@ function FormCategoria() {
                 nome_categoria: '',
                 descricao: '',
                 icone: '',
-                criado_em: '',
-                atualizado_em: '',
+                criado_em: new Date().toISOString(),
+                atualizado_em: new Date().toISOString(),
                 status: false,
             });
         }
@@ -72,10 +74,11 @@ function FormCategoria() {
             try {
                 await atualizar(`/categorias/atualizar`, categoria, setCategoria, {
                     headers: { Authorization: token },
-                })
+                });
                 ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
             } catch (error: unknown) {
                 if (error instanceof Error && error.message.includes("401")) {
+                    ToastAlerta("Você precisa estar logado", "info");
                     handleLogout();
                 } else {
                     console.error("Erro ao atualizar categoria:", error);
@@ -84,16 +87,19 @@ function FormCategoria() {
             }
         } else {
             try {
-                await cadastrar(`/categorias/cadastrar`, categoria, setCategoria, {
+                console.log("Dados da categoria sendo enviados:", categoria); // Log dos dados
+                const response = await cadastrar(`/categorias/cadastrar`, categoria, setCategoria, {
                     headers: { Authorization: token }
-                })
+                });
+                console.log("Resposta da API:", response); // Log da resposta
                 ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
             } catch (error: unknown) {
                 if (error instanceof Error && error.message.includes("401")) {
+                    ToastAlerta("Você precisa estar logado", "info");
                     handleLogout();
                 } else {
                     console.error("Erro ao cadastrar a categoria:", error);
-                    ToastAlerta("Erro ao cadastrar a categoria!", "erro");
+                    ToastAlerta("Erro ao cadastrar a categoria 123!", "erro");
                 }
             }
         }
@@ -105,6 +111,10 @@ function FormCategoria() {
     function retornar() {
         navigate("/categorias");
     }
+
+    const carregandoCategoria = categoria.nome_categoria === '' || categoria.descricao === '';
+
+    console.log(JSON.stringify(categoria))
 
     return (
         <section className="w-full py-8 flex flex-col justify-center items-center">
@@ -154,15 +164,16 @@ function FormCategoria() {
                                 placeholder="Insira o link da imagem da categoria"
                                 name='icone'
                                 className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
-                                required
+                                // required
                                 value={categoria.icone}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />
                         </div>
                         <button
-                            className="flex justify-center w-32 lg:w-48 py-2 mx-auto rounded-xl text-white text-sm lg:text-base bg-[#CD533B] hover:bg-[#EA5A3D]"
+                            className="flex justify-center w-32 lg:w-48 py-2 mx-auto disabled:bg-[#d89d92] rounded-xl text-white text-sm lg:text-base bg-[#CD533B] hover:bg-[#EA5A3D]"
                             type="submit"
-                        // disabled={isLoading} // Desabilita o botão durante o carregamento
+                            // disabled={isLoading} // Desabilita o botão durante o carregamento
+                            disabled={carregandoCategoria}
                         >
                             {isLoading ? (
                                 <RotatingLines

@@ -1,49 +1,24 @@
-import { Link } from 'react-router-dom'
 import Banner from "../../components/banner/Banner";
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
+import CarroselCategoria from "../../components/carroselcategoria/CarroselCategoria";
 
 function Home() {
   return (
-    <div className="bg-[#F6EED9]">
+    <section className="bg-[#E5E5E5] container w-full mx-auto flex flex-col justify-center gap-8">
       <Banner />
-      <div className="flex justify-center py-8">
-        {/* <div className="container grid grid-cols-2">
-          <div className="flex flex-col items-center justify-center gap-4 py-4">
-            <h2 className="text-4xl font-heading font-semibold text-gray-800">
-              Tá com fome? Pede Aí!
-            </h2>
-            <p className="text-lg font-body">
-              Pratos deliciosos a um clique de distância!
-            </p>
-            <p></p>
-            <div className="flex justify-around gap-4">
-              <div className="flex justify-around gap-4">
-                <button className=" font-semibold w-full h-auto py-2.5 px-5 bg-[#CD533B] text-white rounded-full hover:bg-[#B3492F]">
-                  <Link to="/produtos">Faça seu pedido agora!</Link>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <img
-              src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/Order%20food-amico.png"
-              alt="Imagem da Página Home"
-              className="w-2/3"
-            />
-          </div>
-        </div> */}
-      </div>
-      <div className="bg-[#FFE5A0] rounded-2xl pb-20  mx-10">
-        <div className="">
-          <h2 className=" pt-8 pb-4 md:py-10 pl-2 md:pl-5 font-heading font-semibold text-2xl md:text-3xl">
-            Produtos Saudáveis
-          </h2>
-          <ul className="list-disc ">
-            <ListaProdutosSaudaveis/>
-          </ul>
+      <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-8 py-2">
+        Conheça as nossas categorias!
+      </h2>
+      <CarroselCategoria />
+      <div className="w-full bg-[#ECE9E3] p-auto rounded-2xl">
+        <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-20 py-15">
+          Produtos Saudáveis
+        </h2>
+        <div className="px-25 pb-15">
+          <ListaProdutosSaudaveis />
         </div>
       </div>
-    </div>
+    </section >
   );
 }
 
