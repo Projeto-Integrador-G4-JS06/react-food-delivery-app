@@ -16,25 +16,18 @@ function ListaProdutos() {
       await listar("/produtos/all", setProdutos);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        ToastAlerta(`Erro ao listar produtos: ${error.message}`, "erro");
+        ToastAlerta(`Erro ao listar produtos: ${error.message}`, 'erro');
       } else {
-        ToastAlerta("Erro desconhecido ao listar os produtos!", "erro");
+        ToastAlerta("Erro desconhecido ao listar os produtos!", 'erro');
       }
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Função para remover um produto da lista
-  const removerProduto = (id: string) => {
-    setProdutos((prevProdutos) =>
-      prevProdutos.filter((produto) => produto.id.toString() !== id)
-    );
-  };
-
   useEffect(() => {
     buscarProdutos();
-  }, []); // Executa apenas uma vez ao montar o componente
+  }, [produtos.length]);
 
   return (
     <>
@@ -52,15 +45,10 @@ function ListaProdutos() {
       )}
 
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
-      <div className="w-full bg-[#ECE9E3] py-6">
+      <div className="w-full bg-[#D9D9D9] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-black">
-            Produtos
-          </p>
-          <Link
-            to={`/cadastrarproduto`}
-            className="flex justify-end w-full sm:w-auto"
-          >
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">Produtos</p>
+          <Link to={`/cadastrarproduto`} className="flex justify-end w-full sm:w-auto">
             <button
               type="submit"
               className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45"
@@ -74,7 +62,7 @@ function ListaProdutos() {
       {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
-          {!isLoading && produtos.length === 0 && (
+          {(!isLoading && produtos.length === 0) && (
             <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
               Nenhum produto foi encontrado!
             </span>
@@ -83,14 +71,14 @@ function ListaProdutos() {
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
             <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
               {produtos
-                .sort((a, b) => a.id - b.id) // Ordena os produtos por ID
+                .sort((a, b) => a.id - b.id)
                 .map((produto: Produto) => (
                   <CardProdutos
                     key={produto.id}
                     produto={produto}
-                    onDelete={removerProduto} // Passa a função para remover o produto
                   />
-                ))}
+                ))
+              }
             </div>
           </section>
         </div>
