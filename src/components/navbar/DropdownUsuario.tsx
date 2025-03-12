@@ -6,9 +6,10 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 interface DropdownUsuarioProps {
   children?: React.ReactNode;
+  isMobile?: boolean;
 }
 
-export function DropdownUsuario({ children }: DropdownUsuarioProps) {
+export function DropdownUsuario({ children, isMobile = false }: DropdownUsuarioProps) {
   const navigate = useNavigate();
   const { usuario, handleLogout } = useContext(AuthContext);
   const [usuarioDropdown, setUsuarioDropdown] = useState(false);
@@ -36,14 +37,23 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
     navigate("/");
   }
 
+  function handlePerfilClick() {
+    // Se o usuário não estiver autenticado e for desktop, redireciona para login
+    if (!usuario.token) {
+      navigate("/login");
+    } else {
+      setUsuarioDropdown(!usuarioDropdown);
+    }
+  }
+
   return (
     <div className="relative capitalize z-20" ref={usuarioDropdownRef}>
       <button
-        onClick={() => setUsuarioDropdown(!usuarioDropdown)}
+        onClick={handlePerfilClick}
         className="flex items-center cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
       >
         {/* Ícone visível apenas no desktop */}
-        <div className="p-2 bg-[#FFC100] rounded-lg text-white hidden md:block">
+        <div className="p-2 text-red-100 rounded-lg hidden md:block transition duration-300 ease-in-out hover:-translate-y-1">
           <User size={32} weight="regular" />
         </div>
 
@@ -53,7 +63,7 @@ export function DropdownUsuario({ children }: DropdownUsuarioProps) {
         </span>
       </button>
 
-      {usuarioDropdown && (
+      {usuario.token && usuarioDropdown && (
         <div className="absolute bg-white text-black shadow-md mt-2 rounded-lg w-40 right-0">
           {usuario.token ? (  // Verificando se o usuário está autenticado (token não nulo)
             <>

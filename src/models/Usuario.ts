@@ -13,5 +13,5 @@ export default interface Usuario {
     endereco: string;
     criado_em: string;
     atualizado_em: string;
-    produtos?: Produto[] | null;
+    produto?: Produto[] | null;
 }
