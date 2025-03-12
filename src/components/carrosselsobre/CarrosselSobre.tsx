@@ -70,7 +70,7 @@ function CarrosselSobre() {
     slidesToShow: 3, // Quantidade de slides visíveis
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
-    autoplay: false, // Ativa o autoplay
+    autoplay: true, // Ativa o autoplay
     autoplaySpeed: 2000, // Define o intervalo entre os slides em milissegundos
     responsive: [
       {

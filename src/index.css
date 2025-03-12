@@ -35,12 +35,12 @@ body {
 
 /* Cor padrão das setas */
 .slick-arrow.slick-prev::before, .slick-arrow.slick-next::before {
-  color: #FFC100; /* Cor amarela para as setas */
+  color: #000000; /* Cor amarela para as setas */
 }
 
 /* Cor das setas ao passar o mouse */
 .slick-arrow.slick-prev:hover::before, .slick-arrow.slick-next:hover::before {
-  color: #CD533B; /* Cor vermelha ao passar o mouse */
+  color: #e02d2d; /* Cor vermelha ao passar o mouse */
 }
 
 
