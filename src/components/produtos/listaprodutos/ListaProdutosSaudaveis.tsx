@@ -7,7 +7,7 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function buscarProdutos() {
     try {
@@ -26,7 +26,7 @@ function ListaProdutosSaudaveis() {
 
   useEffect(() => {
     buscarProdutos();
-  }, [produtos.length]);
+  }, []);
 
   return (
     <>
@@ -42,41 +42,37 @@ function ListaProdutosSaudaveis() {
         </div>
       )}
 
-      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
-        <div className="w-full flex flex-col mx-4">
-          {(!isLoading && produtos.length === 0) && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
-              Nenhum produto foi encontrado!
-            </span>
-          )}
-        </div>
-        <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-            {/* Primeira linha com card e imagem */}
-            <div className="order-2">
-              <CardProdutos produto={produtos[0]} />
-            </div>
-            <div className="order-2 flex justify-center">
-              <img
-                src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
-                alt="Imagem"
-                className="w-72.5 h-72.5 object-cover rounded-lg"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
-            {produtos
-              .sort((a, b) => a.id - b.id)
-              .slice(1).map((produto) => (
-                <CardProdutos
-                  key={produto.id}
-                  produto={produto}
+        {!isLoading && produtos.length === 0 && (
+          <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+            Nenhum produto foi encontrado!
+          </span>
+        )}
+
+        {!isLoading && produtos.length > 0 && (
+          <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+              <div className="order-2">
+                <CardProdutos produto={produtos[0]} />
+              </div>
+              <div className="order-2 flex justify-center">
+                <img
+                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                  alt="Imagem"
+                  className="w-72.5 h-72.5 object-cover rounded-lg"
                 />
-              ))
-            }
-          </div>
-        </section>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
+              {produtos
+                .sort((a, b) => a.id - b.id)
+                .slice(1)
+                .map((produto) => (
+                  <CardProdutos key={produto.id} produto={produto} />
+                ))}
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
