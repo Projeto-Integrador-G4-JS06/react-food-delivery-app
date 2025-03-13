@@ -16,9 +16,9 @@ function ListaProdutos() {
       await listar("/produtos/all", setProdutos);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        ToastAlerta(`Erro ao listar produtos: ${error.message}`, 'erro');
+        ToastAlerta(`Erro ao listar produtos: ${error.message}`, "erro");
       } else {
-        ToastAlerta("Erro desconhecido ao listar os produtos!", 'erro');
+        ToastAlerta("Erro desconhecido ao listar os produtos!", "erro");
       }
     } finally {
       setIsLoading(false);
@@ -47,11 +47,16 @@ function ListaProdutos() {
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
       <div className="w-full bg-[#D9D9D9] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">Produtos</p>
-          <Link to={`/cadastrarproduto`} className="flex justify-end w-full sm:w-auto">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
+            Produtos
+          </p>
+          <Link
+            to={`/cadastrarproduto`}
+            className="flex justify-end w-full sm:w-auto"
+          >
             <button
               type="submit"
-              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer"
             >
               Cadastrar Produto
             </button>
@@ -62,7 +67,7 @@ function ListaProdutos() {
       {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
-          {(!isLoading && produtos.length === 0) && (
+          {!isLoading && produtos.length === 0 && (
             <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
               Nenhum produto foi encontrado!
             </span>
@@ -73,12 +78,8 @@ function ListaProdutos() {
               {produtos
                 .sort((a, b) => a.id - b.id)
                 .map((produto: Produto) => (
-                  <CardProdutos
-                    key={produto.id}
-                    produto={produto}
-                  />
-                ))
-              }
+                  <CardProdutos key={produto.id} produto={produto} />
+                ))}
             </div>
           </section>
         </div>

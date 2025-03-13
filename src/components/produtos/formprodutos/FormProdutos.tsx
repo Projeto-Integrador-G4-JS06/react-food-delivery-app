@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, useContext, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import Produto from "../../../models/Produto";
 import { cadastrar, atualizar, listar } from "../../../services/Service";
@@ -8,7 +8,6 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
 function FormProdutos() {
-
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,9 +16,9 @@ function FormProdutos() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: 0,
-    nome_categoria: '',
-    descricao: '',
-    icone: '',
+    nome_categoria: "",
+    descricao: "",
+    icone: "",
     criado_em: new Date().toISOString(),
     atualizado_em: new Date().toISOString(),
     status: false,
@@ -115,6 +114,8 @@ function FormProdutos() {
       categoria: categoria,
       usuario: usuario,
     });
+
+    console.log(produto);
   }
 
   // Função para atualizar o estado do produto quando o usuário seleciona uma opção no select
@@ -143,10 +144,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto atualizado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao atualizar o Produto", "erro");
         }
@@ -160,10 +160,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto cadastrado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao cadastrar o Produto", "erro");
         }
@@ -178,21 +177,26 @@ function FormProdutos() {
     navigate("/produtos");
   }
 
-  const carregandoCategoria = categoria.descricao === '';
+  const carregandoProdutos =
+    produto.nome_produto === "" ||
+    produto.descricao === "" || // Verifica se o preço é uma string vazia// Verifica se o preço é NaN
+    produto.categoria === undefined ||
+    produto.preco <= 0 ||
+    produto.nutri_score === undefined;
 
   return (
-    <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
-      <div className="container mx-auto px-4 flex flex-col justify-center items-center">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">
+    <section className=" flex flex-col justify-center items-center min-h-screen py-4 lg:py-4 xl:py-0">
+      <div className="container w-[80%] md:w-[50%] lg:w-[50%]  mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#333333]">
           {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
         </h1>
-
+        <div className="w-full lg:w-[80%] bg-[#333333] h-[1px] mt-2 mb-2"></div>
         <form
-          className="flex flex-col w-full lg:w-1/2 gap-4 text-gray-700 font-medium m-1.5"
+          className="flex flex-col w-full lg:w-[80%] gap-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+            <label className="flex justify-center lg:justify-start ">
               Nome do Produto
             </label>
             <input
@@ -200,7 +204,7 @@ function FormProdutos() {
               placeholder="Nome do Produto"
               name="nome_produto"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2"
               value={produto.nome_produto}
               onChange={atualizarEstado}
             />
@@ -214,7 +218,7 @@ function FormProdutos() {
               placeholder="Breve descrição do produto..."
               name="descricao"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.descricao}
               onChange={atualizarEstado}
             />
@@ -232,7 +236,7 @@ function FormProdutos() {
               placeholder="Preço do produto"
               name="preco"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.preco === 0 ? "" : produto.preco}
               onChange={atualizarEstado}
             />
@@ -243,20 +247,21 @@ function FormProdutos() {
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
               value={produto.foto}
               onChange={atualizarEstado}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center lg:justify-start">
+              <p className="flex justify-center text-center lg:justify-start">
                 Categoria do Produto
               </p>
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700"
+                value={produto.categoria?.id || ""} // Controla o valor selecionado
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                 required // Campo obrigatório
               >
@@ -264,7 +269,11 @@ function FormProdutos() {
                   Selecione uma Categoria
                 </option>
                 {categorias.map((categoria) => (
-                  <option className="text-gray-700" value={categoria.id} key={categoria.id}>
+                  <option
+                    className="text-gray-700"
+                    value={categoria.id}
+                    key={categoria.id}
+                  >
                     {categoria.nome_categoria}
                   </option>
                 ))}
@@ -278,11 +287,13 @@ function FormProdutos() {
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
-                onChange={atualizarEstadoSelect}
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 focus:border-0"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  atualizarEstadoSelect(e)
+                }
                 required // Campo obrigatório
               >
-                <option value="" disabled>
+                <option value="" selected disabled>
                   Selecione o Nutri Score
                 </option>
                 <option className="text-gray-700" value="A">
@@ -303,25 +314,30 @@ function FormProdutos() {
               </select>
             </div>
           </div>
-
-          <button
-            type="submit"
-            className="rounded-xl disabled:bg-[#d89d92] bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer text-sm lg:text-base text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
-            disabled={carregandoCategoria}
-          >
-            {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
-                visible={true}
-              />
-            ) : (
-              <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
-            )}
-          </button>
+          <div className="flex justify-between gap-4 lg:gap-12 flex-col lg:flex-row">
+            <Link to={`/produtos`} className="h-13 w-full order-2 lg:order-1">
+              <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
+                Cancelar
+              </button>
+            </Link>
+            <button
+              type="submit"
+              className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
+              disabled={carregandoProdutos}
+            >
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </section>
