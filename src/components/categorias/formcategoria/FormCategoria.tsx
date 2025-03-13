@@ -29,6 +29,10 @@ function FormCategoria() {
 
   const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
 
+  const camposPreenchidos = () => {
+    return categoria.descricao && categoria.nome_categoria;
+  };
+
   async function buscarCategoriaPorId(id: string) {
     try {
       await listar(`/categorias/id/${id}`, setCategoria);
@@ -134,9 +138,6 @@ function FormCategoria() {
     navigate("/categorias");
   }
 
-  const carregandoCategoria =
-    categoria.nome_categoria === "" || categoria.descricao === "";
-
   console.log(JSON.stringify(categoria));
 
   return (
@@ -230,8 +231,7 @@ function FormCategoria() {
               <button
                 className="flex items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
                 type="submit"
-                // disabled={isLoading} // Desabilita o botão durante o carregamento
-                disabled={carregandoCategoria}
+                disabled={!camposPreenchidos()}
               >
                 {isLoading ? (
                   <RotatingLines

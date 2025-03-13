@@ -129,6 +129,16 @@ function FormProdutos() {
       usuario: usuario,
     });
   }
+  // Função para verificar se todos os campos obrigatórios estão preenchidos
+  const camposPreenchidos = () => {
+    return (
+      produto.nome_produto &&
+      produto.descricao &&
+      produto.preco &&
+      produto.categoria?.id &&
+      produto.nutri_score
+    );
+  };
 
   // Função para cadastrar um produto
   async function cadastrarNovoProduto(e: ChangeEvent<HTMLFormElement>) {
@@ -176,13 +186,6 @@ function FormProdutos() {
   function retornar() {
     navigate("/produtos");
   }
-
-  const carregandoProdutos =
-    produto.nome_produto === "" ||
-    produto.descricao === "" || // Verifica se o preço é uma string vazia// Verifica se o preço é NaN
-    produto.categoria === undefined ||
-    produto.preco <= 0 ||
-    produto.nutri_score === undefined;
 
   return (
     <section className=" flex flex-col justify-center items-center min-h-screen py-4 lg:py-4 xl:py-0">
@@ -323,7 +326,7 @@ function FormProdutos() {
             <button
               type="submit"
               className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
-              disabled={carregandoProdutos}
+              disabled={!camposPreenchidos()}
             >
               {isLoading ? (
                 <RotatingLines
