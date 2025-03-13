@@ -4,17 +4,15 @@ import Categoria from "../../models/Categoria";
 import { useEffect, useState } from "react";
 import { listar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 function CarroselCategoria() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
-   const navigate = useNavigate(); 
+  
 
-    function handleCategoriaClick(nomeCategoria: string) {
-      navigate(`/produtos/categoria/${nomeCategoria}`);
-    } 
+
 
   async function buscarCategorias() {
     try {
@@ -40,7 +38,6 @@ function CarroselCategoria() {
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
     autoplay: false, // Ativa o autoplay
-    autoplaySpeed: 2000, // Define o intervalo entre os slides em milissegundos
     responsive: [
       {
         breakpoint: 1024, // Telas grandes
@@ -71,12 +68,10 @@ function CarroselCategoria() {
       <div className="p-10 -mb-5 overflow-hidden">
         <Slider {...settings}>
           {categorias.map((categoria) => (
-            <div
-              key={categoria.id}
-              // className="cursor-pointer"
-              // onClick={() => handleCategoriaClick(categoria.nome_categoria)}
-            >
-              <CardCategoriaHome categoria={categoria} />
+            <div key={categoria.id} className="cursor-pointer">
+              <Link to={`/categorias/nome/${categoria.nome_categoria}`}>
+                <CardCategoriaHome categoria={categoria} />
+              </Link>
             </div>
           ))}
         </Slider>
