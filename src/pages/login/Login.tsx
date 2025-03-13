@@ -37,12 +37,12 @@ function Login() {
       <section className="container w-full mx-auto flex flex-col p-4 justify-center">
         <div className="flex items-center justify-center xl:my-4 xl:mx-30">
           <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-screen">
-            <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full xl:w-5/4 rounded-2xl z-10">
+            <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full xl:w-5/4 rounded-2xl z-10 px-4">
               <form
                 className="flex flex-col gap-4 w-80 xl:w-3/5"
                 onSubmit={login}
               >
-                <h2 className="text-[#33333] font-bold text-3xl text-center border-b-1 border-b-black p-6 w-full font-heading">
+                <h2 className="text-[#33333] font-bold text-2xl text-center border-b-1 border-b-black p-6 w-full font-heading">
                   Faça login com sua conta
                 </h2>
                 <div className="flex flex-col mt-4 w-full">
