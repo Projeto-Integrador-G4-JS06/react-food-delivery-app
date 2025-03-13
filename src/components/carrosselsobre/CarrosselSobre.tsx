@@ -81,6 +81,13 @@ function CarrosselSobre() {
         },
       },
       {
+        breakpoint: 853, // Telas médias
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
         breakpoint: 820, // Telas médias
         settings: {
           slidesToShow: 2,
