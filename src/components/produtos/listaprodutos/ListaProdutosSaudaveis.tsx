@@ -55,7 +55,7 @@ function ListaProdutosSaudaveis() {
               <div className="order-2">
                 <CardProdutos produto={produtos[0]} />
               </div>
-              <div className="order-2 flex justify-center">
+              <div className="order-2 flex justify-center items-center">
                 <img
                   src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
                   alt="Imagem"
