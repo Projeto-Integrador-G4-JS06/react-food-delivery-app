@@ -56,36 +56,34 @@ function Cadastro() {
             setIsLoading(true);
 
             try {
-                await cadastrarUsuario(
-                    "/usuarios/cadastrar",
-                    usuario,
-                    setUsuario
-                );
+                await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario);
                 ToastAlerta("Usuário Cadastrado com sucesso!", "sucesso");
-            } catch (error) {
-                ToastAlerta("Erro ao cadastrar o Usuário!", "erro");
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    ToastAlerta(`Erro ao cadastrar o Usuário!: ${error.message}`, "erro");
+                } else {
+                    ToastAlerta("Erro desconhecido ao cadastrar o usuário!", "erro");
+                }
             }
         } else {
-            ToastAlerta(
-                "Dados do usuário inconsistentes! Verifique as informações e tente novamente.",
-                "info"
-            );
-            setUsuario({ ...usuario, senha: "" });
-            setConfirmarSenha("");
+            ToastAlerta('Dados do usuário inconsistentes! Verifique as informações e tente novamente.', 'info')
+            setUsuario({ ...usuario, senha: '' })
+            setConfirmarSenha('')
         }
 
-        setIsLoading(false);
+        setIsLoading(false)
+
     }
 
     return (
         <>
-            <section className="container w-full mx-auto flex flex-col my-10 px-10 justify-center">
-                <div className="flex items-center justify-center xl:my-4 xl:mx-30">
-                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-screen rounded-2xl">
-                    <div className="bg-[#FF5656] fundoCadastro hidden xl:block rounded-l-2xl"></div>
-                        <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full rounded-2xl xl:transform xl:-translate-x-10">
+            <section className="container w-full mx-auto flex flex-col p-4 justify-center">
+                <div className="flex items-center justify-center my-2 md:my-6 xl:mx-30">
+                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-full rounded-2xl">
+                        <div className="bg-[#FF5656] fundoCadastro hidden xl:block rounded-l-2xl py-6"></div>
+                        <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full rounded-2xl xl:transform xl:-translate-x-5 py-6">
                             <form
-                                className="flex flex-col gap-4 w-80 xl:w-3/5"
+                                className="flex flex-col gap-4 w-70 xl:w-3/5"
                                 onSubmit={cadastrarNovoUsuario}
                             >
                                 <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
