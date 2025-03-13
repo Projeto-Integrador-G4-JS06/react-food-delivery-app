@@ -28,7 +28,7 @@ function CardProdutos({ produto }: CardProdutosProps) {
       </div>
 
       {/* Conteúdo do card */}
-      <div className="container flex flex-col justify-center items-center gap-x-5 p-4 md:p-8 text-center lg:flex-row lg:items-start lg:text-center">
+      <div className="container flex flex-col justify-center items-center gap-x-5 gap-y-4 p-4 md:p-8 text-center lg:flex-row lg:items-start lg:text-center">
         {/* Div para a imagem e botões (hover effect a partir de lg) */}
         <div className="lg:flex lg:order-2 relative group">
           <img
@@ -61,17 +61,17 @@ function CardProdutos({ produto }: CardProdutosProps) {
         </div>
 
         {/* Detalhes do produto */}
-        <div className="lg:flex-1 lg:order-1 lg:h-64 flex flex-col items-center">
-          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 my-4 md:my-0">
+        <div className="lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full">
+          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0">
             {produto.nome_produto}
           </h2>
 
           <div className="flex-1 flex flex-col justify-evenly">
             <p className="text-sm xl:text-base text-gray-600 
-            font-[family-name:var(--font-body)] m-2">
+            font-[family-name:var(--font-body)] mx-2">
               {produto.descricao}
             </p>
-            <p className="text-base xl:text-lg font-semibold text-gray-700 font-[family-name:var(--font-body)] m-2">
+            <p className="text-lg xl:text-xl font-semibold text-gray-700 font-[family-name:var(--font-body)] my-4">
               R$ {produto.preco.toFixed(2)}
             </p>
           </div>
