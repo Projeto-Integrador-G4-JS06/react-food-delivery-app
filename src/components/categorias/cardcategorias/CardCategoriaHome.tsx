@@ -12,7 +12,7 @@ const getImagemSrc = (icone?: string) => {
 
 function CardCategoriaHome({ categoria }: CardCategoriaProps) {
   return (
-    <div className="bg-[#FFC100] border-1 border-gray-800 p-2 rounded-2xl w-[7rem] h-[7rem] items-center flex flex-col justify-center drop-shadow-2xl">
+    <div className="bg-[#F5E9D9] border-1 border-gray-800 p-2 rounded-2xl w-[7rem] h-[7rem] items-center flex flex-col justify-center drop-shadow-2xl my-2 ">
       <img
         src={getImagemSrc(categoria?.icone)}
         alt="Category Icon"

@@ -25,9 +25,16 @@ function ListaProdutos() {
     }
   }
 
+  // Função para remover um produto da lista
+  const removerProduto = (id: string) => {
+    setProdutos((prevProdutos) =>
+      prevProdutos.filter((produto) => produto.id.toString() !== id)
+    );
+  };
+
   useEffect(() => {
     buscarProdutos();
-  }, [produtos.length]);
+  }, []); // Executa apenas uma vez ao montar o componente
 
   return (
     <>
@@ -45,7 +52,7 @@ function ListaProdutos() {
       )}
 
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
-      <div className="w-full bg-[#D9D9D9] py-6">
+      <div className="w-full bg-[#ECE9E3] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
           <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
             Produtos
@@ -76,9 +83,13 @@ function ListaProdutos() {
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
             <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
               {produtos
-                .sort((a, b) => a.id - b.id)
+                .sort((a, b) => a.id - b.id) // Ordena os produtos por ID
                 .map((produto: Produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                    onDelete={removerProduto} // Passa a função para remover o produto
+                  />
                 ))}
             </div>
           </section>

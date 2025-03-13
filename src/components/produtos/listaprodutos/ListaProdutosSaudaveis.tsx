@@ -9,6 +9,7 @@ function ListaProdutosSaudaveis() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Função para buscar os produtos saudáveis
   async function buscarProdutos() {
     try {
       setIsLoading(true);
@@ -24,12 +25,20 @@ function ListaProdutosSaudaveis() {
     }
   }
 
+  // Função para remover um produto da lista de produtos saudáveis
+  const removerProduto = (id: string) => {
+    setProdutos((prevProdutos) =>
+      prevProdutos.filter((produto) => produto.id.toString() !== id)
+    );
+  };
+
   useEffect(() => {
     buscarProdutos();
   }, []);
 
   return (
     <>
+      {/* Centralized PacmanLoader */}
       {isLoading && (
         <div className="flex justify-center items-center h-screen">
           <PacmanLoader
@@ -53,7 +62,7 @@ function ListaProdutosSaudaveis() {
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-8">
             <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
               <div className="order-2">
-                <CardProdutos produto={produtos[0]} />
+                <CardProdutos produto={produtos[0]} onDelete={removerProduto}/>
               </div>
               <div className="order-2 flex justify-center items-center">
                 <img
@@ -68,7 +77,7 @@ function ListaProdutosSaudaveis() {
                 .sort((a, b) => a.id - b.id)
                 .slice(1)
                 .map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} />
+                  <CardProdutos key={produto.id} produto={produto} onDelete={removerProduto} />
                 ))}
             </div>
           </section>
