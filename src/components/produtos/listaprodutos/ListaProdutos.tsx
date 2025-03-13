@@ -63,7 +63,7 @@ function ListaProdutos() {
           >
             <button
               type="submit"
-              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer"
             >
               Cadastrar Produto
             </button>
