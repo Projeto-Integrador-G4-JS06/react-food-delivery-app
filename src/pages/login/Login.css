@@ -1,9 +1,10 @@
 .fundoLogin {
-  background-image: url("https://ik.imagekit.io/3ov0fr7b9/usuarios/Order%20food-pana%201.png?updatedAt=1741186753061");
+  background-image: url("https://ik.imagekit.io/3ov0fr7b9/usuarios/Frame%203.png?updatedAt=1741810199114");
   background-repeat: no-repeat;
   min-height: 100vh;
   width: 100%;
-  background-size: 60%;
-  background-position: center;
-  background-color: #ffc100;
+  background-size: 70%;
+  background-position: right;
+  background-color: #FF5656;
+  
 }
