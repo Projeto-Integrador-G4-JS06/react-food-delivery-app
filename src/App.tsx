@@ -28,7 +28,7 @@ function App() {
                 <ToastContainer />
                 <BrowserRouter>
                     <Navbar />
-                    <div className="scroll-smooth antialiased min-h-[80vh]">
+                    <div className="scroll-smooth antialiased md:min-h-[80vh]">
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
