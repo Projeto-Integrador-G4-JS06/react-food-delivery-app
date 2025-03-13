@@ -1,26 +1,114 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { deletar } from "../../../services/Service";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import "./CardProduto.css";
 
 interface CardProdutosProps {
   produto: Produto;
+  onDelete: (id: string) => void; // Adiciona a prop onDelete
 }
 
 const getImagemSrc = (icone?: string) => {
-  return icone && icone.trim() !== '' ? icone : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817';
+  return icone && icone.trim() !== ""
+    ? icone
+    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817";
 };
 
-function CardProdutos({ produto }: CardProdutosProps) {
+function CardProdutos({ produto, onDelete }: CardProdutosProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    if (!token) {
+      ToastAlerta("Você precisa estar logado para deletar um produto.", "info");
+      navigate("/login");
+      return;
+    }
+
+    Swal.fire({
+      title: "Tem certeza?",
+      html: `Você está prestes a deletar o produto "<b>${produto.nome_produto}</b>".<br>Essa ação não pode ser desfeita!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E02D2D", // Cor de fundo do botão de confirmação
+      cancelButtonColor: "#F0F0F0", // Cor de fundo do botão de cancelamento
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
+      background: "#ECE9E3", // Cor de fundo da modal
+      customClass: {
+        popup: "custom-swal-popup", // Classe para o popup
+        confirmButton: "custom-confirm-button", // Classe para o botão de confirmação
+        cancelButton: "custom-cancel-button", // Classe para o botão de cancelamento
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deletarProduto(produto.id.toString());
+          onDelete(produto.id.toString()); // Chama a função onDelete passada pelo componente pai
+          Swal.fire({
+            title: "Deletado!",
+            text: "O produto foi deletado com sucesso.",
+            icon: "success",
+            background: "#ECE9E3", // Cor de fundo da modal de sucesso
+            confirmButtonColor: "#E02D2D", // Cor de fundo do botão de confirmação
+            customClass: {
+              popup: "custom-swal-popup", // Classe para o popup
+              confirmButton: "custom-confirm-button", // Classe para o botão de confirmação
+            },
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Erro!",
+            text: "Ocorreu um erro ao tentar deletar o produto.",
+            icon: "error",
+            background: "#ECE9E3", // Cor de fundo da modal de erro
+            confirmButtonColor: "#E02D2D", // Cor de fundo do botão de confirmação
+            customClass: {
+              popup: "custom-swal-popup", // Classe para o popup
+              confirmButton: "custom-confirm-button", // Classe para o botão de confirmação
+            },
+          });
+        }
+      }
+    });
+  };
+
+  const deletarProduto = async (id: string) => {
+    try {
+      await deletar(`/produtos/${id}`, {
+        headers: { Authorization: token },
+      });
+      ToastAlerta("Produto deletado com sucesso!", "sucesso");
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message.includes("401")) {
+        handleLogout();
+      } else {
+        ToastAlerta("Erro ao deletar produto!", "erro");
+      }
+    }
+  };
+
   return (
-    <section className="overflow-hidden border bg-white border-gray-200 rounded-2xl drop-shadow-xl h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer">
+    <section
+      className="overflow-hidden border bg-white border-gray-200 rounded-2xl drop-shadow-xl h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Botões para mobile */}
       <div className="flex justify-end gap-2 m-4 lg:hidden">
         <Link to={`/atualizarproduto/${produto.id}`}>
           <Pencil size={24} />
         </Link>
-        <Link to={`/produto/${produto.id}`}>
+        <button onClick={handleDelete}>
           <Trash size={24} />
-        </Link>
+        </button>
       </div>
 
       {/* Conteúdo do card */}
@@ -37,17 +125,22 @@ function CardProdutos({ produto }: CardProdutosProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
-          <div className="absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700">
+          <div
+            className={`absolute top-2 right-2 hidden lg:flex gap-2 transition-opacity duration-700 ${
+              isHovered ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <Link to={`/atualizarproduto/${produto.id}`}>
               <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
               </button>
             </Link>
-            <Link to={`/produto/${produto.id}`}>
-              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
-                <Trash size={28} />
-              </button>
-            </Link>
+            <button
+              className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer"
+              onClick={handleDelete}
+            >
+              <Trash size={28} />
+            </button>
           </div>
         </div>
 
