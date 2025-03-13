@@ -14,9 +14,7 @@ const getImagemSrc = (icone?: string) => {
 
 function CardProdutos({ produto }: CardProdutosProps) {
   return (
-    <section className="overflow-hidden border bg-white border-gray-200 rounded-2xl
-    drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 
-    hover:shadow-lg cursor-pointer">
+    <section className="overflow-hidden border bg-white border-gray-200 rounded-2xl drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer">
       {/* Botões para mobile */}
       <div className="flex justify-end gap-2 m-4 lg:hidden">
         <Link to={`/atualizarproduto/${produto.id}`}>
@@ -38,22 +36,17 @@ function CardProdutos({ produto }: CardProdutosProps) {
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black 
-          via-transparent to-transparent opacity-0 group-hover:opacity-50 
-          transition-opacity duration-300 rounded-lg"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
-          <div className="absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 
-          lg:group-hover:opacity-100 transition-opacity duration-700">
+          <div className="absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700">
             <Link to={`/atualizarproduto/${produto.id}`}>
-              <button className="bg-gray-700/75 text-white p-2 rounded-full 
-              hover:bg-gray-800/75 transition hover:cursor-pointer">
+              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
               </button>
             </Link>
             <Link to={`/produto/${produto.id}`}>
-              <button className="bg-gray-700/75 text-white p-2 rounded-full 
-              hover:bg-gray-800/75 transition hover:cursor-pointer">
+              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Trash size={28} />
               </button>
             </Link>
@@ -61,14 +54,13 @@ function CardProdutos({ produto }: CardProdutosProps) {
         </div>
 
         {/* Detalhes do produto */}
-        <div className="lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full">
-          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0">
+        <div className="container lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full min-w-0">
+          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0 break-words max-w-full">
             {produto.nome_produto}
           </h2>
 
-          <div className="flex-1 flex flex-col justify-evenly">
-            <p className="text-sm xl:text-base text-gray-600 
-            font-[family-name:var(--font-body)] mx-2">
+          <div className="container flex-1 flex flex-col justify-evenly">
+            <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] break-words max-w-full">
               {produto.descricao}
             </p>
             <p className="text-lg xl:text-xl font-semibold text-gray-700 font-[family-name:var(--font-body)] my-4">
@@ -77,8 +69,7 @@ function CardProdutos({ produto }: CardProdutosProps) {
           </div>
 
           <div className="flex justify-center">
-            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white 
-            p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
+            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
               Adicionar ao carrinho
             </button>
           </div>
