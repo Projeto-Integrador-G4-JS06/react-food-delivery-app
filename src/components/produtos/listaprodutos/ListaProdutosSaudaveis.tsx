@@ -59,7 +59,7 @@ function ListaProdutosSaudaveis() {
                 <img
                   src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
                   alt="Imagem"
-                  className="w-72.5 h-72.5 object-cover rounded-lg"
+                  className="w-72.5 h-72.5 object-cover rounded-lg hidden sm:block"
                 />
               </div>
             </div>
