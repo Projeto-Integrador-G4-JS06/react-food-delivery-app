@@ -79,9 +79,9 @@ function Cadastro() {
 
     return (
         <>
-            <section className="container w-full mx-auto flex flex-col p-4 justify-center">
+            <section className="container  flex flex-col m-[1%] mb-[2%] px-10 justify-center">
                 <div className="flex items-center justify-center xl:my-4 xl:mx-30">
-                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-screen rounded-2xl">
+                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-full rounded-2xl">
                     <div className="bg-[#FF5656] fundoCadastro hidden xl:block rounded-l-2xl"></div>
                         <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full rounded-2xl xl:transform xl:-translate-x-10">
                             <form
