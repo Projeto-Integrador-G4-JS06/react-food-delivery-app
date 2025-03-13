@@ -185,7 +185,7 @@ function FormProdutos() {
     produto.nutri_score === undefined;
 
   return (
-    <section className=" flex flex-col justify-center items-center min-h-screen py-4 md:py-0">
+    <section className=" flex flex-col justify-center items-center min-h-screen py-4 lg:py-4 xl:py-0">
       <div className="container w-[80%] md:w-[50%] lg:w-[50%]  mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#333333]">
           {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
