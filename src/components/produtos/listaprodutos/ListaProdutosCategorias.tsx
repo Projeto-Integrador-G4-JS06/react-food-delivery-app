@@ -43,9 +43,34 @@ function ListaProdutosCategorias() {
     }
   }
 
+  // async function buscarProdutosCategorias() {
+  //   try {
+  //     setIsLoading(true);
+  //     const dados = await listar(`/categorias/nome/${nome_categoria}`);
+  //     if (Array.isArray(dados) && dados.length > 0) {
+  //       setCategoria(dados[0]); // Acessa o primeiro elemento do array
+  //     } else {
+  //       setCategoria(null); // Define como null se não houver dados
+  //     }
+  //     console.log('Categoria carregada:', dados); // Verifique os dados retornados
+  //     console.log('Produtos:', dados[0]?.produto); // Verifique os produtos retornados
+  //   } catch (error: unknown) {
+  //     if (error instanceof Error) {
+  //       ToastAlerta(`Erro ao buscar a categoria: ${error.message}`, 'erro');
+  //     } else {
+  //       ToastAlerta("Erro desconhecido ao buscar a categoria!", 'erro');
+  //     }
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+
+  useEffect(() => {
+    buscarProdutosCategorias();
+  }, [nome_categoria]);
 
   const removerProduto = (id: string) => {
-    if (categoria) {
+    if (categoria && categoria.produto) {
       const produtosAtualizados = categoria.produto.filter((produto) => produto.id.toString() !== id);
       setCategoria({
         ...categoria,
@@ -53,10 +78,6 @@ function ListaProdutosCategorias() {
       });
     }
   };
-
-  useEffect(() => {
-    buscarProdutosCategorias();
-  }, [nome_categoria]);
 
   return (
     <>
@@ -74,15 +95,15 @@ function ListaProdutosCategorias() {
       )}
 
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
-      <div className="w-full bg-[#D9D9D9] py-6">
+      <div className="w-full bg-[#ECE9E3] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
           <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
-            Produtos da Categoria: {categoria ? toTitleCase(categoria.nome_categoria) : ' Carregando...'}
+            Produtos da Categoria: {categoria ? toTitleCase(categoria.nome_categoria) : '---'}
           </p>
           <Link to={`/home`} className="flex justify-end w-full sm:w-auto">
             <button
               type="submit"
-              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-45"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer"
             >
               Voltar
             </button>
@@ -100,8 +121,9 @@ function ListaProdutosCategorias() {
           )}
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
               {categoria?.produto
+                ?.sort((a, b) => a.id - b.id) // Ordena os produtos por ID
                 ?.map((produto) => (
                   <CardProdutos
                     key={produto.id}

@@ -225,7 +225,7 @@ function Cadastro() {
                                         ) => handleConfirmarSenha(e)}
                                     />
                                 </div>
-                                <div className="flex justify-between w-full gap-8 pt-6">
+                                <div className="flex justify-between w-full gap-8 py-6">
                                     <button
                                         type="reset"
                                         className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E97E7E] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer"

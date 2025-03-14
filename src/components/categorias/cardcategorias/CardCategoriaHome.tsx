@@ -18,10 +18,8 @@ function CardCategoriaHome({ categoria }: CardCategoriaProps) {
         alt="Category Icon"
         className="my-2 h-10 max-w-75"
       ></img>
-      <p>
-        <p className="text-xs lg:text-sm text-center text-gray-800 font-medium font-[family-name:var(--font-heading)]">
-          {categoria.nome_categoria}
-        </p>
+      <p className="text-xs lg:text-sm text-center text-gray-800 font-medium font-[family-name:var(--font-heading)] break-words max-w-full">
+        {categoria.nome_categoria}
       </p>
     </div>
   );
