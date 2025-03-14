@@ -12,18 +12,23 @@ function Sobre() {
                         <img
                             src="https://ik.imagekit.io/liaMatsubara/sobre_2.png?updatedAt=1741791068392"
                             alt="Banner PedeAí"
-                            className="hidden md:block w-full h-auto"
+                            className="hidden lg:block w-full h-auto"
+                        />
+
+                        {/* Imagem para iPads */}
+                        <img
+                            src="https://ik.imagekit.io/liaMatsubara/ipad_sobre.svg?updatedAt=1741964437819"
+                            alt="Banner PedeAí iPad"
+                            className="hidden md:block lg:hidden w-full h-auto"
                         />
 
                         {/* Imagem para telas menores (mobile) */}
                         <img
                             src="https://ik.imagekit.io/liaMatsubara/sobre2(1080%20x%202600%20px).png?updatedAt=1741793083828"
                             alt="Banner PedeAí Mobile"
-                            className="block mb-4 md:hidden w-full h-auto"
+                            className="block md:hidden w-full h-auto"
                         />
                     </div>
-
-                    {/* <hr className="my-20 border-t-2 border-[#e02d2d]" /> */}
 
                     {/* Seção do Carrossel */}
                     <div className="flex justify-center">

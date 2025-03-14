@@ -81,6 +81,13 @@ function CarrosselSobre() {
         },
       },
       {
+        breakpoint: 912, // Surface Pro 7
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
         breakpoint: 853, // Telas médias
         settings: {
           slidesToShow: 2,
