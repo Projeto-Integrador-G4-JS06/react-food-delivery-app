@@ -16,9 +16,15 @@ function ListaProdutosSaudaveis() {
       await listar("/produtos/healthy", setProdutos);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        ToastAlerta(`Erro ao listar os produtos saudáveis: ${error.message}`, 'erro');
+        ToastAlerta(
+          `Erro ao listar os produtos saudáveis: ${error.message}`,
+          "erro"
+        );
       } else {
-        ToastAlerta("Erro desconhecido ao listar os produtos saudáveis!", 'erro');
+        ToastAlerta(
+          "Erro desconhecido ao listar os produtos saudáveis!",
+          "erro"
+        );
       }
     } finally {
       setIsLoading(false);
@@ -62,13 +68,13 @@ function ListaProdutosSaudaveis() {
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-8">
             <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
               <div className="order-2">
-                <CardProdutos produto={produtos[0]} onDelete={removerProduto}/>
+                <CardProdutos produto={produtos[0]} onDelete={removerProduto} />
               </div>
-              <div className="order-2 flex justify-center">
+              <div className="order-2 flex justify-center items-center">
                 <img
                   src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
                   alt="Imagem"
-                  className="w-72.5 h-72.5 object-cover rounded-lg"
+                  className="w-72.5 h-72.5 object-cover rounded-lg hidden sm:block"
                 />
               </div>
             </div>
@@ -77,7 +83,11 @@ function ListaProdutosSaudaveis() {
                 .sort((a, b) => a.id - b.id)
                 .slice(1)
                 .map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} onDelete={removerProduto} />
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                    onDelete={removerProduto}
+                  />
                 ))}
             </div>
           </section>

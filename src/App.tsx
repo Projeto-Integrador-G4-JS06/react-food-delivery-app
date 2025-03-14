@@ -19,71 +19,59 @@ import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
 import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
 import Cadastro from "./pages/cadastro/Cadastro";
-
+import Cart from "./components/carrinho/Cart";
+import { CartProvider } from "./contexts/CartContext";
 
 function App() {
-    return (
-        <>
-            <AuthProvider>
-                <ToastContainer />
-                <BrowserRouter>
-                    <Navbar />
-                    <div className="scroll-smooth antialiased min-h-[80vh]">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/cadastro" element={<Cadastro />} />
-                            <Route path="/perfil" element={<Perfil />} />
-                            <Route path="/sobre" element={<Sobre />} />
-                            <Route
-                                path="/categorias/nome/:nome_categoria"
-                                element={<ListaProdutosCategorias />}
-                            />
-                            <Route
-                                path="/categorias"
-                                element={<ListaCategorias />}
-                            />
-                            <Route
-                                path="/cadastrarcategoria"
-                                element={<FormCategoria />}
-                            />
-                            <Route
-                                path="/editarcategoria/:id"
-                                element={<FormCategoria />}
-                            />
-                            <Route
-                                path="/deletarcategoria/:id"
-                                element={<DeletarCategoria />}
-                            />
-                            <Route
-                                path="/produtos"
-                                element={<ListaProdutos />}
-                            />
-                            <Route
-                                path="/produto/:id"
-                                element={<DeletarProduto />}
-                            />
-                            <Route
-                                path="/produtos/healthy"
-                                element={<ListaProdutosSaudaveis />}
-                            />
-                            <Route
-                                path="/cadastrarproduto"
-                                element={<FormProdutos />}
-                            />
-                            <Route
-                                path="/atualizarproduto/:id"
-                                element={<FormProdutos />}
-                            />
-            
-                        </Routes>
-                    </div>
-                    <Footer />
-                </BrowserRouter>
-            </AuthProvider>
-        </>
-    );
+  return (
+    <>
+      <CartProvider>
+        <AuthProvider>
+          <ToastContainer />
+          <BrowserRouter>
+            <Navbar />
+            <div className="scroll-smooth antialiased min-h-[80vh]">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/perfil" element={<Perfil />} />
+                <Route path="/sobre" element={<Sobre />} />
+                <Route
+                  path="/categorias/nome/:nome_categoria"
+                  element={<ListaProdutosCategorias />}
+                />
+                <Route path="/categorias" element={<ListaCategorias />} />
+                <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+                <Route
+                  path="/editarcategoria/:id"
+                  element={<FormCategoria />}
+                />
+                <Route
+                  path="/deletarcategoria/:id"
+                  element={<DeletarCategoria />}
+                />
+                <Route path="/produtos" element={<ListaProdutos />} />
+                <Route path="/produto/:id" element={<DeletarProduto />} />
+                <Route
+                  path="/produtos/healthy"
+                  element={<ListaProdutosSaudaveis />}
+                />
+                <Route path="/cadastrarproduto" element={<FormProdutos />} />
+                <Route
+                  path="/atualizarproduto/:id"
+                  element={<FormProdutos />}
+                />
+                <Route path="/cart" element={<Cart />} />
+              </Routes>
+            </div>
+            <Footer />
+          </BrowserRouter>
+        </AuthProvider>
+      </CartProvider>
+    </>
+  );
 }
 
 export default App;
