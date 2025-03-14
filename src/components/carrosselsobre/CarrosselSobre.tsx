@@ -7,7 +7,7 @@ const CardsDados = [
     nome: "Alan",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/alan.png?updatedAt=1740587313242",
     cargo: "Desenvolvedor Full Stack",
-    responsabilidades: ['CardCategorias', 'ListarCategorias', 'FormCategorias'],
+    responsabilidades: ['CardCategorias', 'ListarCategorias', 'FormCategorias', 'Revisão Técnica'],
     linkedin: "https://www.linkedin.com/in/alanbmrosa/",
     github: "https://github.com/alanbrunoscience"
   },
