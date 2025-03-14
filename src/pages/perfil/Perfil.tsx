@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 
+
 function Perfil() {
   const navigate = useNavigate();
 
@@ -15,32 +16,56 @@ function Perfil() {
     }
   }, [usuario.token]);
 
-  return (
-    <div className="flex justify-center items-center min-h-[80vh]">
-      <div className="flex justify-center md:w-screen mx-4">
-        <div className="container  mx-auto my-4 rounded-2xl overflow-hidden">
-          <img
-            className="w-full h-72 object-cover border-b-8 border-white"
-            src="https://ik.imagekit.io/22g34n0mo/Restaurantes/foodu.jpg?updatedAt=1741200397225"
-            alt="Capa do Perfil"
-          />
+  // Função para converter o nome da categoria em title case
+  const toTitleCase = (str: string | undefined): string => {
+    if (!str) return ''; // Retorna uma string vazia se str for undefined ou null
+    return str
+      .toLowerCase() // Converte toda a string para minúsculas
+      .split(' ') // Divide a string em um array de palavras
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
+      .join(' '); // Junta as palavras de volta em uma única string
+  };
 
+  return (
+    <section className="container w-full mx-auto flex flex-col justify-center">
+      <div className="flex justify-center items-center min-h-[80vh]">
+        {/* <div className="md:w-screen mx-0 md:mx-10 lg:mx-15"> */}
+        <div className="container flex flex-col bg-[#B2B2B2] m-8 rounded-2xl overflow-hidden">
+          <div
+            className="w-full h-72 object-cover round border-b-8 border-white"
+          />
           <img
-            className="rounded-full w-56 mx-auto mt-[-8rem] border-8 border-white relative z-10"
+            className="rounded-full w-56 h-56 mx-auto md:mx-8 mt-[-8rem] border-7
+              border-white relative z-10"
             src={usuario.foto}
-            alt={`Foto de perfil de ${usuario.nome_usuario}`}
+            alt={`Foto de perfil de ${toTitleCase(usuario.nome_usuario)}`}
           />
 
           <div
-            className="relative mt-[-6rem] h-72 flex flex-col 
-                    bg-[#CD533B] md:h-80  rounded-b-2xl text-white text-2xl items-center justify-center"
+            className="relative font-[family-name:var(--font-heading)] font-normal 
+              mt-[-6rem] h-72 flex flex-col bg-[#FF5656] md:h-80 rounded-b-2xl
+                      md:py-[8%] lg:py-[2%] py-[30%] px-[2%] md:px-[38%] 
+                      lg:px-[25%] xl:px-[20%]"
           >
-            <p>Nome: {usuario.nome_usuario} </p>
-            <p>Email: {usuario.usuario}</p>
+            <div className="flex flex-col text-center items-center text-white text-base md:text-xl my-3 md:mx-2 md:my-8 lg:px-[1%] md:items-start md:flex-col md:gap-4">
+              <div className="flex flex-col md:w-max gap-1">
+                <span className="font-bold text-center md:text-start">
+                  Nome:
+                </span>
+                <p>{toTitleCase(usuario.nome_usuario)}</p>
+              </div>
+              <div className="flex flex-col h-full">
+                <span className="font-bold text-center md:text-start">
+                  Email:
+                </span>
+                <p>{usuario.usuario}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </section>
   );
 }
 

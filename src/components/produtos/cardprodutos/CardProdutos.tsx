@@ -1,12 +1,12 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { deletar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import "./CardProduto.css";
+import "./CardProdutos.css";
 
 interface CardProdutosProps {
   produto: Produto;
@@ -20,7 +20,7 @@ const getImagemSrc = (icone?: string) => {
 };
 
 function CardProdutos({ produto, onDelete }: CardProdutosProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
   const navigate = useNavigate();
@@ -64,6 +64,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
             },
           });
         } catch (error) {
+          console.error("Erro ao deletar o produto:", error);
           Swal.fire({
             title: "Erro!",
             text: "Ocorreu um erro ao tentar deletar o produto.",
@@ -121,11 +122,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
-          <div
-            className={`absolute top-2 right-2 hidden lg:flex gap-2 transition-opacity duration-700 ${
-              isHovered ? "opacity-100" : "opacity-0"
-            }`}
-          >
+          <div className={"absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700"}>
             <Link to={`/atualizarproduto/${produto.id}`}>
               <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
