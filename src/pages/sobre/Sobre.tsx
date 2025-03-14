@@ -1,74 +1,50 @@
 import CarrosselSobre from "../../components/carrosselsobre/CarrosselSobre";
 
 function Sobre() {
-  return (
-    <div className="flex justify-center min-h-screen bg-[#f6eed9] ">
-      <div className="container">
-        <div className="mx-4">
-          {/* sobre o projeto */}
-          <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
-            <div className=" flex flex-col justify-center items-center gap-8 m-5">
-              <div className="">
-                <h1 className="pt-4 font-heading text-4xl text-[#CD533B] font-medium">
-                  Tá com fome? PedeAí!
-                </h1>
-              </div>
-              <div className="text-left ">
-                <p>
-                  Com o <span className="font-semibold">PedeAí</span>, pedir
-                  comida é simples e rápido. Escolha entre diversos
-                  restaurantes, encontre o prato perfeito e receba tudo no
-                  conforto da sua casa – sem complicação e do jeito que você
-                  gosta!
-                </p>
-                <br />
-                <h1 className="text-lg font-semibold">
-                  Comida saudável? A gente tem! 🥗
-                </h1>
-                <br />
-                <p>
-                  Quer uma refeição equilibrada sem abrir mão do sabor? No{" "}
-                  <span className="font-semibold">PedeAí</span>, você encontra
-                  uma{" "}
-                  <span className="font-semibold">
-                    categoria exclusiva de alimentos saudáveis
-                  </span>
-                  , onde pode filtrar as opções pelo{" "}
-                  <span className="font-semibold">Nutri Score</span> e fazer
-                  escolhas mais conscientes sem perder tempo.
-                </p>
-                <br />
-                <p>
-                  Peça agora e descubra como é fácil matar a fome com o{" "}
-                  <span className="font-semibold">PedeAí</span>!
-                </p>
-              </div>
+    return (
+        <div className="flex justify-center min-h-screen bg-[#ece9e3]">
+            <div className="container">
+                <div className="mx-4">
+
+                    {/* Banner */}
+                    <div className="w-full flex justify-center">
+                        {/* Imagem para telas maiores (desktop) */}
+                        <img
+                            src="https://ik.imagekit.io/liaMatsubara/sobre_2.png?updatedAt=1741791068392"
+                            alt="Banner PedeAí"
+                            className="hidden lg:block w-full h-auto"
+                        />
+
+                        {/* Imagem para iPads */}
+                        <img
+                            src="https://ik.imagekit.io/liaMatsubara/ipad_sobre.svg?updatedAt=1741964437819"
+                            alt="Banner PedeAí iPad"
+                            className="hidden md:block lg:hidden w-full h-auto"
+                        />
+
+                        {/* Imagem para telas menores (mobile) */}
+                        <img
+                            src="https://ik.imagekit.io/liaMatsubara/sobre2(1080%20x%202600%20px).png?updatedAt=1741793083828"
+                            alt="Banner PedeAí Mobile"
+                            className="block md:hidden w-full h-auto"
+                        />
+                    </div>
+
+                    {/* Seção do Carrossel */}
+                    <div className="flex justify-center">
+                        <h1 className="font-heading text-2xl md:text-4xl text-[#e02d2d] font-medium my-4 md:mb-8 text-center">
+                            Conheça Nosso Time
+                        </h1>
+                    </div>
+
+                    <div className="mb-30">
+                        <CarrosselSobre />
+                    </div>
+
+                </div>
             </div>
-
-            <div className="flex order-2">
-              <img
-                src="https://ik.imagekit.io/liaMatsubara/Obrigado!.svg?updatedAt=1741277224988"
-                alt=""
-                className="order-2"
-              />
-            </div>
-          </div>
-
-          <hr className="my-20 border-t-2 border-[#FFA500]" />
-
-          <div className="flex justify-center">
-            <h1 className="font-heading text-4xl text-[#CD533B] font-medium mb-8">
-              Conheça Nosso Time
-            </h1>
-          </div>
-
-          <div className="mb-30">
-            <CarrosselSobre />
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Sobre;
