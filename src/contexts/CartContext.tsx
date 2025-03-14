@@ -54,7 +54,7 @@ export function CartProvider({ children }: CartProviderProps) {
         ...itensAtuais,
         { ...produto, quantidade: 1 },
       ]);
-      ToastAlerta("Produto adicionado ao carrinho!", "sucesso");
+      ToastAlerta("Novo produto adicionado ao carrinho!", "sucesso");
     }
   }
 
@@ -66,7 +66,7 @@ export function CartProvider({ children }: CartProviderProps) {
       const novoCart = [...items];
       novoCart[itemIndex].quantidade += 1;
       setItems(novoCart);
-      ToastAlerta("01 item adicionado!", "sucesso");
+      ToastAlerta("Um item adicionado!", "sucesso");
     } else {
       ToastAlerta("Produto não encontrado no carrinho!", "erro");
     }
@@ -84,7 +84,7 @@ export function CartProvider({ children }: CartProviderProps) {
         // Reduz a quantidade do produto
         novoCart[itemIndex].quantidade -= 1;
         setItems(novoCart);
-        ToastAlerta("01 item adicionado!", "sucesso");
+        ToastAlerta("Um item removido!", "sucesso");
       } else {
         // Remove o produto se a quantidade for 1
         novoCart.splice(itemIndex, 1);
@@ -96,7 +96,6 @@ export function CartProvider({ children }: CartProviderProps) {
 
   // Função para limpar o carrinho
   function limparCart() {
-    ToastAlerta("Compra efetuada com sucesso!", "sucesso");
     setItems([]);
   }
 

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import CardCart from "./CardCart";
 import { Link } from "react-router-dom";
@@ -9,7 +9,12 @@ function Cart() {
   const { items, quantidadeItems, valorTotal, limparCart } =
     useContext(CartContext);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleFinalizar = () => {
+    setIsLoading(true); // Ativa o loader
+
+    // Exibe o modal do SweetAlert2
     Swal.fire({
       title: "Compra Finalizada!",
       text: "Seus produtos serão entregues em breve!",
@@ -19,10 +24,22 @@ function Cart() {
         confirmButton: "custom-confirm-button",
       },
     });
-    limparCart();
+
+    // Desativa o loader após 1.9 segundos e limpa o carrinho
+    setTimeout(() => {
+      setIsLoading(false);
+      limparCart();
+    }, 1200);
   };
+
   return (
     <>
+      {isLoading && (
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-[1070]">
+          <span className="loader"></span>
+        </div>
+      )}
+
       <div className="w-full h-30 flex flex-col justify-center px-4 sm:px-8 items-center bg-[#ECE9E3] text-black">
         <p className=" text-3xl font-[family-name:var(--font-heading)] font-medium">
           Carrinho
