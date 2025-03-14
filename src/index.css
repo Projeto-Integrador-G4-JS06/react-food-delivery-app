@@ -40,21 +40,18 @@ body {
 
 /* Cor padrão das setas */
 .slick-arrow.slick-prev::before, .slick-arrow.slick-next::before {
-  color: #7a7a7a; /* Cor amarela para as setas */
+  color: #000000; /* Cor preta para as setas */
 }
 
 /* Cor das setas ao passar o mouse */
 .slick-arrow.slick-prev:hover::before, .slick-arrow.slick-next:hover::before {
-  color: #CD533B; /* Cor vermelha ao passar o mouse */
+  color: #e02d2d; /* Cor vermelha ao passar o mouse */
 }
-
-
 
 /* Cor das setas ao passar o mouse */
 .slick-prev:hover::before, .slick-next:hover::before {
   color: #FF0000; /* Cor vermelha ao passar o mouse */
 }
-
 
 /* Loader - Frigideira */
 
