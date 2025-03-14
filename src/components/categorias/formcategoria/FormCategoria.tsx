@@ -29,6 +29,10 @@ function FormCategoria() {
 
   const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
 
+  const camposPreenchidos = () => {
+    return categoria.descricao && categoria.nome_categoria;
+  };
+
   async function buscarCategoriaPorId(id: string) {
     try {
       await listar(`/categorias/id/${id}`, setCategoria);
@@ -70,6 +74,10 @@ function FormCategoria() {
     const { value, name } = e.target;
 
     let valor = value;
+
+    if (name === "nome_categoria" && typeof valor === "string") {
+      valor = valor.slice(0, 30);
+    }
 
     if (name === "descricao" && typeof valor === "string") {
       valor = valor.slice(0, 80);
@@ -134,18 +142,15 @@ function FormCategoria() {
     navigate("/categorias");
   }
 
-  const carregandoCategoria =
-    categoria.nome_categoria === "" || categoria.descricao === "";
-
   console.log(JSON.stringify(categoria));
 
   return (
     <section className="flex flex-col justify-center items-center min-h-screen ">
       <div className="container w-[75%] md:w-[50%] lg:w-[33%] mx-8 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
         <div className="mx-1 lg:w-[80%] ">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-[family-name:var(--font-heading)] text-[#text-[#333333]]">
+          <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
             {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
-          </h1>
+          </h2>
 
           {/* {isLoading && (
                         <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
@@ -158,17 +163,13 @@ function FormCategoria() {
                             />
                         </div>
                     )} */}
-          <div className="w-full  bg-[#333333] h-[2px] mt- mb-2 "></div>
 
           <form
             className="flex flex-col w-full gap-4 text-gray-700 font-medium"
             onSubmit={gerarNovaCategoria}
           >
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="categoria"
-                className="flex justify-center lg:justify-start"
-              >
+            <div className="flex flex-col mt-4 gap-2">
+              <label htmlFor="categoria" className="flex">
                 Nome da Categoria
               </label>
               <input
@@ -182,10 +183,11 @@ function FormCategoria() {
                   atualizarEstado(e)
                 }
               />
-              <label
-                htmlFor="descricao"
-                className="flex justify-center lg:justify-start"
-              >
+              <span className="text-sm text-gray-500">
+                {categoria.nome_categoria ? categoria.nome_categoria.length : 0}
+                /30 caracteres
+              </span>
+              <label htmlFor="descricao" className="flex ">
                 Descrição
               </label>
               <input
@@ -203,10 +205,7 @@ function FormCategoria() {
                 {categoria.descricao ? categoria.descricao.length : 0}/80
                 caracteres
               </span>
-              <label
-                htmlFor="icone"
-                className="flex justify-center lg:justify-start"
-              >
+              <label htmlFor="icone" className="flex">
                 ícone (imagem)
               </label>
               <input
@@ -221,7 +220,7 @@ function FormCategoria() {
                 }
               />
             </div>
-            <div className="flex justify-between gap-2 md:gap-12">
+            <div className="flex justify-between gap-2 pt-6 md:gap-12">
               <Link to={`/categorias`} className="h-13 w-full">
                 <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
                   Cancelar
@@ -230,8 +229,7 @@ function FormCategoria() {
               <button
                 className="flex items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
                 type="submit"
-                // disabled={isLoading} // Desabilita o botão durante o carregamento
-                disabled={carregandoCategoria}
+                disabled={!camposPreenchidos()}
               >
                 {isLoading ? (
                   <RotatingLines

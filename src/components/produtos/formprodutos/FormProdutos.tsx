@@ -103,9 +103,12 @@ function FormProdutos() {
       valor = parseFloat(Number(value).toFixed(2));
     }
 
-    // Verifica se o campo é a descrição e limita a 80 caracteres
     if (name === "descricao" && typeof valor === "string") {
       valor = valor.slice(0, 80);
+    }
+
+    if (name === "nome_produto" && typeof valor === "string") {
+      valor = valor.slice(0, 30);
     }
 
     setProduto({
@@ -129,6 +132,16 @@ function FormProdutos() {
       usuario: usuario,
     });
   }
+  // Função para verificar se todos os campos obrigatórios estão preenchidos
+  const camposPreenchidos = () => {
+    return (
+      produto.nome_produto &&
+      produto.descricao &&
+      produto.preco &&
+      produto.categoria?.id &&
+      produto.nutri_score
+    );
+  };
 
   // Função para cadastrar um produto
   async function cadastrarNovoProduto(e: ChangeEvent<HTMLFormElement>) {
@@ -177,24 +190,17 @@ function FormProdutos() {
     navigate("/produtos");
   }
 
-  const carregandoProdutos =
-    produto.nome_produto === "" ||
-    produto.descricao === "" || // Verifica se o preço é uma string vazia// Verifica se o preço é NaN
-    produto.categoria === undefined ||
-    produto.preco <= 0 ||
-    produto.nutri_score === undefined;
-
   return (
     <section className=" flex flex-col justify-center items-center min-h-screen py-4 lg:py-4 xl:py-0">
-      <div className="container w-[80%] md:w-[50%] lg:w-[50%]  mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#333333]">
-          {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
-        </h1>
-        <div className="w-full lg:w-[80%] bg-[#333333] h-[1px] mt-2 mb-2"></div>
+      <div className="container w-[80%] md:w-[50%] lg:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
         <form
-          className="flex flex-col w-full lg:w-[80%] gap-4 text-gray-700 font-medium m-1.5"
+          className="flex flex-col w-full lg:w-[80%] gap-4 mt-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
+          <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black  font-[family-name:var(--font-heading)]">
+            {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
+          </h2>
+
           <div className="flex flex-col gap-2">
             <label className="flex justify-center lg:justify-start ">
               Nome do Produto
@@ -208,6 +214,10 @@ function FormProdutos() {
               value={produto.nome_produto}
               onChange={atualizarEstado}
             />
+            <span className="text-sm text-gray-500">
+              {produto.nome_produto ? produto.nome_produto.length : 0}/30
+              caracteres
+            </span>
           </div>
           <div className="flex flex-col gap-2">
             <label className="flex justify-center lg:justify-start">
@@ -314,7 +324,7 @@ function FormProdutos() {
               </select>
             </div>
           </div>
-          <div className="flex justify-between gap-4 lg:gap-12 flex-col lg:flex-row">
+          <div className="flex justify-between gap-4 pt-6 lg:gap-12 flex-col lg:flex-row">
             <Link to={`/produtos`} className="h-13 w-full order-2 lg:order-1">
               <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
                 Cancelar
@@ -323,7 +333,7 @@ function FormProdutos() {
             <button
               type="submit"
               className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
-              disabled={carregandoProdutos}
+              disabled={!camposPreenchidos()}
             >
               {isLoading ? (
                 <RotatingLines
