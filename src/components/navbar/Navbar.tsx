@@ -66,7 +66,7 @@ function Navbar() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="font-body uppercase w-full px-8 py-3 bg-[#f1f1f1] shadow-lg relative">
+    <nav className="font-body uppercase w-full px-8 py-3 bg-[#f1f1f1] dark:bg-[#121212] shadow-lg relative">
       <div className="container mx-auto flex items-center justify-between">
         {/* Botão do menu mobile */}
         <button
@@ -87,7 +87,7 @@ function Navbar() {
           {/* Alterado de md:flex para lg:flex */}
           <form className="flex w-full" onSubmit={buscarProdutos}>
             <input
-              className="font-body w-full px-4 py-2 bg-white rounded-lg focus:outline-red-100 border border-[#B8B8B8] shadow-sm"
+              className="font-body w-full px-4 py-2 bg-white dark:bg-[#2D2D2D] dark:text-gray-200 rounded-lg focus:outline-red-100 border dark:focus:outline-[#FF5252] border-[#B8B8B8] dark:border-[#616161] shadow-sm"
               type="search"
               placeholder="Busque por itens ou lojas"
               required
@@ -96,7 +96,7 @@ function Navbar() {
             />
             <button
               type="submit"
-              className="text-white p-2 ms-2 bg-red-100 hover:bg-[#e04a4a] rounded-lg transition duration-300"
+              className="text-white p-2 ms-2 bg-red-100 hover:bg-[#e04a4a] dark:bg-[#FF5252] dark:hover:bg-[#FF3D3D] rounded-lg transition duration-300"
             >
               <MagnifyingGlass size={17} weight="bold" />
             </button>
@@ -109,19 +109,19 @@ function Navbar() {
           {/* Alterado de lg:flex para xl:flex se necessário */}
           <Link
             to="/produtos"
-            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
+            className="text-[#333333] dark:text-white transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Produtos
           </Link>
           <Link
             to="/categorias"
-            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
+            className="text-[#333333] dark:text-white  transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Categorias
           </Link>
           <Link
             to="/sobre"
-            className="text-[#333333] transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
+            className="text-[#333333] dark:text-white  transition duration-300 ease-in-out hover:-translate-y-1 active:text-red-100"
           >
             Sobre
           </Link>
@@ -137,7 +137,7 @@ function Navbar() {
             ) : (
               <Link
                 to="/login"
-                className="p-2 rounded-lg text-red-100 transition duration-300 ease-in-out hover:-translate-y-1 active:text-[#e04a4a]"
+                className="p-2 rounded-lg text-red-100 dark:text-[#FF5252] transition duration-300 ease-in-out hover:-translate-y-1 active:text-[#e04a4a]"
               >
                 <SignIn size={32} weight="regular" />
               </Link>
@@ -147,7 +147,7 @@ function Navbar() {
           {/* Ícone do carrinho */}
           <Link
             to="/carrinho"
-            className="p-2 bg-red-100 active:bg-[#e04a4a] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
+            className="p-2 bg-red-100 active:bg-[#e04a4a] dark:bg-[#FF5252] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
           >
             <ShoppingCart size={32} weight="regular" />
           </Link>
