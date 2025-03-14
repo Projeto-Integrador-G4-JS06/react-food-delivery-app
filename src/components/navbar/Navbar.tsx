@@ -55,7 +55,7 @@ function Navbar() {
   const { quantidadeItems } = useContext(CartContext);
 
   return (
-    <nav className="font-body uppercase w-full px-8 py-3 bg-[#f1f1f1] shadow-lg  sticky top-0 z-55">
+    <nav className="font-body uppercase w-full px-8 py-3 bg-[#f1f1f1] shadow-lg z-55">
       <div className="container mx-auto flex items-center justify-between">
         {/* Botão do menu mobile */}
         <button
@@ -134,17 +134,17 @@ function Navbar() {
           </div>
 
           {/* Ícone do carrinho */}
-            <Link
+          <Link
             to="/cart"
             className="relative p-2 bg-red-100 active:bg-[#e04a4a] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
-            >
+          >
             {quantidadeItems > 0 && (
               <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-              {quantidadeItems}
+                {quantidadeItems}
               </span>
             )}
             <ShoppingCart size={32} weight="regular" />
-            </Link>
+          </Link>
         </div>
       </div>
 

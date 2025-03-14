@@ -12,7 +12,7 @@ function CardCart({ item }: CardProdutosProps) {
   return (
     <>
       <div className="xl:grid xl:grid-cols-4 xl:gap-2 xl:py-4 flex flex-col items-center justify-center gap-4 my-2">
-        <div className="w-fit-content ml-4">
+        <div className="w-fit-content ml-4 mt-3">
           <img
             src={item.foto}
             className="rounded-2xl ml-1 w-64 h-40 drop-shadow-lg"
@@ -37,7 +37,7 @@ function CardCart({ item }: CardProdutosProps) {
             <p>+</p>
           </button>
         </div>
-        <div className=" flex items-center justify-center">
+        <div className=" flex items-center justify-center mb-1">
           {Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",

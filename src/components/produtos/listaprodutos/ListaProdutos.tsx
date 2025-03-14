@@ -50,7 +50,7 @@ function ListaProdutos() {
 
   return (
     <>
-      {/* Centralized PacmanLoader */}
+     
       {isLoading && (
         <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
           <span className="loader"></span>

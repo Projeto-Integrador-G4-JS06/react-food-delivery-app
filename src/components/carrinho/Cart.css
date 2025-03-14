@@ -1,0 +1,7 @@
+.custom-confirm-button {
+  background-color: #e02d2d !important; /* Cor do botão de confirmação */
+  border: 1px solid #000000 !important; /* Borda fina preta */
+  color: #ffffff !important; /* Cor do texto do botão de confirmação */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px 20px;
+}
