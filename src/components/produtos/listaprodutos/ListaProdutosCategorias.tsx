@@ -70,7 +70,7 @@ function ListaProdutosCategorias() {
   }, [nome_categoria]);
 
   const removerProduto = (id: string) => {
-    if (categoria) {
+    if (categoria && categoria.produto) {
       const produtosAtualizados = categoria.produto.filter((produto) => produto.id.toString() !== id);
       setCategoria({
         ...categoria,
