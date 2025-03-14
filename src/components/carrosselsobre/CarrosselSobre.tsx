@@ -67,7 +67,7 @@ function CarrosselSobre() {
     dots: true, // Mostra os pontos de navegação
     infinite: true, // Loop infinito
     speed: 500, // Velocidade da transição
-    slidesToShow: 3, // Quantidade de slides visíveis
+    slidesToShow:3, // Quantidade de slides visíveis
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
     autoplay: true, // Ativa o autoplay
@@ -114,6 +114,8 @@ function CarrosselSobre() {
           slidesToShow: 1,
           slidesToScroll: 1,
         },
+        
+        
       },
     ],
   };

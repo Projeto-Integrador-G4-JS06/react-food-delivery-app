@@ -112,7 +112,8 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
       </div>
 
       {/* Conteúdo do card */}
-      <div className="container flex flex-col justify-center items-center gap-2 p-4 text-center lg:flex-row lg:items-start lg:text-center">
+      <div className="container flex flex-col justify-center items-center gap-x-5 p-4 md:p-8 
+      text-center lg:flex-row lg:items-start lg:text-center">
         {/* Div para a imagem e botões (hover effect a partir de lg) */}
         <div className="lg:flex lg:order-2 relative group">
           <img
@@ -122,7 +123,9 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           />
 
           {/* Overlay escuro ao passar o mouse (apenas a partir de lg) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black 
+          via-transparent to-transparent opacity-0 group-hover:opacity-50 
+          transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
           <div
@@ -131,7 +134,8 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
             }`}
           >
             <Link to={`/atualizarproduto/${produto.id}`}>
-              <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
+              <button className="bg-gray-700/75 text-white p-2 rounded-full 
+              hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
               </button>
             </Link>
@@ -151,7 +155,8 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           </h2>
 
           <div className="flex-1 flex flex-col justify-evenly">
-            <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] m-2">
+            <p className="text-sm xl:text-base text-gray-600 
+            font-[family-name:var(--font-body)] m-2">
               {produto.descricao}
             </p>
             <p className="text-base xl:text-lg font-semibold text-gray-700 font-[family-name:var(--font-body)] m-2">
@@ -160,7 +165,8 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           </div>
 
           <div className="flex justify-center">
-            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white py-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
+            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white 
+            p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
               Adicionar ao carrinho
             </button>
           </div>

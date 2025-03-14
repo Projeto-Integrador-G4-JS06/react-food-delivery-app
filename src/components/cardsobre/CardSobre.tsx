@@ -1,12 +1,12 @@
-import { GithubLogo, LinkedinLogo } from '@phosphor-icons/react';
+import { GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
 
 interface CardSobreProps {
-    nome: string;
-    imagem: string;
-    cargo: string;
-    responsabilidades: string[];
-    linkedin: string;
-    github: string;
+  nome: string;
+  imagem: string;
+  cargo: string;
+  responsabilidades: string[];
+  linkedin: string;
+  github: string;
 }
 
 function CardSobre({nome, imagem, cargo, responsabilidades, linkedin, github}: CardSobreProps) {
@@ -49,7 +49,7 @@ function CardSobre({nome, imagem, cargo, responsabilidades, linkedin, github}: C
                 </div>
             </div>
         </div>
-    );
+  );
 }
 
 export default CardSobre;
