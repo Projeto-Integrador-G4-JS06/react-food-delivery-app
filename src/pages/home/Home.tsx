@@ -1,5 +1,5 @@
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
-import CarroselCategoria from "../../components/carroselcategoria/CarroselCategoria";
+import CarrosselCategoria from "../../components/carrosselcategoria/CarrosselCategoria";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import banner_dark from "../../assets/dark_home.svg";
 import banner_mobile_dark from "../../assets/dark_mobile_home.svg";
 import banner_light from "../../assets/light_home.svg";
 import banner_mobile_light from "../../assets/light_mobile_home.svg";
+import CarroselCategoria from "../../components/carrosselcategoria/CarrosselCategoria";
 
 interface HomeProps {
   isDark: boolean;
@@ -77,12 +78,12 @@ function Home({ isDark }: HomeProps) {
           )}
         </Link>
 
-        <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-8 py-2 pt-6 dark:text-white">
+        <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-8 py-2 pt-6 dark:text-white">
           Conheça as nossas categorias!
         </h2>
 
         <CarroselCategoria />
-        <div className="w-full bg-[#ECE9E3] dark:bg-[#2D2D2D] p-auto rounded-2xl">
+        <div className="w-full bg-[#ECE9E3] dark:bg-[#2D2D2D] rounded-2xl">
           <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 dark:text-white px-20 py-15">
             Produtos Saudáveis
           </h2>
