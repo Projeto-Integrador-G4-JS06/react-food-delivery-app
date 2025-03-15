@@ -57,9 +57,9 @@ function ListaCategorias() {
         </div>
       )}
       {/* Faixa com bg-[#ECE9E3] ocupando a largura total */}
-      <div className="w-full bg-[#ECE9E3] py-6">
+      <div className="w-full bg-[#ECE9E3] py-6 dark:bg-dark-gray-200">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600 dark:text-white">
             Categorias
           </p>
           <Link
@@ -68,7 +68,7 @@ function ListaCategorias() {
           >
             <button
               type="submit"
-              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer dark:bg-dark-red-700 dark:hover:bg-dark-red-800"
             >
               Cadastrar Categoria
             </button>

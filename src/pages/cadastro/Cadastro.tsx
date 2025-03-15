@@ -398,7 +398,7 @@ function Cadastro() {
                   </button>
                   <button
                     type="submit"
-                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer dark:bg-dark-red-600 dark:hover:bg-dark-red-700 ${
+                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer dark:bg-dark-red-700 dark:hover:bg-dark-red-800 ${
                       !botaoHabilitado ? "opacity-70 cursor-not-allowed" : ""
                     }`}
                     disabled={!botaoHabilitado}
