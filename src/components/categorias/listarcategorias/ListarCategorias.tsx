@@ -41,7 +41,7 @@ function ListaCategorias() {
     <>
       {/* Centralized PacmanLoader */}
       {isLoading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-50">
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
           <PacmanLoader
             color="#E02D2D"
             margin={0}
