@@ -32,6 +32,8 @@ function Cadastro() {
         atualizado_em: new Date().toISOString(),
     });
 
+    const [telefoneFormatado, setTelefoneFormatado] = useState<string>(""); // Estado para o telefone formatado
+
     useEffect(() => {
         if (usuario.id !== 0) {
             retornar();
@@ -66,12 +68,13 @@ function Cadastro() {
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
 
-        // Formata o número de celular em tempo real
+        // Formata o número de celular em tempo real (apenas para exibição)
         if (name === "num_celular") {
             const numeroFormatado = formatarTelefone(value);
+            setTelefoneFormatado(numeroFormatado); // Atualiza o estado de exibição
             setUsuario({
                 ...usuario,
-                [name]: numeroFormatado,
+                [name]: value.replace(/\D/g, ""), // Salva o número sem formatação no estado do usuário
             });
         } else {
             setUsuario({
@@ -119,7 +122,13 @@ function Cadastro() {
             setIsLoading(true);
 
             try {
-                await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario);
+                // Remove a formatação do telefone antes de enviar ao servidor
+                const usuarioParaEnviar = {
+                    ...usuario,
+                    num_celular: usuario.num_celular.replace(/\D/g, ""),
+                };
+
+                await cadastrarUsuario("/usuarios/cadastrar", usuarioParaEnviar, setUsuario);
                 ToastAlerta("Usuário Cadastrado com sucesso!", "sucesso");
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -192,7 +201,7 @@ function Cadastro() {
                                         name="num_celular"
                                         placeholder="(xx) xxxxx-xxxx"
                                         className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
-                                        value={usuario.num_celular}
+                                        value={telefoneFormatado} // Usa o estado formatado para exibição
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                                         required
                                     />
