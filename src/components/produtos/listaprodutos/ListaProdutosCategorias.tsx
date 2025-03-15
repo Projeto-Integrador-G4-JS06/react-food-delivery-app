@@ -4,7 +4,6 @@ import Categoria from "../../../models/Categoria";
 import { listar } from "../../../services/Service";
 import CardProdutos from "../cardprodutos/CardProdutos";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
-import { PacmanLoader } from "react-spinners";
 import { toTitleCase } from "../../../utils/stringUtils";
 
 function ListaProdutosCategorias() {
@@ -14,6 +13,9 @@ function ListaProdutosCategorias() {
   const { nome_categoria } = useParams<{ nome_categoria: string }>();
 
   async function buscarProdutosCategorias() {
+    const tempoMinimoLoading = 1900; // 1 segundo (ajuste conforme necessário)
+    const inicioLoading = Date.now();
+
     try {
       setIsLoading(true);
       await listar(`/categorias/nome/${nome_categoria}`, (dados: Categoria[]) => {
@@ -30,7 +32,16 @@ function ListaProdutosCategorias() {
         ToastAlerta("Erro desconhecido ao buscar a categoria!", 'erro');
       }
     } finally {
-      setIsLoading(false);
+      const tempoDecorrido = Date.now() - inicioLoading;
+      const tempoRestante = tempoMinimoLoading - tempoDecorrido;
+
+      if (tempoRestante > 0) {
+        // Aguarda o tempo restante antes de desativar o loading
+        setTimeout(() => setIsLoading(false), tempoRestante);
+      } else {
+        // Se o tempo mínimo já foi atingido, desativa o loading imediatamente
+        setIsLoading(false);
+      }
     }
   }
 
@@ -72,16 +83,10 @@ function ListaProdutosCategorias() {
 
   return (
     <>
-      {/* Centralized PacmanLoader */}
+      {/* Centralized Loader */}
       {isLoading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-50">
-          <PacmanLoader
-            color="#E02D2D"
-            margin={0}
-            size={50}
-            speedMultiplier={2}
-            aria-label="Pacman-loading"
-          />
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+          <span className="loader"></span>
         </div>
       )}
 
