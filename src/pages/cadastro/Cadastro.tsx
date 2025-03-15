@@ -200,21 +200,21 @@ function Cadastro() {
 
   return (
     <>
-      <section className="container w-full mx-auto flex flex-col p-4 justify-center">
+      <section className="container w-full mx-auto flex flex-col p-4 justify-center drop-shadow-xl">
         <div className="flex items-center justify-center my-2 md:my-6 xl:mx-30">
           <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-full rounded-2xl">
-            <div className="bg-[#FF5656] fundoCadastro hidden xl:block rounded-l-2xl py-6"></div>
-            <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full rounded-2xl xl:transform xl:-translate-x-5 py-6">
+            <div className="bg-[#FF5656] fundoCadastro hidden xl:block rounded-l-2xl py-6 dark:bg-[#961F1F]"></div>
+            <div className="place-items-center bg-[#F8F8F8] flex justify-center w-full rounded-2xl xl:transform xl:-translate-x-5 py-6 dark:bg-dark-gray-300">
               <form
                 className="flex flex-col gap-4 w-70 xl:w-3/5"
                 onSubmit={cadastrarNovoUsuario}
               >
-                <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
+                <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)] dark:text-white dark:border-b-white">
                   Cadastre-se
                 </h2>
                 {/* Campos do formulário */}
                 <div className="flex flex-col w-full relative">
-                  <label className="text-gray-700 p-1" htmlFor="nome_usuario">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="nome_usuario">
                     Nome
                   </label>
                   <input
@@ -222,7 +222,7 @@ function Cadastro() {
                     id="nome_usuario"
                     name="nome_usuario"
                     placeholder="Nome"
-                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red p-2 dark:focus:outline-1 dark:focus:outline-white dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0]"
                     value={usuario.nome_usuario}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       atualizarEstado(e)
@@ -231,7 +231,7 @@ function Cadastro() {
                   />
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="usuario">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="usuario">
                     Usuário (E-mail)
                   </label>
                   <input
@@ -239,8 +239,8 @@ function Cadastro() {
                     id="usuario"
                     name="usuario"
                     placeholder="user@email.com"
-                    className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 ${
-                      !emailValido ? "border border-red-500" : ""
+                    className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
+                      !emailValido ? "border border-[#e02d2d]" : ""
                     }`}
                     value={usuario.usuario}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -249,13 +249,13 @@ function Cadastro() {
                     required
                   />
                   {!emailValido && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#e02d2d] text-sm mt-1 dark:text-[#FF4444] dark:text-md ">
                       Por favor, insira um e-mail válido.
                     </p>
                   )}
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="num_celular">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="num_celular">
                     Telefone
                   </label>
                   <input
@@ -263,8 +263,8 @@ function Cadastro() {
                     id="num_celular"
                     name="num_celular"
                     placeholder="(xx) xxxxx-xxxx"
-                    className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 ${
-                      !telefoneValido ? "border border-red-500" : ""
+                    className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
+                      !telefoneValido ? "border border-[#e02d2d]" : ""
                     }`}
                     value={telefoneFormatado} // Usa o estado formatado para exibição
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -273,13 +273,13 @@ function Cadastro() {
                     required
                   />
                   {!telefoneValido && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#e02d2d] dark:text-[#FF4444] dark:text-md text-sm mt-1">
                       O número de telefone deve ter 11 dígitos.
                     </p>
                   )}
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="endereco">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="endereco">
                     Endereço
                   </label>
                   <input
@@ -287,7 +287,7 @@ function Cadastro() {
                     id="endereco"
                     name="endereco"
                     placeholder="R. Nome da Rua, 123 - Bairro - Cidade/UF - CEP"
-                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0]"
                     value={usuario.endereco}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       atualizarEstado(e)
@@ -296,7 +296,7 @@ function Cadastro() {
                   />
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="foto">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="foto">
                     Foto
                   </label>
                   <input
@@ -304,7 +304,7 @@ function Cadastro() {
                     id="foto"
                     name="foto"
                     placeholder="Insira o link da sua foto de perfil..."
-                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0]"
                     value={usuario.foto}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       atualizarEstado(e)
@@ -312,7 +312,7 @@ function Cadastro() {
                   />
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="senha">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="senha">
                     Senha
                   </label>
                   <div className="relative flex items-center">
@@ -321,8 +321,8 @@ function Cadastro() {
                       id="senha"
                       name="senha"
                       placeholder="Insira sua senha..."
-                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${
-                        !senhaValida ? "border border-red-500" : ""
+                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 pr-10 w-full dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
+                        !senhaValida ? "border border-[#e02d2d]" : ""
                       }`}
                       value={usuario.senha}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -337,21 +337,21 @@ function Cadastro() {
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? (
-                        <FaEyeSlash className="text-gray-500" />
+                        <FaEyeSlash className="text-gray-500 dark:text-gray-400" />
                       ) : (
-                        <FaEye className="text-gray-500" />
+                        <FaEye className="text-gray-500 dark:text-gray-400" />
                       )}
                     </button>
                   </div>
                   {!senhaValida && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#e02d2d] text-sm mt-1 dark:text-[#FF4444] dark:text-md ">
                       A senha deve ter no mínimo 8 caracteres.
                     </p>
                   )}
                 </div>
 
                 <div className="flex flex-col w-full">
-                  <label className="text-gray-700 p-1" htmlFor="confirmarSenha">
+                  <label className="text-gray-700 p-1 dark:text-white" htmlFor="confirmarSenha">
                     Confirmar Senha
                   </label>
                   <div className="relative flex items-center">
@@ -360,8 +360,8 @@ function Cadastro() {
                       id="confirmarSenha"
                       name="confirmarSenha"
                       placeholder="Confirmar Senha"
-                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${
-                        !senhasCoincidem ? "border border-red-500" : ""
+                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-dark-red dark:focus:outline-1 dark:focus:outline-white p-2 pr-10 w-full dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
+                        !senhasCoincidem ? "border border-[#e02d2d]" : ""
                       }`}
                       value={confirmarSenha}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -375,14 +375,14 @@ function Cadastro() {
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? (
-                        <FaEyeSlash className="text-gray-500" />
+                        <FaEyeSlash className="text-gray-500 dark:text-gray-400" />
                       ) : (
-                        <FaEye className="text-gray-500" />
+                        <FaEye className="text-gray-500 dark:text-gray-400" />
                       )}
                     </button>
                   </div>
                   {!senhasCoincidem && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-[#e02d2d] dark:text-[#FF4444] dark:text-md text-sm mt-1">
                       As senhas não coincidem.
                     </p>
                   )}
@@ -391,15 +391,15 @@ function Cadastro() {
                 <div className="flex justify-between w-full gap-8 py-6">
                   <button
                     type="reset"
-                    className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E97E7E] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer"
+                    className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white h-13 w-80 cursor-pointe dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778]"
                     onClick={retornar}
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer ${
-                      !botaoHabilitado ? "opacity-50 cursor-not-allowed" : ""
+                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer dark:bg-dark-red-600 dark:hover:bg-dark-red-700 ${
+                      !botaoHabilitado ? "opacity-70 cursor-not-allowed" : ""
                     }`}
                     disabled={!botaoHabilitado}
                   >
