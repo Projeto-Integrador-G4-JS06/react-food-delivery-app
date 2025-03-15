@@ -198,17 +198,17 @@ function FormProdutos() {
 
   return (
     <section className="flex flex-col justify-center items-center min-h-screen py-6">
-      <div className="container w-[80%] md:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
+      <div className="container w-[80%] md:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl dark:bg-dark-gray-300 dark:border-gray-800">
         <form
           className="flex flex-col w-full lg:w-[80%] gap-4 mt-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
-          <h2 className="text-[#33333] font-semibold text-2xl md:text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
+          <h2 className="text-[#33333] font-semibold text-2xl md:text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)] dark:text-white dark:border-b-gray-400">
             {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
           </h2>
 
           <div className="flex flex-col gap-2 mt-4">
-            <label className="flex justify-start">
+            <label className="flex justify-start dark:text-white">
               Nome do Produto
             </label>
             <input
@@ -216,7 +216,7 @@ function FormProdutos() {
               placeholder="Nome do Produto"
               name="nome_produto"
               required
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.nome_produto}
               onChange={atualizarEstado}
             />
@@ -226,7 +226,7 @@ function FormProdutos() {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-start">
+            <label className="flex justify-start dark:text-white">
               Descrição do Produto
             </label>
             <input
@@ -234,7 +234,7 @@ function FormProdutos() {
               placeholder="Breve descrição do produto..."
               name="descricao"
               required
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.descricao}
               onChange={atualizarEstado}
             />
@@ -243,7 +243,7 @@ function FormProdutos() {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-start">
+            <label className="flex justify-start dark:text-white">
               Preço
             </label>
             <input
@@ -252,33 +252,33 @@ function FormProdutos() {
               placeholder="Preço do produto"
               name="preco"
               required
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.preco === 0 ? "" : produto.preco}
               onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-start">
+            <label className="flex justify-start dark:text-white">
               Foto
             </label>
             <input
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.foto}
               onChange={atualizarEstado}
             />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p className="flex justify-start">
+              <p className="flex justify-start dark:text-white">
                 Categoria do Produto
               </p>
               <select
                 name="categoria"
                 id="categoria"
-                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
                 value={produto.categoria?.id || ""} // Controla o valor selecionado
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                 required // Campo obrigatório
@@ -288,7 +288,7 @@ function FormProdutos() {
                 </option>
                 {categorias.map((categoria) => (
                   <option
-                    className="text-gray-700"
+                    className="text-gray-700 dark:text-white"
                     value={categoria.id}
                     key={categoria.id}
                   >
@@ -298,14 +298,14 @@ function FormProdutos() {
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="flex justify-start">
+              <p className="flex justify-start dark:text-white">
                 Nutri Score
               </p>
               <select
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 focus:border-0"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 focus:border-0 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   atualizarEstadoSelect(e)
                 }
@@ -314,19 +314,19 @@ function FormProdutos() {
                 <option value="" selected disabled>
                   Selecione o Nutri Score
                 </option>
-                <option className="text-gray-700" value="A">
+                <option className="text-gray-700 dark:text-white" value="A">
                   A
                 </option>
-                <option className="text-gray-700" value="B">
+                <option className="text-gray-700 dark:text-white" value="B">
                   B
                 </option>
-                <option className="text-gray-700" value="C">
+                <option className="text-gray-700 dark:text-white" value="C">
                   C
                 </option>
-                <option className="text-gray-700" value="D">
+                <option className="text-gray-700 dark:text-white" value="D">
                   D
                 </option>
-                <option className="text-gray-700" value="E">
+                <option className="text-gray-700 dark:text-white" value="E">
                   E
                 </option>
               </select>
@@ -335,7 +335,7 @@ function FormProdutos() {
           <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
             <button
               type="submit"
-              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1"
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1 dark:bg-dark-red-700 dark:hover:bg-dark-red-800 transition-colors duration-200"
               disabled={!camposPreenchidos()}
             >
               {isLoading ? (
@@ -351,7 +351,7 @@ function FormProdutos() {
               )}
             </button>
             <Link to={`/produtos`} className="order-2">
-              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white p-2 w-48">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white p-2 w-48 dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778] transition-colors duration-200">
                 Cancelar
               </button>
             </Link>
