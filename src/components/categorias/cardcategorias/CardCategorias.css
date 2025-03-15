@@ -1,0 +1,21 @@
+.custom-swal-popup {
+  background-color: #ECE9E3; /* Cor de fundo da modal */
+  color: #000000; /* Cor do texto */
+  border-radius: 15px; /* Bordas arredondadas */
+}
+
+.custom-confirm-button {
+  background-color: #E02D2D !important; /* Cor do botão de confirmação */
+  border: 1px solid #000000 !important; /* Borda fina preta */
+  color: #FFFFFF !important; /* Cor do texto do botão de confirmação */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px 20px;
+}
+
+.custom-cancel-button {
+  background-color: #F0F0F0 !important; /* Cor do botão de cancelamento */
+  border: 1px solid #000000 !important; /* Borda fina preta */
+  color: #000000 !important; /* Cor do texto do botão de cancelamento */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px 20px;
+}
