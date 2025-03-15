@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import CarroselCategoria from "../../components/carroselcategoria/CarroselCategoria";
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
+import banner_dark from '../../assets/dark_home.svg';
+import banner_mobile_dark from '../../assets/dark_mobile_home.svg';
+import banner_light from '../../assets/light_home.svg';
+import banner_mobile_light from '../../assets/light_mobile_home.svg';
 
 interface HomeProps {
   isDark: boolean;
@@ -30,7 +34,7 @@ function Home({ isDark }: HomeProps) {
           {!isDark && (
             <>
               <img
-                src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/light_home.svg?updatedAt=1741954148133"
+                src={banner_light}
                 alt="Banner desktop (modo claro)"
                 className={`w-full hidden md:block ${
                   isImageLoaded ? "" : "hidden"
@@ -39,7 +43,7 @@ function Home({ isDark }: HomeProps) {
               />
 
               <img
-                src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/banner_mobile.svg?updatedAt=1741712211643"
+                src={banner_mobile_light}
                 alt="Banner mobile (modo claro)"
                 className={`w-full md:hidden ${isDark ? "hidden" : ""} ${
                   isImageLoaded ? "" : "hidden"
@@ -53,7 +57,7 @@ function Home({ isDark }: HomeProps) {
           {isDark && (
             <>
               <img
-                src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/dark_home.svg?updatedAt=1741954147432"
+                src={banner_dark}
                 alt="Banner desktop (modo escuro)"
                 className={`w-full hidden md:block ${
                   isImageLoaded ? "" : "hidden"
@@ -62,7 +66,7 @@ function Home({ isDark }: HomeProps) {
               />
 
               <img
-                src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/dark_mobile_home.svg?updatedAt=1741954149109"
+                src={banner_mobile_dark}
                 alt="Banner mobile (modo escuro)"
                 className={`w-full md:hidden ${isDark ? "" : "hidden"} ${
                   isImageLoaded ? "" : "hidden"

@@ -54,7 +54,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/perfil" element={<Perfil />} />
-              <Route path="/sobre" element={<Sobre />} />
+              <Route path="/sobre" element={<Sobre isDark={isDark} />} />
               <Route
                 path="/categorias/nome/:nome_categoria"
                 element={<ListaProdutosCategorias />}
