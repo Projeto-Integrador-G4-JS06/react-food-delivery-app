@@ -37,16 +37,16 @@ function Home() {
           onLoad={handleImageLoad}
         />
       </Link>
-      <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-8 py-2">
+      <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-700 px-8 py-2">
         Conheça as nossas categorias!
       </h2>
 
       <CarroselCategoria />
-      <div className="w-full bg-[#ECE9E3] p-auto rounded-2xl">
-        <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-20 py-15">
+      <div className="w-full bg-[#ECE9E3] rounded-2xl">
+        <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-700 p-10 xl:px-20 xl:py-15">
           Produtos Saudáveis
         </h2>
-        <div className="px-25 pb-15">
+        <div className="xl:px-25 xl:pb-15">
           <ListaProdutosSaudaveis />
         </div>
       </div>
