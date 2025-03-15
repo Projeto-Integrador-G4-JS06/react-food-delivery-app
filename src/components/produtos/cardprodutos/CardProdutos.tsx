@@ -1,16 +1,17 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { CartContext } from "../../../contexts/CartContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { deletar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CardProdutos.css";
 
 interface CardProdutosProps {
   produto: Produto;
-  onDelete: (id: string) => void; // Adiciona a prop onDelete
 }
 
 const getImagemSrc = (icone?: string) => {
@@ -20,10 +21,10 @@ const getImagemSrc = (icone?: string) => {
 };
 
 function CardProdutos({ produto, onDelete }: CardProdutosProps) {
-  
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
   const navigate = useNavigate();
+  const { adicionarProduto } = useContext(CartContext);
 
   const handleDelete = () => {
     if (!token) {
@@ -103,9 +104,9 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
         <Link to={`/atualizarproduto/${produto.id}`}>
           <Pencil size={24} />
         </Link>
-        <button onClick={handleDelete}>
+        <Link to={`/produto/${produto.id}`}>
           <Trash size={24} />
-        </button>
+        </Link>
       </div>
 
       {/* Conteúdo do card */}
@@ -122,18 +123,24 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"></div>
 
           {/* Botões no canto superior direito (apenas a partir de lg) */}
-          <div className={"absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700"}>
+          <div
+            className={
+              "absolute top-2 right-2 hidden lg:flex gap-2 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700"
+            }
+          >
             <Link to={`/atualizarproduto/${produto.id}`}>
               <button className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer">
                 <Pencil size={28} />
               </button>
             </Link>
-            <button
-              className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer"
-              onClick={handleDelete}
-            >
-              <Trash size={28} />
-            </button>
+            <Link to={`/produto/${produto.id}`}>
+              <button
+                className="bg-gray-700/75 text-white p-2 rounded-full 
+              hover:bg-gray-800/75 transition hover:cursor-pointer"
+              >
+                <Trash size={28} />
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -153,7 +160,10 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           </div>
 
           <div className="flex justify-center">
-            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
+            <button
+              className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]"
+              onClick={() => adicionarProduto(produto)}
+            >
               Adicionar ao carrinho
             </button>
           </div>
