@@ -160,7 +160,7 @@ function FormCategoria() {
               type="text"
               placeholder="Nome da Categoria"
               name="nome_categoria"
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               required
               value={categoria.nome_categoria}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -180,7 +180,7 @@ function FormCategoria() {
               type="text"
               placeholder="Breve descrição da categoria..."
               name="descricao"
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               required
               value={categoria.descricao}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -200,7 +200,7 @@ function FormCategoria() {
               type="text"
               placeholder="Insira o link da imagem da categoria"
               name="icone"
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               // required
               value={categoria.icone}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -210,7 +210,7 @@ function FormCategoria() {
           </div>
           <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
             <button
-              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1 dark:bg-dark-red-700 dark:hover:bg-dark-red-800"
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1 dark:bg-dark-red-700 dark:hover:bg-dark-red-800 transition-colors duration-200"
               type="submit"
               disabled={!camposPreenchidos()}
             >
@@ -227,7 +227,7 @@ function FormCategoria() {
               )}
             </button>
             <Link to={`/categorias`} className="order-2">
-              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white p-2 w-48 dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778]">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white p-2 w-48 dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778] transition-colors duration-200">
                 Cancelar
               </button>
             </Link>

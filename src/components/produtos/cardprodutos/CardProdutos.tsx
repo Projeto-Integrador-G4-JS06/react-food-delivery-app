@@ -102,9 +102,9 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
   };
 
   return (
-    <section className="overflow-hidden border bg-white border-gray-200 rounded-2xl drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer">
+    <section className="overflow-hidden border bg-white border-[#969696] rounded-2xl drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer dark:bg-dark-gray-400 dark:border-0">
       {/* Botões para mobile */}
-      <div className="flex justify-end gap-2 m-4 lg:hidden">
+      <div className="flex justify-end gap-2 m-4 lg:hidden dark:text-white">
         <Link to={`/atualizarproduto/${produto.id}`}>
           <Pencil size={24} />
         </Link>
@@ -145,22 +145,22 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
 
         {/* Detalhes do produto */}
         <div className="container lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full min-w-0">
-          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0 break-words max-w-full">
+          <h2 className="text-base xl:text-lg font-semibold md:font-extrabold dark:text-white font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0 break-words max-w-full">
             {toTitleCase(produto.nome_produto)}
           </h2>
 
           <div className="container flex-1 flex flex-col justify-evenly">
-            <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] break-words max-w-full">
+            <p className="text-sm xl:text-base text-gray-600 font-[family-name:var(--font-body)] break-words max-w-full dark:text-gray-300">
               {produto.descricao}
             </p>
-            <p className="text-lg xl:text-xl font-semibold text-gray-700 font-[family-name:var(--font-body)] my-4">
+            <p className="text-lg xl:text-xl font-semibold text-gray-700 font-[family-name:var(--font-body)] my-4 dark:text-white">
               R$ {produto.preco.toFixed(2)}
             </p>
           </div>
 
           <div className="flex justify-center">
             <button
-              className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]"
+              className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition-colors duration-200 font-[family-name:var(--font-quicksand)] dark:bg-dark-red-600 dark:hover:bg-dark-red-700"
               onClick={() => adicionarProduto(produto)}
             >
               Adicionar ao carrinho
