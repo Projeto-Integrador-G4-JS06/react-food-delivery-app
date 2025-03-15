@@ -16,6 +16,8 @@ function Cadastro() {
     const [senhasCoincidem, setSenhasCoincidem] = useState<boolean>(true); // Estado para verificar se as senhas coincidem
     const [botaoHabilitado, setBotaoHabilitado] = useState<boolean>(false); // Estado para habilitar/desabilitar o botão
     const [mostrarSenha, setMostrarSenha] = useState<boolean>(false); // Estado para mostrar/ocultar senha
+    const [telefoneValido, setTelefoneValido] = useState<boolean>(true); // Estado para validação do telefone
+    const [emailValido, setEmailValido] = useState<boolean>(true); // Estado para validação do e-mail
 
     const [usuario, setUsuario] = useState<Usuario>({
         id: 0,
@@ -65,6 +67,13 @@ function Cadastro() {
         }
     }
 
+    // Função para converter texto em Title Case
+    function toTitleCase(str: string): string {
+        return str.replace(/\w\S*/g, (txt) => {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
+
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
 
@@ -83,6 +92,13 @@ function Cadastro() {
             });
         }
 
+        // Validação do e-mail
+        if (name === "usuario") {
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expressão regular para validar e-mail
+            const emailValido = regexEmail.test(value); // Testa se o valor do campo é um e-mail válido
+            setEmailValido(emailValido); // Atualiza o estado de validação do e-mail
+        }
+
         if (name === "senha") {
             setSenhaValida(value.length >= 8);
             setSenhasCoincidem(value === confirmarSenha);
@@ -98,6 +114,14 @@ function Cadastro() {
     function verificarCamposObrigatorios() {
         const { nome_usuario, usuario: usuarioLogin, senha, num_celular, endereco } = usuario as Usuario;
 
+        // Verifica se o número de celular tem 11 dígitos
+        const telefoneValido = num_celular.replace(/\D/g, "").length === 11;
+        setTelefoneValido(telefoneValido); // Atualiza o estado de validação do telefone
+
+        // Verifica se o e-mail é válido
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailValido = regexEmail.test(usuarioLogin); // Testa se o e-mail é válido
+
         const camposPreenchidos =
             nome_usuario.trim() !== "" &&
             usuarioLogin.trim() !== "" &&
@@ -105,7 +129,9 @@ function Cadastro() {
             num_celular.trim() !== "" &&
             endereco.trim() !== "" &&
             senha.length >= 8 &&
-            confirmarSenha === senha;
+            confirmarSenha === senha &&
+            telefoneValido && // Validação do telefone
+            emailValido; // Validação do e-mail
 
         setBotaoHabilitado(camposPreenchidos);
     }
@@ -118,13 +144,29 @@ function Cadastro() {
             return;
         }
 
+        if (usuario.num_celular.replace(/\D/g, "").length !== 11) {
+            ToastAlerta("O número de telefone deve ter 11 dígitos!", "info");
+            return;
+        }
+
+        // Verifica se o e-mail é válido
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regexEmail.test(usuario.usuario)) {
+            ToastAlerta("Por favor, insira um e-mail válido!", "info");
+            return;
+        }
+
         if (confirmarSenha === usuario.senha) {
             setIsLoading(true);
 
             try {
+                // Formata o nome do usuário em Title Case
+                const nomeFormatado = toTitleCase(usuario.nome_usuario);
+
                 // Remove a formatação do telefone antes de enviar ao servidor
                 const usuarioParaEnviar = {
                     ...usuario,
+                    nome_usuario: nomeFormatado, // Salva o nome formatado
                     num_celular: usuario.num_celular.replace(/\D/g, ""),
                 };
 
@@ -178,18 +220,23 @@ function Cadastro() {
                                 </div>
                                 <div className="flex flex-col w-full">
                                     <label className="text-gray-700 p-1" htmlFor="usuario">
-                                        Usuário
+                                        Usuário (E-mail)
                                     </label>
                                     <input
                                         type="text"
                                         id="usuario"
                                         name="usuario"
                                         placeholder="user@email.com"
-                                        className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                                        className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 ${!emailValido ? "border border-red-500" : ""}`}
                                         value={usuario.usuario}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                                         required
                                     />
+                                    {!emailValido && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Por favor, insira um e-mail válido.
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="flex flex-col w-full">
                                     <label className="text-gray-700 p-1" htmlFor="num_celular">
@@ -200,11 +247,16 @@ function Cadastro() {
                                         id="num_celular"
                                         name="num_celular"
                                         placeholder="(xx) xxxxx-xxxx"
-                                        className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                                        className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 ${!telefoneValido ? "border border-red-500" : ""}`}
                                         value={telefoneFormatado} // Usa o estado formatado para exibição
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                                         required
                                     />
+                                    {!telefoneValido && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            O número de telefone deve ter 11 dígitos.
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="flex flex-col w-full">
                                     <label className="text-gray-700 p-1" htmlFor="endereco">
