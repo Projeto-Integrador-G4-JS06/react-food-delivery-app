@@ -4,7 +4,7 @@ import { Pencil, Trash } from '@phosphor-icons/react';
 import { deletar } from '../../../services/Service';
 import { ToastAlerta } from '../../../utils/ToastAlerta';
 import Swal from 'sweetalert2';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 interface CardCategoriaProps {

@@ -54,7 +54,7 @@ function ListaProdutos() {
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
       <div className="w-full bg-[#ECE9E3] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-black">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
             Produtos
           </p>
           <Link
@@ -81,7 +81,7 @@ function ListaProdutos() {
           )}
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
               {produtos
                 .sort((a, b) => a.id - b.id) // Ordena os produtos por ID
                 .map((produto: Produto) => (
