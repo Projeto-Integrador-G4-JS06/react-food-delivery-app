@@ -31,7 +31,6 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
   const { adicionarProduto } = useContext(CartContext);
 
   const handleDelete = () => {
-
     if (!token) {
       ToastAlerta("Você precisa estar logado para deletar um produto.", "info");
       navigate("/login");
@@ -40,7 +39,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
 
     Swal.fire({
       title: "Tem certeza?",
-      html: `Você está prestes a deletar o produto "<b>${produto.nome_produto}</b>".<br>Essa ação não pode ser desfeita!`,
+      html: `Você está prestes a deletar o produto: "<b>${toTitleCase(produto.nome_produto)}</b>".<br>Essa ação não pode ser desfeita!`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#E02D2D", // Cor de fundo do botão de confirmação

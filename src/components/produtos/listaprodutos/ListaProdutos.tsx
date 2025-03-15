@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutos() {
+  
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,7 +57,7 @@ function ListaProdutos() {
         </div>
       )}
 
-      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
+      {/* Faixa com bg-[#ECE9E3] ocupando a largura total */}
       <div className="w-full bg-[#ECE9E3] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
           <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
@@ -76,7 +77,6 @@ function ListaProdutos() {
         </div>
       </div>
 
-      {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
           {!isLoading && produtos.length === 0 && (
