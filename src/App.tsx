@@ -19,6 +19,7 @@ import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
 import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
 import Cadastro from "./pages/cadastro/Cadastro";
+import ListarProdutosPorNome from "./components/produtos/listarprodutospornome/ListarProdutosPorNome";
 
 
 function App() {
@@ -76,6 +77,9 @@ function App() {
                                 path="/atualizarproduto/:id"
                                 element={<FormProdutos />}
                             />
+                            <Route 
+                                path="/produtos/nome/:nome"
+                                element={<ListarProdutosPorNome />} />
             
                         </Routes>
                     </div>
