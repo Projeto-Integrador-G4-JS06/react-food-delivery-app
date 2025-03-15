@@ -26,6 +26,12 @@ function Perfil() {
       .join(' '); // Junta as palavras de volta em uma única string
   };
 
+  const getImagemSrc = (foto?: string) => {
+    return foto && foto.trim() !== ""
+      ? foto
+      : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/user.png?updatedAt=1742050532225";
+  };
+
   return (
     <section className="container w-full mx-auto flex flex-col justify-center">
       <div className="flex justify-center items-center min-h-[80vh]">
@@ -37,7 +43,7 @@ function Perfil() {
           <img
             className="rounded-full w-56 h-56 mx-auto md:mx-8 mt-[-8rem] border-7
               border-white relative z-10"
-            src={usuario.foto}
+            src={getImagemSrc(usuario?.foto)}
             alt={`Foto de perfil de ${toTitleCase(usuario.nome_usuario)}`}
           />
 

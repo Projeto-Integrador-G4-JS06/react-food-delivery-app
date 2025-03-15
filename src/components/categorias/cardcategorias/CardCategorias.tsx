@@ -1,20 +1,23 @@
-import { Link, useNavigate } from 'react-router-dom'
-import Categoria from '../../../models/Categoria'
 import { Pencil, Trash } from '@phosphor-icons/react';
+import Categoria from '../../../models/Categoria';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { AuthContext } from '../../../contexts/AuthContext';
 import { deletar } from '../../../services/Service';
 import { ToastAlerta } from '../../../utils/ToastAlerta';
 import Swal from 'sweetalert2';
-import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/AuthContext';
+import "./CardCategorias.css";
+import { toTitleCase } from "../../../utils/stringUtils";
+
 
 interface CardCategoriaProps {
   categoria: Categoria;
-  onDelete: (id: string) => void;
+  onDelete: (id: string) => void; // Adiciona a prop onDelete
 }
 
 // Função para garantir que o src da imagem sempre seja válido
 const getImagemSrc = (icone?: string) => {
-  return icone && icone.trim() !== '' ? icone : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/meal.png?updatedAt=1741281654261';
+  return icone && icone.trim() !== '' ? icone : 'https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Categorias/meal.png?updatedAt=1742050394154';
 };
 
 function CardCategorias({ categoria, onDelete }: CardCategoriaProps) {

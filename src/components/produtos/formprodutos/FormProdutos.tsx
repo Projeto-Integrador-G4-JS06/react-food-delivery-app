@@ -6,6 +6,7 @@ import { cadastrar, atualizar, listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
+import { toTitleCase } from "../../../utils/stringUtils";
 
 function FormProdutos() {
   const navigate = useNavigate();
@@ -109,6 +110,11 @@ function FormProdutos() {
 
     if (name === "nome_produto" && typeof valor === "string") {
       valor = valor.slice(0, 30);
+    }
+
+    if (name === "nome_produto" && typeof valor === "string") {
+      // Aplica a função toTitleCase ao nome do produto
+      valor = toTitleCase(valor.slice(0, 30));
     }
 
     setProduto({

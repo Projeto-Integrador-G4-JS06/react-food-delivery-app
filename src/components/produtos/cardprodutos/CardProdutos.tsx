@@ -1,12 +1,16 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 import Produto from "../../../models/Produto";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { CartContext } from "../../../contexts/CartContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { deletar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CardProdutos.css";
+import { toTitleCase } from "../../../utils/stringUtils";
+
 
 interface CardProdutosProps {
   produto: Produto;
@@ -16,16 +20,18 @@ interface CardProdutosProps {
 const getImagemSrc = (icone?: string) => {
   return icone && icone.trim() !== ""
     ? icone
-    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817";
+    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/PedeAi_secundaria.svg?updatedAt=1742050552057";
 };
 
 function CardProdutos({ produto, onDelete }: CardProdutosProps) {
-  
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
   const navigate = useNavigate();
 
+  const { adicionarProduto } = useContext(CartContext);
+
   const handleDelete = () => {
+
     if (!token) {
       ToastAlerta("Você precisa estar logado para deletar um produto.", "info");
       navigate("/login");
@@ -129,7 +135,8 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
               </button>
             </Link>
             <button
-              className="bg-gray-700/75 text-white p-2 rounded-full hover:bg-gray-800/75 transition hover:cursor-pointer"
+              className="bg-gray-700/75 text-white p-2 rounded-full 
+              hover:bg-gray-800/75 transition hover:cursor-pointer"
               onClick={handleDelete}
             >
               <Trash size={28} />
@@ -140,7 +147,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
         {/* Detalhes do produto */}
         <div className="container lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full min-w-0">
           <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0 break-words max-w-full">
-            {produto.nome_produto}
+            {toTitleCase(produto.nome_produto)}
           </h2>
 
           <div className="container flex-1 flex flex-col justify-evenly">
@@ -153,13 +160,16 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           </div>
 
           <div className="flex justify-center">
-            <button className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]">
+            <button
+              className="w-50 bg-[#E02D2D] hover:bg-[#B22222] text-white p-2 rounded-lg transition font-[family-name:var(--font-quicksand)]"
+              onClick={() => adicionarProduto(produto)}
+            >
               Adicionar ao carrinho
             </button>
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 

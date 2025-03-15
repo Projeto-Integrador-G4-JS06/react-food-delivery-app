@@ -5,22 +5,13 @@ import { listar } from "../../../services/Service";
 import CardProdutos from "../cardprodutos/CardProdutos";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { PacmanLoader } from "react-spinners";
+import { toTitleCase } from "../../../utils/stringUtils";
 
 function ListaProdutosCategorias() {
   const [categoria, setCategoria] = useState<Categoria | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const { nome_categoria } = useParams<{ nome_categoria: string }>();
-
-  // Função para converter o nome da categoria em title case
-  const toTitleCase = (str: string | undefined): string => {
-    if (!str) return ''; // Retorna uma string vazia se str for undefined ou null
-    return str
-      .toLowerCase() // Converte toda a string para minúsculas
-      .split(' ') // Divide a string em um array de palavras
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza a primeira letra de cada palavra
-      .join(' '); // Junta as palavras de volta em uma única string
-  };
 
   async function buscarProdutosCategorias() {
     try {

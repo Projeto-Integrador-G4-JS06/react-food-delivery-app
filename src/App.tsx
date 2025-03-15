@@ -19,7 +19,8 @@ import FormCategoria from "./components/categorias/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categorias/deletarcategoria/DeletarCategoria";
 import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaProdutosCategorias";
 import Cadastro from "./pages/cadastro/Cadastro";
-import DarkModeToggle from "./components/darkmode/DarkModeToggle";
+import Cart from "./components/carrinho/Cart";
+import { CartProvider } from "./contexts/CartContext";import DarkModeToggle from "./components/darkmode/DarkModeToggle";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <>
+    <CartProvider>
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
@@ -72,12 +74,14 @@ function App() {
               />
               <Route path="/cadastrarproduto" element={<FormProdutos />} />
               <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
+              <Route path="/cart" element={<Cart />} />
             </Routes>
             <Footer />
           </div>
           <DarkModeToggle isDark={isDark} setIsDark={setIsDark} />
         </BrowserRouter>
-      </AuthProvider>
+      </AuthProvider>     
+    </CartProvider>
     </>
   );
 }
