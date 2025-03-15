@@ -4,6 +4,7 @@ import { ChangeEvent, useContext, useEffect, useState } from "react";
 import UsuarioLogin from "../../models/UsuarioLogin";
 import { AuthContext } from "../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importe os ícones de olho
 
 function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ function Login() {
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
     {} as UsuarioLogin
   );
+
+  const [mostrarSenha, setMostrarSenha] = useState<boolean>(false); // Estado para mostrar/ocultar senha
 
   const { usuario, handleLogin, isLoading } = useContext(AuthContext);
 
@@ -51,25 +54,36 @@ function Login() {
                     id="usuario"
                     name="usuario"
                     placeholder="Email"
-                    className=" bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                    className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                     value={usuarioLogin.usuario}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       atualizarEstado(e)
                     }
                   />
                 </div>
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full relative">
                   <input
-                    type="password"
+                    type={mostrarSenha ? "text" : "password"} // Alterna entre texto e senha
                     id="senha"
                     name="senha"
                     placeholder="Senha"
-                    className=" p-2 bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d]"
+                    className="p-2 bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] pr-10 w-full"
                     value={usuarioLogin.senha}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       atualizarEstado(e)
                     }
                   />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
+                    onClick={() => setMostrarSenha(!mostrarSenha)} // Alterna a visibilidade
+                  >
+                    {mostrarSenha ? (
+                      <FaEyeSlash className="text-gray-500" />
+                    ) : (
+                      <FaEye className="text-gray-500" />
+                    )}
+                  </button>
                 </div>
                 <button
                   type="submit"
@@ -89,7 +103,7 @@ function Login() {
                   )}
                 </button>
 
-                <p className=" -mt-2 text-sm text-[#33333] text-center">
+                <p className="-mt-2 text-sm text-[#33333] text-center">
                   Ainda não tem uma conta?{" "}
                   <Link
                     to="/cadastro"
@@ -100,8 +114,8 @@ function Login() {
                 </p>
               </form>
             </div>
-            <div className="hidden xl:block  rounded-r-2xl  bg-[#FF5656] fundoLogin"></div>
-          </div>  
+            <div className="hidden xl:block rounded-r-2xl bg-[#FF5656] fundoLogin"></div>
+          </div>
         </div>
       </section>
     </>
