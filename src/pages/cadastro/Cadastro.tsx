@@ -5,13 +5,17 @@ import Usuario from "../../models/Usuario";
 import { cadastrarUsuario } from "../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastAlerta } from "../../utils/ToastAlerta";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importe os ícones de olho
 
 function Cadastro() {
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
     const [confirmarSenha, setConfirmarSenha] = useState<string>("");
+    const [senhaValida, setSenhaValida] = useState<boolean>(true); // Estado para validação da senha
+    const [senhasCoincidem, setSenhasCoincidem] = useState<boolean>(true); // Estado para verificar se as senhas coincidem
+    const [botaoHabilitado, setBotaoHabilitado] = useState<boolean>(false); // Estado para habilitar/desabilitar o botão
+    const [mostrarSenha, setMostrarSenha] = useState<boolean>(false); // Estado para mostrar/ocultar senha
 
     const [usuario, setUsuario] = useState<Usuario>({
         id: 0,
@@ -34,25 +38,57 @@ function Cadastro() {
         }
     }, [usuario]);
 
+    useEffect(() => {
+        verificarCamposObrigatorios();
+    }, [usuario, confirmarSenha]);
+
     function retornar() {
         navigate("/login");
     }
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+        const { name, value } = e.target;
         setUsuario({
             ...usuario,
-            [e.target.name]: e.target.value,
+            [name]: value,
         });
+
+        if (name === "senha") {
+            setSenhaValida(value.length >= 8);
+            setSenhasCoincidem(value === confirmarSenha);
+        }
     }
 
     function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
-        setConfirmarSenha(e.target.value);
+        const { value } = e.target;
+        setConfirmarSenha(value);
+        setSenhasCoincidem(value === usuario.senha);
+    }
+
+    function verificarCamposObrigatorios() {
+        const { nome_usuario, usuario: usuarioLogin, senha, num_celular, endereco } = usuario as Usuario;
+
+        const camposPreenchidos =
+            nome_usuario.trim() !== "" &&
+            usuarioLogin.trim() !== "" &&
+            senha.trim() !== "" &&
+            num_celular.trim() !== "" &&
+            endereco.trim() !== "" &&
+            senha.length >= 8 &&
+            confirmarSenha === senha;
+
+        setBotaoHabilitado(camposPreenchidos);
     }
 
     async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if (confirmarSenha === usuario.senha && usuario.senha.length >= 8) {
+        if (usuario.senha.length < 8) {
+            ToastAlerta("A senha deve ter no mínimo 8 caracteres!", "info");
+            return;
+        }
+
+        if (confirmarSenha === usuario.senha) {
             setIsLoading(true);
 
             try {
@@ -66,13 +102,12 @@ function Cadastro() {
                 }
             }
         } else {
-            ToastAlerta('Dados do usuário inconsistentes! Verifique as informações e tente novamente.', 'info')
-            setUsuario({ ...usuario, senha: '' })
-            setConfirmarSenha('')
+            ToastAlerta("As senhas não coincidem! Verifique as informações e tente novamente.", "info");
+            setUsuario({ ...usuario, senha: "" });
+            setConfirmarSenha("");
         }
 
-        setIsLoading(false)
-
+        setIsLoading(false);
     }
 
     return (
@@ -89,11 +124,9 @@ function Cadastro() {
                                 <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
                                     Cadastre-se
                                 </h2>
-                                <div className="flex flex-col mt-4 w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="nome_usuario"
-                                    >
+                                {/* Campos do formulário */}
+                                <div className="flex flex-col w-full relative">
+                                    <label className="text-gray-700 p-1" htmlFor="nome_usuario">
                                         Nome
                                     </label>
                                     <input
@@ -101,18 +134,14 @@ function Cadastro() {
                                         id="nome_usuario"
                                         name="nome_usuario"
                                         placeholder="Nome"
-                                        className=" bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
+                                        className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                                         value={usuario.nome_usuario}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                        required
                                     />
                                 </div>
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="usuario"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="usuario">
                                         Usuário
                                     </label>
                                     <input
@@ -122,17 +151,12 @@ function Cadastro() {
                                         placeholder="user@email.com"
                                         className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                                         value={usuario.usuario}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                        required
                                     />
                                 </div>
-
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="num_celular"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="num_celular">
                                         Telefone
                                     </label>
                                     <input
@@ -142,17 +166,12 @@ function Cadastro() {
                                         placeholder="(xx) xxxxx-xxxx"
                                         className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                                         value={usuario.num_celular}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                        required
                                     />
                                 </div>
-
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="endereco"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="endereco">
                                         Endereço
                                     </label>
                                     <input
@@ -162,17 +181,12 @@ function Cadastro() {
                                         placeholder="R. Nome da Rua, 123 - Bairro - Cidade/UF - CEP"
                                         className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                                         value={usuario.endereco}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                        required
                                     />
                                 </div>
-
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="foto"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="foto">
                                         Foto
                                     </label>
                                     <input
@@ -182,49 +196,79 @@ function Cadastro() {
                                         placeholder="Insira o link da sua foto de perfil..."
                                         className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
                                         value={usuario.foto}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                                     />
                                 </div>
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="senha"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="senha">
                                         Senha
                                     </label>
-                                    <input
-                                        type="password"
-                                        id="senha"
-                                        name="senha"
-                                        placeholder="Insira sua senha..."
-                                        className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
-                                        value={usuario.senha}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => atualizarEstado(e)}
-                                    />
+                                    <div className="relative flex items-center">
+                                        <input
+                                            type={mostrarSenha ? "text" : "password"}
+                                            id="senha"
+                                            name="senha"
+                                            placeholder="Insira sua senha..."
+                                            className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${!senhaValida ? "border border-red-500" : ""
+                                                }`}
+                                            value={usuario.senha}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                            minLength={8}
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute right-3 focus:outline-none"
+                                            onClick={() => setMostrarSenha(!mostrarSenha)}
+                                        >
+                                            {mostrarSenha ? (
+                                                <FaEyeSlash className="text-gray-500" />
+                                            ) : (
+                                                <FaEye className="text-gray-500" />
+                                            )}
+                                        </button>
+                                    </div>
+                                    {!senhaValida && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            A senha deve ter no mínimo 8 caracteres.
+                                        </p>
+                                    )}
                                 </div>
+
                                 <div className="flex flex-col w-full">
-                                    <label
-                                        className="text-gray-700 p-1"
-                                        htmlFor="confirmarSenha"
-                                    >
+                                    <label className="text-gray-700 p-1" htmlFor="confirmarSenha">
                                         Confirmar Senha
                                     </label>
-                                    <input
-                                        type="password"
-                                        id="confirmarSenha"
-                                        name="confirmarSenha"
-                                        placeholder="Confirmar Senha"
-                                        className="bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2"
-                                        value={confirmarSenha}
-                                        onChange={(
-                                            e: ChangeEvent<HTMLInputElement>
-                                        ) => handleConfirmarSenha(e)}
-                                    />
+                                    <div className="relative flex items-center">
+                                        <input
+                                            type={mostrarSenha ? "text" : "password"}
+                                            id="confirmarSenha"
+                                            name="confirmarSenha"
+                                            placeholder="Confirmar Senha"
+                                            className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${!senhasCoincidem ? "border border-red-500" : ""}`}
+                                            value={confirmarSenha}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute right-3 focus:outline-none"
+                                            onClick={() => setMostrarSenha(!mostrarSenha)}
+                                        >
+                                            {mostrarSenha ? (
+                                                <FaEyeSlash className="text-gray-500" />
+                                            ) : (
+                                                <FaEye className="text-gray-500" />
+                                            )}
+                                        </button>
+                                    </div>
+                                    {!senhasCoincidem && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            As senhas não coincidem.
+                                        </p>
+                                    )}
                                 </div>
+                                {/* Botões */}
                                 <div className="flex justify-between w-full gap-8 py-6">
                                     <button
                                         type="reset"
@@ -235,16 +279,20 @@ function Cadastro() {
                                     </button>
                                     <button
                                         type="submit"
-                                        className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer"
+                                        className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer ${!botaoHabilitado ? "opacity-50 cursor-not-allowed" : ""
+                                            }`}
+                                        disabled={!botaoHabilitado}
                                     >
                                         {isLoading ? (
-                                            <RotatingLines
-                                                strokeColor="white"
-                                                strokeWidth="5"
-                                                animationDuration="0.75"
-                                                width="24"
-                                                visible={true}
-                                            />
+                                            <div className="flex justify-center items-center">
+                                                <RotatingLines
+                                                    strokeColor="white"
+                                                    strokeWidth="5"
+                                                    animationDuration="0.75"
+                                                    width="24"
+                                                    visible={true}
+                                                />
+                                            </div>
                                         ) : (
                                             <span>Cadastrar</span>
                                         )}
