@@ -9,9 +9,12 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "./CardProdutos.css";
+import { toTitleCase } from "../../../utils/stringUtils";
+
 
 interface CardProdutosProps {
   produto: Produto;
+  onDelete: (id: string) => void; // Adiciona a prop onDelete
 }
 
 const getImagemSrc = (icone?: string) => {
@@ -21,12 +24,15 @@ const getImagemSrc = (icone?: string) => {
 };
 
 function CardProdutos({ produto, onDelete }: CardProdutosProps) {
+
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
   const navigate = useNavigate();
+
   const { adicionarProduto } = useContext(CartContext);
 
   const handleDelete = () => {
+
     if (!token) {
       ToastAlerta("Você precisa estar logado para deletar um produto.", "info");
       navigate("/login");
@@ -104,9 +110,9 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
         <Link to={`/atualizarproduto/${produto.id}`}>
           <Pencil size={24} />
         </Link>
-        <Link to={`/produto/${produto.id}`}>
+        <button onClick={handleDelete}>
           <Trash size={24} />
-        </Link>
+        </button>
       </div>
 
       {/* Conteúdo do card */}
@@ -133,21 +139,20 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
                 <Pencil size={28} />
               </button>
             </Link>
-            <Link to={`/produto/${produto.id}`}>
-              <button
-                className="bg-gray-700/75 text-white p-2 rounded-full 
+            <button
+              className="bg-gray-700/75 text-white p-2 rounded-full 
               hover:bg-gray-800/75 transition hover:cursor-pointer"
-              >
-                <Trash size={28} />
-              </button>
-            </Link>
+              onClick={handleDelete}
+            >
+              <Trash size={28} />
+            </button>
           </div>
         </div>
 
         {/* Detalhes do produto */}
         <div className="container lg:flex lg:order-1 lg:h-64 flex flex-col items-center lg:w-full min-w-0">
           <h2 className="text-base xl:text-lg font-semibold md:font-extrabold text-gray-800 font-[family-name:var(--font-heading)] mx-2 mb-4 xl:my-0 break-words max-w-full">
-            {produto.nome_produto}
+            {toTitleCase(produto.nome_produto)}
           </h2>
 
           <div className="container flex-1 flex flex-col justify-evenly">
@@ -169,7 +174,7 @@ function CardProdutos({ produto, onDelete }: CardProdutosProps) {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 
