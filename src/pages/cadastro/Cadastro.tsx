@@ -46,12 +46,39 @@ function Cadastro() {
         navigate("/login");
     }
 
+    // Função para formatar o número de celular
+    function formatarTelefone(numero: string): string {
+        // Remove todos os caracteres não numéricos
+        const numeros = numero.replace(/\D/g, "");
+
+        // Aplica a formatação (xx) xxxxx-xxxx
+        if (numeros.length === 0) {
+            return ""; // Retorna vazio se não houver números
+        } else if (numeros.length <= 2) {
+            return `(${numeros}`;
+        } else if (numeros.length <= 7) {
+            return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+        } else {
+            return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
+        }
+    }
+
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
-        setUsuario({
-            ...usuario,
-            [name]: value,
-        });
+
+        // Formata o número de celular em tempo real
+        if (name === "num_celular") {
+            const numeroFormatado = formatarTelefone(value);
+            setUsuario({
+                ...usuario,
+                [name]: numeroFormatado,
+            });
+        } else {
+            setUsuario({
+                ...usuario,
+                [name]: value,
+            });
+        }
 
         if (name === "senha") {
             setSenhaValida(value.length >= 8);
