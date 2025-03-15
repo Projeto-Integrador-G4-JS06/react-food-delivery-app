@@ -1,4 +1,3 @@
-import Banner from "../../components/banner/Banner";
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
 import CarroselCategoria from "../../components/carroselcategoria/CarroselCategoria";
 import { ClipLoader } from "react-spinners";
@@ -24,7 +23,7 @@ function Home() {
 
         {/* Imagem para desktop */}
         <img
-          src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/banner_desktop.svg?updatedAt=1741712196513"
+          src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/light_home.svg?updatedAt=1742068443672"
           alt="Banner desktop"
           className={`w-full hidden md:block ${isImageLoaded ? "" : "hidden"}`}
           onLoad={handleImageLoad}
@@ -32,7 +31,7 @@ function Home() {
 
         {/* Imagem para mobile */}
         <img
-          src="https://ik.imagekit.io/iyume/pede%20a%C3%AD/banner_mobile.svg?updatedAt=1741712211643"
+          src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/light_mobile_home.svg?updatedAt=1742068492107"
           alt="Banner mobile"
           className={`w-full md:hidden ${isImageLoaded ? "" : "hidden"}`}
           onLoad={handleImageLoad}
