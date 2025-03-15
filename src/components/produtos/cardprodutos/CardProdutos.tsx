@@ -20,7 +20,7 @@ interface CardProdutosProps {
 const getImagemSrc = (icone?: string) => {
   return icone && icone.trim() !== ""
     ? icone
-    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/PedeAi_secundaria.svg?updatedAt=1741648622817";
+    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/PedeAi_secundaria.svg?updatedAt=1742050552057";
 };
 
 function CardProdutos({ produto, onDelete }: CardProdutosProps) {
