@@ -211,3 +211,23 @@ body {
     transform: rotate(10deg);
   }
 }
+
+/* Style the Google Translate widget container */
+#google_translate_element {
+  margin: 10px 20px;
+
+
+
+
+}
+
+
+.goog-te-combo {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+

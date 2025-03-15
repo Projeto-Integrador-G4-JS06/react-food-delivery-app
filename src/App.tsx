@@ -21,6 +21,7 @@ import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaPr
 import Cadastro from "./pages/cadastro/Cadastro";
 import Cart from "./components/carrinho/Cart";
 import { CartProvider } from "./contexts/CartContext";
+import GoogleTranslate from "./components/translate/GoogleTranslate";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <ToastContainer />
           <BrowserRouter>
             <Navbar />
+        
+              <GoogleTranslate />
+        
+
             <div className="scroll-smooth antialiased min-h-[80vh]">
               <Routes>
                 <Route path="/" element={<Home />} />
