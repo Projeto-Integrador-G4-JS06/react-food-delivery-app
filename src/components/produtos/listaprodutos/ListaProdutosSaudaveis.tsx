@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { PacmanLoader } from "react-spinners";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutosSaudaveis() {
@@ -11,6 +10,9 @@ function ListaProdutosSaudaveis() {
 
   // Função para buscar os produtos saudáveis
   async function buscarProdutos() {
+    const tempoMinimoLoading = 1900; // 1 segundo (ajuste conforme necessário)
+    const inicioLoading = Date.now();
+
     try {
       setIsLoading(true);
       await listar("/produtos/healthy", setProdutos);
@@ -27,7 +29,16 @@ function ListaProdutosSaudaveis() {
         );
       }
     } finally {
-      setIsLoading(false);
+      const tempoDecorrido = Date.now() - inicioLoading;
+      const tempoRestante = tempoMinimoLoading - tempoDecorrido;
+
+      if (tempoRestante > 0) {
+        // Aguarda o tempo restante antes de desativar o loading
+        setTimeout(() => setIsLoading(false), tempoRestante);
+      } else {
+        // Se o tempo mínimo já foi atingido, desativa o loading imediatamente
+        setIsLoading(false);
+      }
     }
   }
 
@@ -44,16 +55,10 @@ function ListaProdutosSaudaveis() {
 
   return (
     <>
-      {/* Centralized PacmanLoader */}
+      {/* Centralized Loader */}
       {isLoading && (
-        <div className="flex justify-center items-center h-screen">
-          <PacmanLoader
-            color="#E02D2D"
-            margin={0}
-            size={50}
-            speedMultiplier={2}
-            aria-label="Pacman-loading"
-          />
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+          <span className="loader"></span>
         </div>
       )}
 
