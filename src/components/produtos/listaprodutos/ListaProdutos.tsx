@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { PacmanLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutos() {
+  
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   async function buscarProdutos() {
+    const tempoMinimoLoading = 1900; // 1 segundo (ajuste conforme necessário)
+    const inicioLoading = Date.now();
+
     try {
       setIsLoading(true);
       await listar("/produtos/all", setProdutos);
@@ -21,7 +24,16 @@ function ListaProdutos() {
         ToastAlerta("Erro desconhecido ao listar os produtos!", "erro");
       }
     } finally {
-      setIsLoading(false);
+      const tempoDecorrido = Date.now() - inicioLoading;
+      const tempoRestante = tempoMinimoLoading - tempoDecorrido;
+
+      if (tempoRestante > 0) {
+        // Aguarda o tempo restante antes de desativar o loading
+        setTimeout(() => setIsLoading(false), tempoRestante);
+      } else {
+        // Se o tempo mínimo já foi atingido, desativa o loading imediatamente
+        setIsLoading(false);
+      }
     }
   }
 
@@ -38,23 +50,17 @@ function ListaProdutos() {
 
   return (
     <>
-      {/* Centralized PacmanLoader */}
+     
       {isLoading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-50">
-          <PacmanLoader
-            color="#E02D2D"
-            margin={0}
-            size={50}
-            speedMultiplier={2}
-            aria-label="Pacman-loading"
-          />
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+          <span className="loader"></span>
         </div>
       )}
 
-      {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
+      {/* Faixa com bg-[#ECE9E3] ocupando a largura total */}
       <div className="w-full bg-[#ECE9E3] py-6">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-black">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
             Produtos
           </p>
           <Link
@@ -71,7 +77,6 @@ function ListaProdutos() {
         </div>
       </div>
 
-      {/* Conteúdo principal dentro do container */}
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
           {!isLoading && produtos.length === 0 && (
@@ -81,7 +86,7 @@ function ListaProdutos() {
           )}
 
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-10">
-            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-40">
+            <div className="grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-60">
               {produtos
                 .sort((a, b) => a.id - b.id) // Ordena os produtos por ID
                 .map((produto: Produto) => (

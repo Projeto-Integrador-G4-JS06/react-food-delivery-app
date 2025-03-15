@@ -4,15 +4,10 @@ import Categoria from "../../models/Categoria";
 import { useEffect, useState } from "react";
 import { listar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import { Link, useNavigate } from "react-router-dom";
-
-
+import { Link } from "react-router-dom";
 
 function CarroselCategoria() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
-  
-
-
 
   async function buscarCategorias() {
     try {
@@ -42,7 +37,7 @@ function CarroselCategoria() {
       {
         breakpoint: 1024, // Telas grandes
         settings: {
-          slidesToShow: 6,
+          slidesToShow: 5,
           slidesToScroll: 1,
         },
       },

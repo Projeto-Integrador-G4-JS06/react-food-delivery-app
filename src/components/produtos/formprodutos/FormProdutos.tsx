@@ -6,6 +6,7 @@ import { cadastrar, atualizar, listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
+import { toTitleCase } from "../../../utils/stringUtils";
 
 function FormProdutos() {
   const navigate = useNavigate();
@@ -111,6 +112,11 @@ function FormProdutos() {
       valor = valor.slice(0, 30);
     }
 
+    if (name === "nome_produto" && typeof valor === "string") {
+      // Aplica a função toTitleCase ao nome do produto
+      valor = toTitleCase(valor.slice(0, 30));
+    }
+
     setProduto({
       ...produto,
       [name]: valor,
@@ -191,18 +197,18 @@ function FormProdutos() {
   }
 
   return (
-    <section className=" flex flex-col justify-center items-center min-h-screen py-4 lg:py-4 xl:py-0">
-      <div className="container w-[80%] md:w-[50%] lg:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
+    <section className="flex flex-col justify-center items-center min-h-screen py-6">
+      <div className="container w-[80%] md:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl">
         <form
           className="flex flex-col w-full lg:w-[80%] gap-4 mt-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
-          <h2 className="text-[#33333] font-semibold text-3xl text-center border-b-1 p-6 border-b-black  font-[family-name:var(--font-heading)]">
+          <h2 className="text-[#33333] font-semibold text-2xl md:text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)]">
             {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
           </h2>
 
-          <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start ">
+          <div className="flex flex-col gap-2 mt-4">
+            <label className="flex justify-start">
               Nome do Produto
             </label>
             <input
@@ -220,7 +226,7 @@ function FormProdutos() {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+            <label className="flex justify-start">
               Descrição do Produto
             </label>
             <input
@@ -228,7 +234,7 @@ function FormProdutos() {
               placeholder="Breve descrição do produto..."
               name="descricao"
               required
-              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 "
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2"
               value={produto.descricao}
               onChange={atualizarEstado}
             />
@@ -237,7 +243,7 @@ function FormProdutos() {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+            <label className="flex justify-start">
               Preço
             </label>
             <input
@@ -252,7 +258,9 @@ function FormProdutos() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">Foto</label>
+            <label className="flex justify-start">
+              Foto
+            </label>
             <input
               type="text"
               placeholder="Link da foto do produto"
@@ -264,7 +272,7 @@ function FormProdutos() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center text-center lg:justify-start">
+              <p className="flex justify-start">
                 Categoria do Produto
               </p>
               <select
@@ -290,7 +298,7 @@ function FormProdutos() {
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center lg:justify-start">
+              <p className="flex justify-start">
                 Nutri Score
               </p>
               <select
@@ -324,15 +332,10 @@ function FormProdutos() {
               </select>
             </div>
           </div>
-          <div className="flex justify-between gap-4 pt-6 lg:gap-12 flex-col lg:flex-row">
-            <Link to={`/produtos`} className="h-13 w-full order-2 lg:order-1">
-              <button className="font-[family-name:var(--font-quicksand)] font-semibold text-lg  rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white h-13 w-full">
-                Cancelar
-              </button>
-            </Link>
+          <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
             <button
               type="submit"
-              className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center font-[family-name:var(--font-quicksand)] font-semibold text-lg rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white h-13 w-full"
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1"
               disabled={!camposPreenchidos()}
             >
               {isLoading ? (
@@ -347,6 +350,11 @@ function FormProdutos() {
                 <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
               )}
             </button>
+            <Link to={`/produtos`} className="order-2">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white p-2 w-48">
+                Cancelar
+              </button>
+            </Link>
           </div>
         </form>
       </div>

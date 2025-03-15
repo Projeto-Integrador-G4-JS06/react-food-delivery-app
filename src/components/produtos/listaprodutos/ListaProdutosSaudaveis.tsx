@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { PacmanLoader } from "react-spinners";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaProdutosSaudaveis() {
@@ -11,17 +10,35 @@ function ListaProdutosSaudaveis() {
 
   // Função para buscar os produtos saudáveis
   async function buscarProdutos() {
+    const tempoMinimoLoading = 1900; // 1 segundo (ajuste conforme necessário)
+    const inicioLoading = Date.now();
+
     try {
       setIsLoading(true);
       await listar("/produtos/healthy", setProdutos);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        ToastAlerta(`Erro ao listar os produtos saudáveis: ${error.message}`, 'erro');
+        ToastAlerta(
+          `Erro ao listar os produtos saudáveis: ${error.message}`,
+          "erro"
+        );
       } else {
-        ToastAlerta("Erro desconhecido ao listar os produtos saudáveis!", 'erro');
+        ToastAlerta(
+          "Erro desconhecido ao listar os produtos saudáveis!",
+          "erro"
+        );
       }
     } finally {
-      setIsLoading(false);
+      const tempoDecorrido = Date.now() - inicioLoading;
+      const tempoRestante = tempoMinimoLoading - tempoDecorrido;
+
+      if (tempoRestante > 0) {
+        // Aguarda o tempo restante antes de desativar o loading
+        setTimeout(() => setIsLoading(false), tempoRestante);
+      } else {
+        // Se o tempo mínimo já foi atingido, desativa o loading imediatamente
+        setIsLoading(false);
+      }
     }
   }
 
@@ -38,16 +55,10 @@ function ListaProdutosSaudaveis() {
 
   return (
     <>
-      {/* Centralized PacmanLoader */}
+      {/* Centralized Loader */}
       {isLoading && (
-        <div className="flex justify-center items-center h-screen">
-          <PacmanLoader
-            color="#E02D2D"
-            margin={0}
-            size={50}
-            speedMultiplier={2}
-            aria-label="Pacman-loading"
-          />
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+          <span className="loader"></span>
         </div>
       )}
 
@@ -60,15 +71,15 @@ function ListaProdutosSaudaveis() {
 
         {!isLoading && produtos.length > 0 && (
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-8">
-            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
+            <div className="grid grid-cols-1 mx-4 md:gap-8 md:grid-cols-2 2xl:mx-30">
               <div className="order-2">
-                <CardProdutos produto={produtos[0]} onDelete={removerProduto}/>
+                <CardProdutos produto={produtos[0]} onDelete={removerProduto} />
               </div>
-              <div className="order-2 flex justify-center">
+              <div className="order-2 flex justify-center items-center">
                 <img
-                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/Eating%20healthy%20food-pana%201.png?updatedAt=1742050540097"
                   alt="Imagem"
-                  className="w-72.5 h-72.5 object-cover rounded-lg"
+                  className="w-72.5 h-72.5 object-cover rounded-lg hidden sm:block"
                 />
               </div>
             </div>
@@ -77,7 +88,11 @@ function ListaProdutosSaudaveis() {
                 .sort((a, b) => a.id - b.id)
                 .slice(1)
                 .map((produto) => (
-                  <CardProdutos key={produto.id} produto={produto} onDelete={removerProduto} />
+                  <CardProdutos
+                    key={produto.id}
+                    produto={produto}
+                    onDelete={removerProduto}
+                  />
                 ))}
             </div>
           </section>
