@@ -29,7 +29,7 @@ function Perfil() {
   const getImagemSrc = (foto?: string) => {
     return foto && foto.trim() !== ""
       ? foto
-      : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/user.png?updatedAt=1742003904560";
+      : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/user.png?updatedAt=1742050532225";
   };
 
   return (
