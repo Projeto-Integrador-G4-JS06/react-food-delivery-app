@@ -71,13 +71,13 @@ function ListaProdutosSaudaveis() {
 
         {!isLoading && produtos.length > 0 && (
           <section className="container w-full mx-auto px-4 flex flex-col justify-center items-center gap-8">
-            <div className="grid grid-cols-1 mx-4 gap-8 md:grid-cols-2 2xl:mx-30">
+            <div className="grid grid-cols-1 mx-4 md:gap-8 md:grid-cols-2 2xl:mx-30">
               <div className="order-2">
                 <CardProdutos produto={produtos[0]} onDelete={removerProduto} />
               </div>
               <div className="order-2 flex justify-center items-center">
                 <img
-                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Eating%20healthy%20food-pana%201.png?updatedAt=1741745336678"
+                  src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/Eating%20healthy%20food-pana%201.png?updatedAt=1742050540097"
                   alt="Imagem"
                   className="w-72.5 h-72.5 object-cover rounded-lg hidden sm:block"
                 />
