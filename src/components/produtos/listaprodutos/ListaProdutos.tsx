@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { listar } from "../../../services/Service";
 import Produto from "../../../models/Produto";
 import CardProdutos from "../cardprodutos/CardProdutos";
-import { PacmanLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 

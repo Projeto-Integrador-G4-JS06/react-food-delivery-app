@@ -6,6 +6,7 @@ import { cadastrarUsuario } from "../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importe os ícones de olho
+import { toTitleCase } from "../../utils/stringUtils";
 
 function Cadastro() {
     const navigate = useNavigate();
@@ -65,13 +66,6 @@ function Cadastro() {
         } else {
             return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
         }
-    }
-
-    // Função para converter texto em Title Case
-    function toTitleCase(str: string): string {
-        return str.replace(/\w\S*/g, (txt) => {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        });
     }
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
