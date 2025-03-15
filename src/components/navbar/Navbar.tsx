@@ -139,7 +139,7 @@ function Navbar() {
             className="relative p-2 bg-red-100 active:bg-[#e04a4a] dark:bg-[#FF5252] rounded-lg text-white cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1"
           >
             {quantidadeItems > 0 && (
-              <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-[#E02D2D] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {quantidadeItems}
               </span>
             )}
