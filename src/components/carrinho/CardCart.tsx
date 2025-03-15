@@ -11,10 +11,10 @@ function CardCart({ item }: CardProdutosProps) {
   return (
     <>
       <div className="xl:grid xl:grid-cols-4 xl:gap-2 xl:py-4 flex flex-col items-center justify-center gap-4 my-2">
-        <div className="w-fit-content ml-5 mt-3 mb-3">
+        <div className="w-fit-content m-5 mt-3 mb-3">
           <img
             src={item.foto}
-            className="rounded-2xl w-64 h-40 drop-shadow-lg"
+            className="w-48 h-48 rounded-lg object-cover lg:w-90 lg:h-64 transition-opacity duration-300"
             alt={item.nome_produto}
           />
         </div>
