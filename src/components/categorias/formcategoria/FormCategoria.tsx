@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
-// import { PacmanLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
@@ -87,8 +86,6 @@ function FormCategoria() {
       ...categoria,
       [name]: valor,
     });
-
-    // Verifica se o campo é a descrição e limita a 80 caracteres
   }
 
   async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
@@ -212,13 +209,8 @@ function FormCategoria() {
             />
           </div>
           <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
-            <Link to={`/categorias`}>
-              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white p-2 w-48">
-                Cancelar
-              </button>
-            </Link>
             <button
-              className="focus:outline-0 flex order-1 lg:order-2 items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48"
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1"
               type="submit"
               disabled={!camposPreenchidos()}
             >
@@ -234,10 +226,15 @@ function FormCategoria() {
                 <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
               )}
             </button>
+            <Link to={`/categorias`} className="order-2">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#E02D2D] opacity-80 active:bg-[#A64B4B] hover:bg-[#D46A6A] text-white p-2 w-48">
+                Cancelar
+              </button>
+            </Link>
           </div>
         </form>
-      </div >
-    </section >
+      </div>
+    </section>
   );
 }
 
