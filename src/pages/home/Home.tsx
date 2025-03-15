@@ -1,5 +1,5 @@
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
-import CarroselCategoria from "../../components/carroselcategoria/CarroselCategoria";
+import CarrosselCategoria from "../../components/carrosselcategoria/CarrosselCategoria";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -41,7 +41,7 @@ function Home() {
         Conheça as nossas categorias!
       </h2>
 
-      <CarroselCategoria />
+      <CarrosselCategoria />
       <div className="w-full bg-[#ECE9E3] rounded-2xl">
         <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-700 p-10 xl:px-20 xl:py-15">
           Produtos Saudáveis
