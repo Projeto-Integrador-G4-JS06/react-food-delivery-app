@@ -73,9 +73,9 @@ function App() {
               <Route path="/cadastrarproduto" element={<FormProdutos />} />
               <Route path="/atualizarproduto/:id" element={<FormProdutos />} />
             </Routes>
+            <Footer />
           </div>
           <DarkModeToggle isDark={isDark} setIsDark={setIsDark} />
-          <Footer />
         </BrowserRouter>
       </AuthProvider>
     </>

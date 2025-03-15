@@ -228,7 +228,7 @@ function Cadastro() {
                       id="senha"
                       name="senha"
                       placeholder="Insira sua senha..."
-                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${
+                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
                         !senhaValida ? "border border-red-500" : ""
                       }`}
                       value={usuario.senha}
@@ -244,9 +244,9 @@ function Cadastro() {
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? (
-                        <FaEyeSlash className="text-gray-500" />
+                        <FaEyeSlash className="text-gray-500 dark:text-gray-400" />
                       ) : (
-                        <FaEye className="text-gray-500" />
+                        <FaEye className="text-gray-500 dark:text-gray-400" />
                       )}
                     </button>
                   </div>
@@ -267,7 +267,7 @@ function Cadastro() {
                       id="confirmarSenha"
                       name="confirmarSenha"
                       placeholder="Confirmar Senha"
-                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full ${
+                      className={`bg-[#eeeeee] rounded-xl text-gray-700 focus:outline-[#e02d2d] p-2 pr-10 w-full dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] border-1 border-[#E0E0E0] ${
                         !senhasCoincidem ? "border border-red-500" : ""
                       }`}
                       value={confirmarSenha}
@@ -282,9 +282,9 @@ function Cadastro() {
                       onClick={() => setMostrarSenha(!mostrarSenha)}
                     >
                       {mostrarSenha ? (
-                        <FaEyeSlash className="text-gray-500" />
+                        <FaEyeSlash className="text-gray-500 dark:text-gray-400" />
                       ) : (
-                        <FaEye className="text-gray-500" />
+                        <FaEye className="text-gray-500 dark:text-gray-400" />
                       )}
                     </button>
                   </div>
@@ -298,14 +298,14 @@ function Cadastro() {
                 <div className="flex justify-between w-full gap-8 py-6">
                   <button
                     type="reset"
-                    className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E97E7E] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer"
+                    className="font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white h-13 w-80 cursor-pointer dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778]"
                     onClick={retornar}
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer ${
+                    className={`font-[family-name:var(--font-quicksand)] font-medium rounded-xl bg-[#E02D2D] hover:bg-[#B22222] text-white h-13 w-80 cursor-pointer dark:bg-dark-red-600 dark:hover:bg-dark-red-700 ${
                       !botaoHabilitado ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     disabled={!botaoHabilitado}
