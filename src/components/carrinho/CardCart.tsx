@@ -1,4 +1,3 @@
-import { Minus, Plus } from "@phosphor-icons/react";
 import { useContext } from "react";
 import { CartContext, Items } from "../../contexts/CartContext";
 
