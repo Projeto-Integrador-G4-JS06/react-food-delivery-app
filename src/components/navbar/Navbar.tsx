@@ -22,7 +22,7 @@ function Navbar() {
 
   function buscarProdutos(e) {
     e.preventDefault();
-    navigate(`/consultarnome/${nome}`);
+    navigate(`/produtos/nome/${nome}`);
     setNome("");
   }
 
