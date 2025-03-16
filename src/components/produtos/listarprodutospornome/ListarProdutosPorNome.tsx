@@ -7,54 +7,40 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { toTitleCase } from "../../../utils/stringUtils";
 
 function ListarProdutosPorNome() {
-    const [produtos, setProdutos] = useState<Produto[]>([]); // Todos os Produtos
-    const [produtosFiltrados, setProdutosFiltrados] = useState<Produto[]>([]); // Produtos Filtrados
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [produtosFiltrados, setProdutosFiltrados] = useState<Produto[]>([]);
     const [filtroPreco, setFiltroPreco] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
 
     const { nome } = useParams<{ nome: string }>();
 
     async function buscarTodosProdutos() {
-        const tempoMinimoLoading = 1900; // 1 segundo (ajuste conforme necessário)
-        const inicioLoading = Date.now();
-
+        setIsLoading(true);
         try {
-            setIsLoading(true);
-            await listar(`/produtos/nome/${nome}`, setProdutos);
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                ToastAlerta(
-                    `Erro ao listar produtos: ${error.message}`,
-                    "erro"
-                );
-            } else {
-                ToastAlerta("Erro desconhecido ao listar os produtos!", "erro");
-            }
+            const produtosRecebidos: Produto[] = [];
+            await listar(`/produtos/nome/${nome}`, (data: Produto[]) => {
+                produtosRecebidos.push(...data);
+            });
+            setProdutos(produtosRecebidos);
+            setProdutosFiltrados(produtosRecebidos);
+        } catch (error) {
+            ToastAlerta("Erro ao listar produtos!", "erro");
         } finally {
-            const tempoDecorrido = Date.now() - inicioLoading;
-            const tempoRestante = tempoMinimoLoading - tempoDecorrido;
-
-            if (tempoRestante > 0) {
-                // Aguarda o tempo restante antes de desativar o loading
-                setTimeout(() => setIsLoading(false), tempoRestante);
-            } else {
-                // Se o tempo mínimo já foi atingido, desativa o loading imediatamente
-                setIsLoading(false);
-            }
+            setIsLoading(false);
         }
     }
 
     function filtrarProdutos() {
-        let produtosFiltrados = produtos;
+        let produtosAtualizados = produtos;
 
-        if (produtosFiltrados && nome) {
-            produtosFiltrados = produtosFiltrados.filter((produto) =>
+        if (nome) {
+            produtosAtualizados = produtosAtualizados.filter((produto) =>
                 produto.nome_produto.toUpperCase().includes(nome.toUpperCase())
             );
         }
 
         if (filtroPreco) {
-            produtosFiltrados = produtosFiltrados.filter((produto) => {
+            produtosAtualizados = produtosAtualizados.filter((produto) => {
                 const preco = produto.preco;
                 if (filtroPreco === "30") return preco <= 30;
                 if (filtroPreco === "50") return preco > 30 && preco <= 50;
@@ -65,33 +51,29 @@ function ListarProdutosPorNome() {
             });
         }
 
-        setProdutosFiltrados(produtosFiltrados);
+        setProdutosFiltrados(produtosAtualizados);
     }
 
     function limparFiltroPreco() {
         setFiltroPreco("");
-        const radioButtons = document.getElementsByName("preco");
-        radioButtons.forEach((radio) => {
+        document.getElementsByName("preco").forEach((radio) => {
             (radio as HTMLInputElement).checked = false;
         });
     }
 
-    // Função para remover um produto da lista
     const removerProduto = (id: string) => {
         setProdutos((prevProdutos) =>
             prevProdutos.filter((produto) => produto.id.toString() !== id)
         );
     };
 
-    // Carrega todos os produtos na primeira vez
     useEffect(() => {
         buscarTodosProdutos();
-    }, []);
+    }, [nome]);
 
-    // Filtra os produtos de acordo com o termo da busca
     useEffect(() => {
         filtrarProdutos();
-    }, [nome, produtos, filtroPreco]);
+    }, [produtos, nome, filtroPreco]);
 
     return (
         <>
