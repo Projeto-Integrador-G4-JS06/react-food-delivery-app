@@ -57,7 +57,7 @@ function ListaProdutosSaudaveis() {
     <>
       {/* Centralized Loader */}
       {isLoading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] dark:bg-dark-gray-200 bg-opacity-75 z-56">
           <span className="loader"></span>
         </div>
       )}

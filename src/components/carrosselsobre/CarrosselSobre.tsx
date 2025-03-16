@@ -71,7 +71,7 @@ function CarrosselSobre() {
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
     autoplay: true, // Ativa o autoplay
-    autoplaySpeed: 2000, // Define o intervalo entre os slides em milissegundos
+    autoplaySpeed: 4000, // Define o intervalo entre os slides em milissegundos
     responsive: [
       {
         breakpoint: 1024, // Telas grandes

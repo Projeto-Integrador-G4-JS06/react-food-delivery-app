@@ -85,21 +85,21 @@ function ListaProdutosCategorias() {
     <>
       {/* Centralized Loader */}
       {isLoading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] bg-opacity-75 z-56">
+        <div className="fixed inset-0 flex justify-center items-center bg-[#ECE9E3] dark:bg-dark-gray-200 bg-opacity-75 z-56">
           <span className="loader"></span>
         </div>
       )}
 
       {/* Faixa com bg-[#D9D9D9] ocupando a largura total */}
-      <div className="w-full bg-[#ECE9E3] py-6">
+      <div className="w-full bg-[#ECE9E3] py-6 dark:bg-dark-gray-200">
         <div className="container mx-auto flex justify-between items-center py-2 px-8">
-          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600">
+          <p className="hidden sm:block text-2xl font-medium font-[family-name:var(--font-heading)] text-gray-600 dark:text-white">
             Produtos da Categoria: {categoria ? toTitleCase(categoria.nome_categoria) : '---'}
           </p>
           <Link to={`/home`} className="flex justify-end w-full sm:w-auto">
             <button
               type="submit"
-              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer"
+              className="font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] text-white h-13 w-45 hover:cursor-pointer dark:bg-dark-red-700 dark:hover:bg-dark-red-800"
             >
               Voltar
             </button>
@@ -108,10 +108,10 @@ function ListaProdutosCategorias() {
       </div>
 
       {/* Conteúdo principal dentro do container */}
-      <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
+      <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8 min-h-[55vh]">
         <div className="w-full flex flex-col mx-4">
           {(!isLoading && categoria?.produto?.length === 0) && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
               Nenhum produto foi encontrado!
             </span>
           )}

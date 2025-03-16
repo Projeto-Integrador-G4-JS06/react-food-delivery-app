@@ -21,9 +21,27 @@ import ListaProdutosCategorias from "./components/produtos/listaprodutos/ListaPr
 import Cadastro from "./pages/cadastro/Cadastro";
 import Cart from "./components/carrinho/Cart";
 import { CartProvider } from "./contexts/CartContext";
+import DarkModeToggle from "./components/darkmode/DarkModeToggle";
+import { useEffect, useState } from "react";
 import ListarProdutosPorNome from "./components/produtos/listarprodutospornome/ListarProdutosPorNome";
 
 function App() {
+    const [isDark, setIsDark] = useState<boolean>(
+        localStorage.getItem("theme") === "dark" ||
+            (!("theme" in localStorage) &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+
+    useEffect(() => {
+        if (isDark) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [isDark]);
+
     return (
         <>
             <CartProvider>
@@ -31,17 +49,26 @@ function App() {
                     <ToastContainer />
                     <BrowserRouter>
                         <Navbar />
-                        <div className="scroll-smooth antialiased min-h-[80vh]">
+                        <div className="scroll-smooth antialiased md:min-h-[80vh] dark:bg-[#3A3A3A]">
                             <Routes>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/home" element={<Home />} />
+                                <Route
+                                    path="/"
+                                    element={<Home isDark={isDark} />}
+                                />
+                                <Route
+                                    path="/home"
+                                    element={<Home isDark={isDark} />}
+                                />
                                 <Route path="/login" element={<Login />} />
                                 <Route
                                     path="/cadastro"
                                     element={<Cadastro />}
                                 />
                                 <Route path="/perfil" element={<Perfil />} />
-                                <Route path="/sobre" element={<Sobre />} />
+                                <Route
+                                    path="/sobre"
+                                    element={<Sobre isDark={isDark} />}
+                                />
                                 <Route
                                     path="/categorias/nome/:nome_categoria"
                                     element={<ListaProdutosCategorias />}
@@ -82,15 +109,15 @@ function App() {
                                     path="/atualizarproduto/:id"
                                     element={<FormProdutos />}
                                 />
-                                <Route path="/cart" element={<Cart />} 
-                                />
+                                <Route path="/cart" element={<Cart />} />
                                 <Route
                                     path="/produtos/nome/:nome"
                                     element={<ListarProdutosPorNome />}
                                 />
                             </Routes>
+                            <Footer />
                         </div>
-                        <Footer />
+                        <DarkModeToggle isDark={isDark} setIsDark={setIsDark} />
                     </BrowserRouter>
                 </AuthProvider>
             </CartProvider>

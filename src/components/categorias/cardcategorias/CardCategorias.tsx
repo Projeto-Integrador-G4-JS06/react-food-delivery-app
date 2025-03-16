@@ -96,8 +96,8 @@ function CardCategorias({ categoria, onDelete }: CardCategoriaProps) {
   };
 
   return (
-    <div className='flex flex-col overflow-hidden border border-gray-200 rounded-2xl drop-shadow-xl h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer'>
-      <header className='flex justify-start gap-4 items-center px-4 text-2xl text-white bg-[#E02D2D] font-heading min-h-[4rem]'>
+    <div className='flex flex-col overflow-hidden border-1 border-[#969696] rounded-2xl drop-shadow-xl h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg cursor-pointer dark:border-0'>
+      <header className='flex justify-start gap-4 items-center px-4 text-2xl text-white bg-[#E02D2D] font-heading min-h-[4rem] dark:bg-dark-red-600'>
         <img
           src={getImagemSrc(categoria?.icone)} // Usando a função getImagemSrc
           alt="Category Icon"
@@ -107,20 +107,20 @@ function CardCategorias({ categoria, onDelete }: CardCategoriaProps) {
           {toTitleCase(categoria.nome_categoria)}
         </h2>
       </header>
-      <div className="flex-1 overflow-y-auto p-4 bg-white flex justify-center items-center">
-        <p className='text-base lg:text-base text-center p-4 bg-white font-[family-name:var(--font-body)] break-words whitespace-normal max-w-full'>
+      <div className="flex-1 overflow-y-auto p-3 bg-white flex justify-center items-center dark:bg-dark-gray-300">
+        <p className='text-base lg:text-base text-center p-3 font-[family-name:var(--font-body)] break-words whitespace-normal max-w-full  dark:text-white'>
           {categoria.descricao}
         </p>
       </div>
 
-      <div className="flex justify-end gap-4 bg-white py-2 px-2">
+      <div className="flex justify-end gap-4 bg-white py-1 pt-0 pb-3 px-2 dark:bg-dark-gray-300">
         <Link to={`/editarcategoria/${categoria.id}`} className="inline-flex items-center">
           <button>
-            <Pencil size={28} className='text-black font-bold  active:text-[#A64B4B] cursor-pointer' />
+            <Pencil size={28} className='text-black font-bold  active:text-[#A64B4B] cursor-pointer dark:text-white dark:hover:text-dark-red-600 transition-colors duration-200' />
           </button>
         </Link>
         <button onClick={handleDelete} className='mx-2'>
-          <Trash size={28} className='text-black font-bold active:text-[#A64B4B] cursor-pointer' />
+          <Trash size={28} className='text-black font-bold active:text-[#A64B4B] cursor-pointer dark:text-white  dark:hover:text-dark-red-600 duration-200' />
         </button>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
 import Produto from "../../../models/Produto";
 import { listar } from "../../../services/Service";
 import CardProdutos from "../cardprodutos/CardProdutos";

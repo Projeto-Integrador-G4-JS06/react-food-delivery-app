@@ -36,7 +36,7 @@ function Perfil() {
     <section className="container w-full mx-auto flex flex-col justify-center">
       <div className="flex justify-center items-center min-h-[80vh]">
         {/* <div className="md:w-screen mx-0 md:mx-10 lg:mx-15"> */}
-        <div className="container flex flex-col bg-[#B2B2B2] m-8 rounded-2xl overflow-hidden">
+        <div className="container flex flex-col bg-[#B2B2B2] m-8 rounded-2xl overflow-hidden dark:bg-dark-gray-300">
           <div
             className="w-full h-72 object-cover round border-b-8 border-white"
           />
@@ -51,7 +51,7 @@ function Perfil() {
             className="relative font-[family-name:var(--font-heading)] font-normal 
               mt-[-6rem] h-72 flex flex-col bg-[#FF5656] md:h-80 rounded-b-2xl
                       md:py-[8%] lg:py-[2%] py-[30%] px-[2%] md:px-[38%] 
-                      lg:px-[25%] xl:px-[20%]"
+                      lg:px-[25%] xl:px-[20%] dark:bg-dark-red-600"
           >
             <div className="flex flex-col text-center items-center text-white text-base md:text-xl my-3 md:mx-2 md:my-8 lg:px-[1%] md:items-start md:flex-col md:gap-4">
               <div className="flex flex-col md:w-max gap-1">

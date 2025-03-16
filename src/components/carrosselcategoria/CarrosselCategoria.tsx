@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 function CarroselCategoria() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
-
   async function buscarCategorias() {
     try {
       await listar("/categorias/all", setCategorias);
