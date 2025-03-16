@@ -36,7 +36,7 @@ function CardCart({ item }: CardProdutosProps) {
             <p className="dark:text-gray-300">+</p>
           </button>
         </div>
-        <div className=" flex items-center justify-center mb-1 dark:text-white">
+        <div className="flex items-center justify-center mb-1 dark:text-white">
           {Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
