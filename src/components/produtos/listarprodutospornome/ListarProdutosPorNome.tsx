@@ -118,10 +118,10 @@ function ListarProdutosPorNome() {
                 </div>
             </div>
 
-            <div className="container w-full mx-auto flex flex-col justify-start items-center gap-10 my-8 md:min-h-[80vh]">
+            <div className="container w-full mx-auto flex flex-col justify-start items-center gap-10 my-8 min-h-[80vh]">
                 <div className="w-full flex flex-col mx-4">
                     {!isLoading && produtos.length === 0 && (
-                        <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
+                        <span className="my-8 text-xl md:text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
                             Nenhum produto foi encontrado!
                         </span>
                     )}
@@ -129,10 +129,7 @@ function ListarProdutosPorNome() {
                     {!isLoading && produtos.length > 0 && (
                         <section className="container w-full mx-auto px-4 flex flex-col justify-start items-center gap-10">
                             <h2 className="font-medium text-gray-600 dark:text-gray-200 font-[family-name:var(--font-heading)] text-2xl md:text-3xl text-center my-4">
-                                Resultados da busca por{" "}
-                                <span className="italic">
-                                    "{nome ? toTitleCase(nome) : "N/A"}"
-                                </span>
+                                Resultados da busca por "{nome ? toTitleCase(nome) : "N/A"}"
                             </h2>
 
                             <div className="flex flex-col xl:flex-row w-full">
@@ -231,7 +228,7 @@ function ListarProdutosPorNome() {
                                     </div>
 
                                     {/* Cards dos Produtos */}
-                                    <div className="flex-grow grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-40">
+                                    <div className="flex-grow grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-20">
                                         {produtosFiltrados.length > 0 ? (
                                             produtosFiltrados
                                                 .sort((a, b) => a.id - b.id)

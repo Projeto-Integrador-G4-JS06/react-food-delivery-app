@@ -107,10 +107,10 @@ function ListaProdutos() {
         </div>
       </div>
 
-      <div className="container w-full mx-auto flex flex-col justify-start items-center gap-10 my-8 md:min-h-[80vh]">
+      <div className="container w-full mx-auto flex flex-col justify-start items-center gap-10 my-8 min-h-[80vh]">
         <div className="w-full flex flex-col mx-4">
           {!isLoading && produtos.length === 0 && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
+            <span className="my-8 text-xl md:text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
               Nenhum produto foi encontrado!
             </span>
           )}
@@ -214,7 +214,7 @@ function ListaProdutos() {
                   </div>
 
                   {/* Cards dos Produtos */}
-                  <div className="flex-grow grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-40">
+                  <div className="flex-grow grid grid-cols-1 mx-4 gap-10 md:grid-cols-2 2xl:mx-20">
                     {produtosFiltrados.length > 0 ? (
                       produtosFiltrados
                         .sort((a, b) => a.id - b.id)

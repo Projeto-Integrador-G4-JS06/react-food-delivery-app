@@ -108,10 +108,10 @@ function ListaProdutosCategorias() {
       </div>
 
       {/* Conteúdo principal dentro do container */}
-      <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8 min-h-[55vh]">
+      <div className="container w-full mx-auto flex flex-col justify-start items-center gap-10 my-8 min-h-[80vh]">
         <div className="w-full flex flex-col mx-4">
           {(!isLoading && categoria?.produto?.length === 0) && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
+            <span className="my-8 text-xl md:text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
               Nenhum produto foi encontrado!
             </span>
           )}
