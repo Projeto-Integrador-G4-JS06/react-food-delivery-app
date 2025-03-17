@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const useHealthCheck = (): void => {
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch(`${import.meta.env.VITE_API_URL}/swagger`) // Usa a variável de ambiente
+      fetch(`${import.meta.env.VITE_API_URL}/health/check`)
         .then((response) => {
           if (response.ok) {
             console.log('API está ativa');
