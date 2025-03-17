@@ -29,8 +29,8 @@ import useHealthCheck from "./hooks/useHealthCheck";
 function App() {
     const [isDark, setIsDark] = useState<boolean>(
         localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
+            (!("theme" in localStorage) &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches)
     );
 
     useEffect(() => {
