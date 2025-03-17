@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const useHealthCheck = (): void => {
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch(`${import.meta.env.VITE_API_URL}/health/check`)
+      fetch(`${import.meta.env.VITE_API_URL}/health/check`) // Inserir o link da API, com a rota de Health Check
         .then((response) => {
           if (response.ok) {
             console.log('API está ativa');
