@@ -1,5 +1,4 @@
 import ListaProdutosSaudaveis from "../../components/produtos/listaprodutos/ListaProdutosSaudaveis";
-import CarrosselCategoria from "../../components/carrosselcategoria/CarrosselCategoria";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import { Link } from "react-router-dom";
