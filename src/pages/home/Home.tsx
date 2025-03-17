@@ -82,11 +82,11 @@ function Home({ isDark }: HomeProps) {
         </h2>
 
         <CarroselCategoria />
-        <div className="w-full bg-[#ECE9E3] dark:bg-[#2D2D2D] rounded-2xl">
-          <h2 className="text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 dark:text-white px-20 py-15">
+        <div className="w-full bg-[#ECE9E3] dark:bg-[#2D2D2D] rounded-t-2xl">
+          <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-700 dark:text-white p-10 xl:py-15">
             Produtos Saudáveis
           </h2>
-          <div className="md:px-25 md:pb-15">
+          <div className="xl:px-25 pb-5 xl:pb-15">
             <ListaProdutosSaudaveis />
           </div>
         </div>
