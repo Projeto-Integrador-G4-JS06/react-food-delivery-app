@@ -7,12 +7,12 @@ interface CardCategoriaProps {
 const getImagemSrc = (icone?: string) => {
   return icone && icone.trim() !== ""
     ? icone
-    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/meal.png?updatedAt=1741281654261";
+    : "https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Categorias/meal.png?updatedAt=1742050394154";
 };
 
 function CardCategoriaHome({ categoria }: CardCategoriaProps) {
   return (
-    <div className="bg-[#F5E9D9] border-1 border-gray-800 p-2 rounded-2xl w-[7rem] h-[7rem] items-center flex flex-col justify-center drop-shadow-2xl my-2">
+    <div className="bg-[#F5E9D9] dark:bg-[#D4C2B0] border-1 border-gray-800 p-2 rounded-2xl w-[7rem] h-[7rem] items-center flex flex-col justify-center drop-shadow-2xl my-2">
       <img
         src={getImagemSrc(categoria?.icone)}
         alt="Category Icon"
