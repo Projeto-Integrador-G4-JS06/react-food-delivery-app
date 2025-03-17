@@ -23,7 +23,8 @@ import Cart from "./components/carrinho/Cart";
 import { CartProvider } from "./contexts/CartContext";
 import DarkModeToggle from "./components/darkmode/DarkModeToggle";
 import { useEffect, useState } from "react";
-import ListarProdutosPorNome from "./components/produtos/listarprodutospornome/ListarProdutosPorNome";
+import ListarProdutosPorNome from "./components/produtos/listaprodutos/ListarProdutosPorNome";
+import useHealthCheck from "./hooks/useHealthCheck";
 
 function App() {
     const [isDark, setIsDark] = useState<boolean>(
@@ -41,6 +42,8 @@ function App() {
             localStorage.setItem("theme", "light");
         }
     }, [isDark]);
+
+    useHealthCheck();
 
     return (
         <>
