@@ -1,14 +1,14 @@
 import { useState, useEffect, ChangeEvent, useContext, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import Produto from "../../../models/Produto";
 import { cadastrar, atualizar, listar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
+import { toTitleCase } from "../../../utils/stringUtils";
 
 function FormProdutos() {
-
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,9 +17,9 @@ function FormProdutos() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: 0,
-    nome_categoria: '',
-    descricao: '',
-    icone: '',
+    nome_categoria: "",
+    descricao: "",
+    icone: "",
     criado_em: new Date().toISOString(),
     atualizado_em: new Date().toISOString(),
     status: false,
@@ -104,9 +104,17 @@ function FormProdutos() {
       valor = parseFloat(Number(value).toFixed(2));
     }
 
-    // Verifica se o campo é a descrição e limita a 80 caracteres
     if (name === "descricao" && typeof valor === "string") {
       valor = valor.slice(0, 80);
+    }
+
+    if (name === "nome_produto" && typeof valor === "string") {
+      valor = valor.slice(0, 30);
+    }
+
+    if (name === "nome_produto" && typeof valor === "string") {
+      // Aplica a função toTitleCase ao nome do produto
+      valor = toTitleCase(valor.slice(0, 30));
     }
 
     setProduto({
@@ -115,6 +123,8 @@ function FormProdutos() {
       categoria: categoria,
       usuario: usuario,
     });
+
+    console.log(produto);
   }
 
   // Função para atualizar o estado do produto quando o usuário seleciona uma opção no select
@@ -128,6 +138,16 @@ function FormProdutos() {
       usuario: usuario,
     });
   }
+  // Função para verificar se todos os campos obrigatórios estão preenchidos
+  const camposPreenchidos = () => {
+    return (
+      produto.nome_produto &&
+      produto.descricao &&
+      produto.preco &&
+      produto.categoria?.id &&
+      produto.nutri_score
+    );
+  };
 
   // Função para cadastrar um produto
   async function cadastrarNovoProduto(e: ChangeEvent<HTMLFormElement>) {
@@ -143,10 +163,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto atualizado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao atualizar o Produto", "erro");
         }
@@ -160,10 +179,9 @@ function FormProdutos() {
         });
 
         ToastAlerta("Produto cadastrado com sucesso", "sucesso");
-
       } catch (error: unknown) {
         if (error instanceof Error && error.message.includes("401")) {
-          handleLogout()
+          handleLogout();
         } else {
           ToastAlerta("Erro ao cadastrar o Produto", "erro");
         }
@@ -178,21 +196,19 @@ function FormProdutos() {
     navigate("/produtos");
   }
 
-  const carregandoCategoria = categoria.descricao === '';
-
   return (
-    <section className="bg-[#f6eed9] py-8 flex flex-col justify-center items-center min-h-screen">
-      <div className="container mx-auto px-4 flex flex-col justify-center items-center">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-heading text-[#CD533B]">
-          {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
-        </h1>
-
+    <section className="flex flex-col justify-center items-center min-h-screen py-6">
+      <div className="container w-[80%] md:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl  border-1 border-gray-200 drop-shadow-2xl dark:bg-dark-gray-300 dark:border-gray-800">
         <form
-          className="flex flex-col w-full lg:w-1/2 gap-4 text-gray-700 font-medium m-1.5"
+          className="flex flex-col w-full lg:w-[80%] gap-4 mt-4 text-gray-700 font-medium m-1.5"
           onSubmit={cadastrarNovoProduto}
         >
-          <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+          <h2 className="text-[#33333] font-semibold text-2xl md:text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)] dark:text-white dark:border-b-gray-400">
+            {id !== undefined ? "Editar Produto" : "Cadastrar Produto"}
+          </h2>
+
+          <div className="flex flex-col gap-2 mt-4">
+            <label className="flex justify-start dark:text-white">
               Nome do Produto
             </label>
             <input
@@ -200,13 +216,17 @@ function FormProdutos() {
               placeholder="Nome do Produto"
               name="nome_produto"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.nome_produto}
               onChange={atualizarEstado}
             />
+            <span className="text-sm text-gray-500">
+              {produto.nome_produto ? produto.nome_produto.length : 0}/30
+              caracteres
+            </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+            <label className="flex justify-start dark:text-white">
               Descrição do Produto
             </label>
             <input
@@ -214,7 +234,7 @@ function FormProdutos() {
               placeholder="Breve descrição do produto..."
               name="descricao"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.descricao}
               onChange={atualizarEstado}
             />
@@ -223,7 +243,7 @@ function FormProdutos() {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">
+            <label className="flex justify-start dark:text-white">
               Preço
             </label>
             <input
@@ -232,31 +252,34 @@ function FormProdutos() {
               placeholder="Preço do produto"
               name="preco"
               required
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.preco === 0 ? "" : produto.preco}
               onChange={atualizarEstado}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="flex justify-center lg:justify-start">Foto</label>
+            <label className="flex justify-start dark:text-white">
+              Foto
+            </label>
             <input
               type="text"
               placeholder="Link da foto do produto"
               name="foto"
-              className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
               value={produto.foto}
               onChange={atualizarEstado}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center lg:justify-start">
+              <p className="flex justify-start dark:text-white">
                 Categoria do Produto
               </p>
               <select
                 name="categoria"
                 id="categoria"
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
+                value={produto.categoria?.id || ""} // Controla o valor selecionado
                 onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
                 required // Campo obrigatório
               >
@@ -264,64 +287,75 @@ function FormProdutos() {
                   Selecione uma Categoria
                 </option>
                 {categorias.map((categoria) => (
-                  <option className="text-gray-700" value={categoria.id} key={categoria.id}>
+                  <option
+                    className="text-gray-700 dark:text-white"
+                    value={categoria.id}
+                    key={categoria.id}
+                  >
                     {categoria.nome_categoria}
                   </option>
                 ))}
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="flex justify-center lg:justify-start">
+              <p className="flex justify-start dark:text-white">
                 Nutri Score
               </p>
               <select
                 name="nutri_score"
                 id="nutri_score"
                 value={produto.nutri_score}
-                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600 text-gray-700"
-                onChange={atualizarEstadoSelect}
+                className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2  text-gray-700 focus:border-0 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  atualizarEstadoSelect(e)
+                }
                 required // Campo obrigatório
               >
-                <option value="" disabled>
+                <option value="" selected disabled>
                   Selecione o Nutri Score
                 </option>
-                <option className="text-gray-700" value="A">
+                <option className="text-gray-700 dark:text-white" value="A">
                   A
                 </option>
-                <option className="text-gray-700" value="B">
+                <option className="text-gray-700 dark:text-white" value="B">
                   B
                 </option>
-                <option className="text-gray-700" value="C">
+                <option className="text-gray-700 dark:text-white" value="C">
                   C
                 </option>
-                <option className="text-gray-700" value="D">
+                <option className="text-gray-700 dark:text-white" value="D">
                   D
                 </option>
-                <option className="text-gray-700" value="E">
+                <option className="text-gray-700 dark:text-white" value="E">
                   E
                 </option>
               </select>
             </div>
           </div>
-
-          <button
-            type="submit"
-            className="rounded-xl disabled:bg-[#d89d92] bg-[#CD533B] hover:bg-[#EA5A3D]
-                        cursor-pointer text-sm lg:text-base text-white font-heading w-1/2 mx-auto py-2 px-2 flex justify-center"
-            disabled={carregandoCategoria}
-          >
-            {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
-                visible={true}
-              />
-            ) : (
-              <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
-            )}
-          </button>
+          <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
+            <button
+              type="submit"
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1 dark:bg-dark-red-700 dark:hover:bg-dark-red-800 transition-colors duration-200"
+              disabled={!camposPreenchidos()}
+            >
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
+              )}
+            </button>
+            <Link to={`/produtos`} className="order-2">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white p-2 w-48 dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778] transition-colors duration-200">
+                Cancelar
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </section>

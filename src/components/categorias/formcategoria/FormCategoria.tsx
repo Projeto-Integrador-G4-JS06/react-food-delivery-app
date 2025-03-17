@@ -1,197 +1,241 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Categoria from "../../../models/Categoria";
 import { atualizar, cadastrar, listar } from "../../../services/Service";
-import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
-// import { PacmanLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 
 function FormCategoria() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
 
-    const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { usuario, handleLogout } = useContext(AuthContext);
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
 
-    const token = usuario.token;
+  const { id } = useParams<{ id: string }>();
 
-    const { id } = useParams<{ id: string }>();
+  const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
 
-    const buscaExecutada = useRef(false); // Rastreia se a busca já foi executada
+  const camposPreenchidos = () => {
+    return categoria.descricao && categoria.nome_categoria;
+  };
 
-    async function buscarCategoriaPorId(id: string) {
-        try {
-            await listar(`/categorias/id/${id}`, setCategoria);
-        } catch (error: unknown) {
-            console.error("Erro ao encontrar categoria:", error);
-            ToastAlerta("Categoria não encontrada!", "erro");
-            retornar();
-        }
+  async function buscarCategoriaPorId(id: string) {
+    try {
+      await listar(`/categorias/id/${id}`, setCategoria);
+    } catch (error: unknown) {
+      console.error("Erro ao encontrar categoria:", error);
+      ToastAlerta("Categoria não encontrada!", "erro");
+      retornar();
+    }
+  }
+
+  useEffect(() => {
+    if (token === "" && !buscaExecutada.current) {
+      ToastAlerta("Você precisa estar logado", "info");
+      buscaExecutada.current = true;
+      navigate("/login");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (id && !buscaExecutada.current) {
+      // Verifica se a busca já foi executada
+      console.log(`ID: ${id}`);
+      buscaExecutada.current = true; // Marca a busca como executada
+      buscarCategoriaPorId(id);
+    } else {
+      setCategoria({
+        id: 0,
+        nome_categoria: "",
+        descricao: "",
+        icone: "",
+        criado_em: new Date().toISOString(),
+        atualizado_em: new Date().toISOString(),
+        status: false,
+      });
+    }
+  }, [id]);
+
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    const { value, name } = e.target;
+
+    let valor = value;
+
+    if (name === "nome_categoria" && typeof valor === "string") {
+      valor = valor.slice(0, 20);
     }
 
-    useEffect(() => {
-        if (token === "" && !buscaExecutada.current) {
-            ToastAlerta("Você precisa estar logado", "info");
-            buscaExecutada.current = true;
-            navigate('/login')
-        }
-    }, [token])
+    if (name === "descricao" && typeof valor === "string") {
+      valor = valor.slice(0, 80);
+    }
 
-    useEffect(() => {
-        if (id && !buscaExecutada.current) { // Verifica se a busca já foi executada
-            console.log(`ID: ${id}`)
-            buscaExecutada.current = true; // Marca a busca como executada
-            buscarCategoriaPorId(id);
-        } else {
-            setCategoria({
-                id: 0,
-                nome_categoria: '',
-                descricao: '',
-                icone: '',
-                criado_em: new Date().toISOString(),
-                atualizado_em: new Date().toISOString(),
-                status: false,
-            });
-        }
-    }, [id]);
+    setCategoria({
+      ...categoria,
+      [name]: valor,
+    });
+  }
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setCategoria({
-            ...categoria,
-            [e.target.name]: e.target.value
+  async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (id !== undefined) {
+      try {
+        await atualizar(`/categorias/atualizar`, categoria, setCategoria, {
+          headers: { Authorization: token },
         });
-    }
-
-    async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setIsLoading(true);
-
-        if (id !== undefined) {
-            try {
-                await atualizar(`/categorias/atualizar`, categoria, setCategoria, {
-                    headers: { Authorization: token },
-                });
-                ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
-            } catch (error: unknown) {
-                if (error instanceof Error && error.message.includes("401")) {
-                    ToastAlerta("Você precisa estar logado", "info");
-                    handleLogout();
-                } else {
-                    console.error("Erro ao atualizar categoria:", error);
-                    ToastAlerta("Erro ao atualizar a categoria!", "erro");
-                }
-            }
+        ToastAlerta("A categoria foi atualizada com sucesso!", "sucesso");
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message.includes("401")) {
+          ToastAlerta("Você precisa estar logado", "info");
+          handleLogout();
         } else {
-            try {
-                console.log("Dados da categoria sendo enviados:", categoria); // Log dos dados
-                const response = await cadastrar(`/categorias/cadastrar`, categoria, setCategoria, {
-                    headers: { Authorization: token }
-                });
-                console.log("Resposta da API:", response); // Log da resposta
-                ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
-            } catch (error: unknown) {
-                if (error instanceof Error && error.message.includes("401")) {
-                    ToastAlerta("Você precisa estar logado", "info");
-                    handleLogout();
-                } else {
-                    console.error("Erro ao cadastrar a categoria:", error);
-                    ToastAlerta("Erro ao cadastrar a categoria 123!", "erro");
-                }
-            }
+          console.error("Erro ao atualizar categoria:", error);
+          ToastAlerta("Erro ao atualizar a categoria!", "erro");
         }
-
-        setIsLoading(false);
-        retornar();
+      }
+    } else {
+      try {
+        console.log("Dados da categoria sendo enviados:", categoria); // Log dos dados
+        const response = await cadastrar(
+          `/categorias/cadastrar`,
+          categoria,
+          setCategoria,
+          {
+            headers: { Authorization: token },
+          }
+        );
+        console.log("Resposta da API:", response); // Log da resposta
+        ToastAlerta("A categoria foi cadastrada com sucesso!", "sucesso");
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message.includes("401")) {
+          ToastAlerta("Você precisa estar logado", "info");
+          handleLogout();
+        } else {
+          console.error("Erro ao cadastrar a categoria:", error);
+          ToastAlerta("Erro ao cadastrar a categoria 123!", "erro");
+        }
+      }
     }
 
-    function retornar() {
-        navigate("/categorias");
-    }
+    setIsLoading(false);
+    retornar();
+  }
 
-    const carregandoCategoria = categoria.nome_categoria === '' || categoria.descricao === '';
+  function retornar() {
+    navigate("/categorias");
+  }
 
-    console.log(JSON.stringify(categoria))
+  console.log(JSON.stringify(categoria));
 
-    return (
-        <section className="w-full py-8 flex flex-col justify-center items-center">
-            <div className="container mx-auto px-4 flex flex-col justify-center items-center">
-                <div className="mx-1 lg:w-1/3">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl text-center my-4 font-[family-name:var(--font-heading)] text-[#CD533B]">
-                        {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
-                    </h1>
+  return (
+    <section className="flex flex-col justify-center items-center min-h-screen py-6">
+      <div className="container w-[80%] md:w-[50%] xl:mt-4 xl:mb-4 mx-2 px-8 lg:px-0 lg:py-6 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-4xl border-1 border-gray-200 drop-shadow-2xl dark:bg-dark-gray-300 dark:border-gray-800">
+        <form
+          className="flex flex-col w-full lg:w-[80%] gap-4 mt-4 text-gray-700 font-medium m-1.5"
+          onSubmit={gerarNovaCategoria}
+        >
+          <h2 className="text-[#33333] font-semibold text-2xl md:text-3xl text-center border-b-1 p-6 border-b-black w-full font-[family-name:var(--font-heading)] dark:text-white dark:border-b-gray-400">
+            {id !== undefined ? "Editar Categoria" : "Cadastrar Categoria"}
+          </h2>
 
-                    {/* {isLoading && (
-                        <div className="fixed inset-0 flex justify-center items-center bg-[var(--color-beige-500)] bg-opacity-75 z-50">
-                            <PacmanLoader
-                                color="#0D9488"
-                                margin={0}
-                                size={50}
-                                speedMultiplier={2}
-                                aria-label="Pacman-loading"
-                            />
-                        </div>
-                    )} */}
-
-                    <form className="flex flex-col w-full gap-4 text-gray-700 font-medium" onSubmit={gerarNovaCategoria}>
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="categoria" className="flex justify-center lg:justify-start">Nome da Categoria</label>
-                            <input
-                                type="text"
-                                placeholder="Informe aqui o nome da categoria"
-                                name='nome_categoria'
-                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
-                                required
-                                value={categoria.nome_categoria}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                            />
-                            <label htmlFor="descricao" className="flex justify-center lg:justify-start">Descrição</label>
-                            <input
-                                type="text"
-                                placeholder="Informe aqui a descrição da categoria"
-                                name='descricao'
-                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
-                                required
-                                value={categoria.descricao}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                            />
-                            <label htmlFor="icone" className="flex justify-center lg:justify-start">ícone (imagem)</label>
-                            <input
-                                type="text"
-                                placeholder="Insira o link da imagem da categoria"
-                                name='icone'
-                                className="border-2 text-sm md:text-base bg-[#F5F5DC] border-[#FFA500] rounded-xl p-2 focus:outline-amber-600"
-                                // required
-                                value={categoria.icone}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                            />
-                        </div>
-                        <button
-                            className="flex justify-center w-32 lg:w-48 py-2 mx-auto disabled:bg-[#d89d92] rounded-xl text-white text-sm lg:text-base bg-[#CD533B] hover:bg-[#EA5A3D]"
-                            type="submit"
-                            // disabled={isLoading} // Desabilita o botão durante o carregamento
-                            disabled={carregandoCategoria}
-                        >
-                            {isLoading ? (
-                                <RotatingLines
-                                    strokeColor="white"
-                                    strokeWidth="5"
-                                    animationDuration="0.75"
-                                    width="24"
-                                    visible={true}
-                                />
-                            ) : (
-                                <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
-                            )}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    );
+          <div className="flex flex-col gap-2 mt-4">
+            <label htmlFor="categoria" className="flex justify-start dark:text-white">
+              Nome da Categoria
+            </label>
+            <input
+              type="text"
+              placeholder="Nome da Categoria"
+              name="nome_categoria"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
+              required
+              value={categoria.nome_categoria}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                atualizarEstado(e)
+              }
+            />
+            <span className="text-sm text-gray-500">
+              {categoria.nome_categoria ? categoria.nome_categoria.length : 0}
+              /20 caracteres
+            </span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="descricao" className="flex justify-start dark:text-white">
+              Descrição
+            </label>
+            <input
+              type="text"
+              placeholder="Breve descrição da categoria..."
+              name="descricao"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
+              required
+              value={categoria.descricao}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                atualizarEstado(e)
+              }
+            />
+            <span className="text-sm text-gray-500">
+              {categoria.descricao ? categoria.descricao.length : 0}/80
+              caracteres
+            </span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="icone" className="flex justify-start dark:text-white">
+              Ícone (imagem)
+            </label>
+            <input
+              type="text"
+              placeholder="Insira o link da imagem da categoria"
+              name="icone"
+              className="focus:outline-0 text-sm md:text-base bg-[#F0F0F0] border-[#969696] rounded-xl p-2 dark:bg-[#3a3a3a] dark:text-[#E0E0E0] dark:border-1 dark:border-[#616161] dark:focus:outline-1 dark:focus:outline-white"
+              // required
+              value={categoria.icone}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                atualizarEstado(e)
+              }
+            />
+          </div>
+          <div className="flex justify-center gap-4 mt-4 lg:gap-12 flex-col lg:flex-row items-center">
+            <button
+              className="focus:outline-0 flex items-center justify-center text-base font-[family-name:var(--font-quicksand)] font-medium rounded-lg bg-[#E02D2D] hover:bg-[#B22222] active:bg-[#8B1A1A] disabled:bg-[#E02D2D] disabled:opacity-60 text-white p-2 w-48 order-1 dark:bg-dark-red-700 dark:hover:bg-dark-red-800 transition-colors duration-200"
+              type="submit"
+              disabled={!camposPreenchidos()}
+            >
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
+              )}
+            </button>
+            <Link to={`/categorias`} className="order-2">
+              <button className="font-[family-name:var(--font-quicksand)] font-medium text-base rounded-lg bg-[#b4b4b4] hover:bg-[#9e9e9e] text-white p-2 w-48 dark:bg-[#828283] dark:hover:bg-[#6e6e6f] dark:active:bg-[#777778] transition-colors duration-200">
+                Cancelar
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
 }
 
 export default FormCategoria;

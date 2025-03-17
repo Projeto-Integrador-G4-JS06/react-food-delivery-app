@@ -40,7 +40,7 @@ Os fornecedores podem gerenciar seus produtos e categorias diretamente na plataf
 <br />
 
 <div align="center">
-    <img src="https://ik.imagekit.io/liaMatsubara/Design%20sem%20nome%20(16).png?updatedAt=1741355453096" title="source: imgur.com" width="50%"/>
+    <img src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/HomeReadme.png?updatedAt=1742181799055" title="source: imagekit.io" alt="Home page photo" width="50%"/>
 </div>
 
 ------

@@ -10,7 +10,7 @@ function Footer() {
   let data = new Date().getFullYear();
 
     return (
-        <footer className="w-full px-15 border-t-2 border-gray-300 flex justify-center bg-[#F0F0F0] text-[#333333] font-heading">
+        <footer className="w-full px-15 border-t-2 border-gray-300 flex justify-center bg-[#F0F0F0] text-[#333333] dark:text-white dark:bg-[#1E1E1E] dark:border-gray-800 font-heading">
       {/* Footer Responsivo (Mobile e Desktop) */}
       <div className="container mx-auto max-md:flex-col px-5 flex flex-row justify-between items-center pb-4 pt-2 lg:pt-5">
         <Link to="/home" className="w-30 md:w-29">
@@ -28,7 +28,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <LinkedinLogo
-              className="font-medium text-red-100 w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
+              className="font-medium text-red-100 dark:text-[#FF5252] w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
               aria-label="LinkedIn"
             />
           </a>
@@ -38,7 +38,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <InstagramLogo
-              className="font-medium text-red-100 w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
+              className="font-medium text-red-100 dark:text-[#FF5252] w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
               aria-label="Instagram"
             />
           </a>
@@ -48,7 +48,7 @@ function Footer() {
             rel="noopener noreferrer"
           >
             <FacebookLogo
-              className="font-medium text-red-100 w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
+              className="font-medium text-red-100 dark:text-[#FF5252] w-7 h-7 md:w-[35px] md:h-[35px] hover:-translate-y-1 transition duration-300 ease-in-out hover:text-[#e04a4a]"
               aria-label="Facebook"
             />
           </a>

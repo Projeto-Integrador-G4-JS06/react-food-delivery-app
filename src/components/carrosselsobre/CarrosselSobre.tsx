@@ -7,7 +7,7 @@ const CardsDados = [
     nome: "Alan",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/alan.png?updatedAt=1740587313242",
     cargo: "Desenvolvedor Full Stack",
-    responsabilidades: ['CardCategorias', 'ListarCategorias', 'FormCategorias'],
+    responsabilidades: ['CardCategorias', 'ListarCategorias', 'FormCategorias', 'Revisão Técnica'],
     linkedin: "https://www.linkedin.com/in/alanbmrosa/",
     github: "https://github.com/alanbrunoscience"
   },
@@ -31,7 +31,7 @@ const CardsDados = [
     nome: "Isis",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/Isis.png?updatedAt=1740587313258",
     cargo: "Desenvolvedora Full Stack",
-    responsabilidades: ['Home', 'NavBar', 'Footer', 'DeletarProduto', 'Figma'],
+    responsabilidades: ['Home', 'NavBar e Footer', 'DeletarProduto', 'Figma'],
     linkedin: "https://www.linkedin.com/in/isis-okamoto/",
     github: "https://github.com/iyumw"
   },
@@ -47,7 +47,7 @@ const CardsDados = [
     nome: "Lia",
     imagem: "https://ik.imagekit.io/liaMatsubara/rh_fotos/lia%20(1).jpg?updatedAt=1740587359401",
     cargo: "Desenvolvedora Full Stack",
-    responsabilidades: ['Sobre', 'CarrosselSobre', 'CardSobre'],
+    responsabilidades: ['Identidade Visual', 'Sobre', 'CarrosselSobre', 'CardSobre'],
     linkedin: "https://www.linkedin.com/in/liamatsubara/",
     github: "https://github.com/liamatsubara"
   },
@@ -67,16 +67,37 @@ function CarrosselSobre() {
     dots: true, // Mostra os pontos de navegação
     infinite: true, // Loop infinito
     speed: 500, // Velocidade da transição
-    slidesToShow: 3, // Quantidade de slides visíveis
+    slidesToShow:3, // Quantidade de slides visíveis
     slidesToScroll: 1, // Quantidade de slides a rolar por vez
     centerMode: true,
-    autoplay: false, // Ativa o autoplay
-    autoplaySpeed: 2000, // Define o intervalo entre os slides em milissegundos
+    autoplay: true, // Ativa o autoplay
+    autoplaySpeed: 4000, // Define o intervalo entre os slides em milissegundos
     responsive: [
       {
         breakpoint: 1024, // Telas grandes
         settings: {
           slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 912, // Surface Pro 7
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 853, // Telas médias
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 820, // Telas médias
+        settings: {
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -93,6 +114,8 @@ function CarrosselSobre() {
           slidesToShow: 1,
           slidesToScroll: 1,
         },
+        
+        
       },
     ],
   };
