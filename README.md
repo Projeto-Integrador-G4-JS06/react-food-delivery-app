@@ -43,6 +43,10 @@ Os fornecedores podem gerenciar seus produtos e categorias diretamente na plataf
     <img src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/HomeReadme.png?updatedAt=1742181799055" title="source: imagekit.io" alt="Home page photo" width="50%"/>
 </div>
 
+<br />
+
+<a href="https://www.figma.com/design/AG1q33xaFIf7WgeriW3mQY/PedeA%C3%AD"><img src="https://ik.imagekit.io/czhooyc3x/PedeA%C3%AD/Imagens%20Complementares/Figma.png?updatedAt=1742234046955" title="source: imagekit.io" width="3%"/></a> ***[Protótipo desenvolvido no Figma](https://www.figma.com/design/AG1q33xaFIf7WgeriW3mQY/PedeA%C3%AD)***
+
 ------
 
 ## 4. Tecnologias
