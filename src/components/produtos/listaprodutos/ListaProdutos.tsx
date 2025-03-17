@@ -80,7 +80,7 @@ function ListaProdutos() {
       <div className="container w-full mx-auto flex flex-col justify-center items-center gap-10 my-8">
         <div className="w-full flex flex-col mx-4">
           {!isLoading && produtos.length === 0 && (
-            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600">
+            <span className="my-8 text-2xl font-medium font-[family-name:var(--font-heading)] text-center text-gray-600 dark:text-white">
               Nenhum produto foi encontrado!
             </span>
           )}
