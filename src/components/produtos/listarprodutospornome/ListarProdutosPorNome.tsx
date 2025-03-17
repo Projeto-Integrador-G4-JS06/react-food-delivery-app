@@ -139,7 +139,7 @@ function ListarProdutosPorNome() {
                                 {/* Div do Filtro */}
                                 <div className="flex flex-col xl:flex-row w-full items-center xl:items-start">
                                     {/* Div do Filtro */}
-                                    <div className="md:mr-10 md:ml-10 font-[family-name:var(--font-heading)] w-full xl:w-1/4 text-center xl:text-left flex flex-col items-center xl:items-start mx-auto">
+                                    <div className="md:mr-10 md:ml-10 font-[family-name:var(--font-heading)] w-full xl:w-1/3 text-center xl:text-left flex flex-col items-center xl:items-start mx-auto">
                                         <h3 className="font-medium p-3 text-gray-800 dark:text-white  text-xl md:text-2xl pb-5">
                                             Filtrar por preço:
                                         </h3>
