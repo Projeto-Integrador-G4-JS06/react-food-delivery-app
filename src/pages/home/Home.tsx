@@ -80,8 +80,11 @@ function Home({ isDark }: HomeProps) {
         <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-800 px-8 py-2 pt-6 dark:text-white">
           Conheça as nossas categorias!
         </h2>
-
-        <CarroselCategoria />
+        
+        <div className="pb-6">
+          <CarroselCategoria/>
+        </div>
+        
         <div className="w-full bg-[#ECE9E3] dark:bg-[#2D2D2D] rounded-t-2xl">
           <h2 className="text-2xl xl:text-3xl font-semibold font-[family-name:var(--font-heading)] text-gray-700 dark:text-white p-10 xl:py-15">
             Produtos Saudáveis
